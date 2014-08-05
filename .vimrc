@@ -639,6 +639,8 @@
 
     " YouCompleteMe {
         if count(g:spf13_bundle_groups, 'youcompleteme')
+            command GG YcmCompleter GoTo
+            
             let g:acp_enableAtStartup = 0
 
             " enable completion from tags
