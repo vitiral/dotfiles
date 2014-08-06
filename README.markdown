@@ -1,4 +1,4 @@
-# spf13-vim : Steve Francia's Vim Distribution
+# spf13-vim : (Cloudform Design's Edit of) Steve Francia's Vim Distribution
 
                     __ _ _____              _
          ___ _ __  / _/ |___ /      __   __(_)_ __ ___
@@ -49,6 +49,10 @@ _Note: The spf13.vim package will install Vim also! _
 If you want to install [msysgit], [Curl] and [spf13-vim] individually, follow the directions below.
 
 ### Installing dependencies
+## install python dependencies
+(for python3)
+
+    pip3 install flake8, pyflakes, pylint
 
 #### Install [msysgit]
 
