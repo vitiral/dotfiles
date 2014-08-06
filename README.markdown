@@ -51,9 +51,11 @@ If you want to install [msysgit], [Curl] and [spf13-vim] individually, follow th
 ### Installing dependencies
 ## install python dependencies
 (for python3)
+
     pip3 install flake8, pyflakes, pylint
 
 also, syntastic wasn't working for python3 so I switched the branch to this one (temporary fix)
+
     cd ~/.vim/bundle/syntastic
     git checkout ec434f50b189b3ba990052bd237e1da4f9c9c576
 
