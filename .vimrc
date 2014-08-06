@@ -150,11 +150,11 @@
         let g:solarized_visibility="normal"
         color solarized             " Load a colorscheme
     endif
-
+    
     set tabpagemax=15               " Only show 15 tabs
     set showmode                    " Display the current mode
 
-    set cursorline                  " Highlight current line
+    "set cursorline                  " Highlight current line
 
     highlight clear SignColumn      " SignColumn should match background
     highlight clear LineNr          " Current line number row will have same background color in relative mode
@@ -261,6 +261,27 @@
         map <C-H> <C-W>h<C-W>_
     endif
 
+    "Garretts remappings
+    set relativenumber              " line numbers are relevant from 
+    " use std regex
+    nnoremap / /\v
+    vnoremap / /\v
+    nnoremap <leader><space> :noh<cr> " leader space clears search
+    " tabs go to the end of the line"
+    nnoremap <tab> $
+    vnoremap <tab> $
+    " commands can start with ;"
+    nnoremap ; :
+    " jj exits to normal mode "
+    inoremap jj <ESC>
+    " leader w opens new split and switches to it
+    nnoremap <leader>w <C-w>v<C-w>l
+
+    "Get rid of help key
+    inoremap <F1> <ESC>
+    nnoremap <F1> <ESC>
+    vnoremap <F1> <ESC>
+     
     " Wrapped lines goes down/up to next row, rather than next line in file.
     noremap j gj
     noremap k gk
