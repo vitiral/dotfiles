@@ -100,7 +100,7 @@
     "   let g:override_spf13_bundles = 1
     if !exists("g:override_spf13_bundles")
 
-    " General {
+        " General {
         if count(g:spf13_bundle_groups, 'general')
             Bundle 'scrooloose/nerdtree'
             Bundle 'altercation/vim-colors-solarized'
@@ -137,23 +137,24 @@
             Bundle 'gcmt/wildfire.vim'
             "Garrett's General"
             Bundle 'mileszs/ack.vim'
-            
-        endif
-    " }
 
-    " Writing {
+        endif
+        " }
+
+        " Writing {
         if count(g:spf13_bundle_groups, 'writing')
             Bundle 'reedes/vim-litecorrect'
             Bundle 'reedes/vim-textobj-sentence'
             Bundle 'reedes/vim-textobj-quote'
             Bundle 'reedes/vim-wordy'
         endif
-    " }
+        " }
 
-    " General Programming {
+        " General Programming {
         if count(g:spf13_bundle_groups, 'programming')
             " Pick one of the checksyntax, jslint, or syntastic
             Bundle 'scrooloose/syntastic'
+            " ignore some errors: http://pep8.readthedocs.org/en/latest/intro.html#error-codes
             Bundle 'tpope/vim-fugitive'
             Bundle 'mattn/webapi-vim'
             Bundle 'mattn/gist-vim'
@@ -203,11 +204,16 @@
         if count(g:spf13_bundle_groups, 'python')
             " Pick either python-mode or pyflakes & pydoc
             "Bundle 'klen/python-mode'
+            " TODO: add support for python2
             let g:syntastic_python_python_exec = 'python3'
-            Bundle 'python.vim'
+            " http://pep8.readthedocs.org/en/latest/intro.html#error-codes
+            let g:syntastic_python_flake8_args = '--ignore="E501,E302,E261,E701,E241,E126,E127,E128,W801"'
+            " http://pylint-messages.wikidot.com/all-codes
+            let g:syntastic_python_pylint_args='-d C0103,C0111,R0903,E1101,W0141,W0142,W0511 -f parseable -r n -i y'
+            Bundle 'vim-scripts/python.vim'
             Bundle 'python_match.vim'
             Bundle 'pythoncomplete'
-            Bundle 'jsatt/python_fn'
+            Bundle 'cloudformdesign/python-syntax'
         endif
     " }
 
@@ -294,4 +300,3 @@
     if filereadable(expand("~/.vimrc.bundles.local"))
         source ~/.vimrc.bundles.local
     endif
-" }

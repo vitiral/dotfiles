@@ -52,7 +52,7 @@ If you want to install [msysgit], [Curl] and [spf13-vim] individually, follow th
 ## install python dependencies
 (for python3)
 
-    pip3 install flake8, pyflakes, pylint
+    pip3 install flake8 pyflakes pylint
 
 #### Install [msysgit]
 

@@ -275,6 +275,7 @@
     nnoremap ; :
     " jj exits to normal mode "
     inoremap jj <ESC>
+    inoremap JJ <ESC>
     " leader w opens new split and switches to it
     nnoremap <leader>w <C-w>v<C-w>l
 
