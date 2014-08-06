@@ -107,7 +107,7 @@
             Bundle 'spf13/vim-colors'
             Bundle 'tpope/vim-surround'
             Bundle 'tpope/vim-repeat'
-            Bundle 'spf13/vim-autoclose'
+            "Bundle 'spf13/vim-autoclose'
             Bundle 'kien/ctrlp.vim'
             Bundle 'tacahiroy/ctrlp-funky'
             Bundle 'terryma/vim-multiple-cursors'
@@ -202,10 +202,12 @@
     " Python {
         if count(g:spf13_bundle_groups, 'python')
             " Pick either python-mode or pyflakes & pydoc
-            Bundle 'klen/python-mode'
+            "Bundle 'klen/python-mode'
+            let g:syntastic_python_python_exe = 'python3'
             Bundle 'python.vim'
             Bundle 'python_match.vim'
             Bundle 'pythoncomplete'
+            Bundle 'jsatt/python_fn'
         endif
     " }
 
