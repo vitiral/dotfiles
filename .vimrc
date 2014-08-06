@@ -148,7 +148,8 @@
         let g:solarized_termtrans=1
         let g:solarized_contrast="normal"
         let g:solarized_visibility="normal"
-        color solarized             " Load a colorscheme
+        "color solarized             " Load a colorscheme
+        color molokai
     endif
     
     set tabpagemax=15               " Only show 15 tabs
@@ -702,6 +703,9 @@
         endif
     " }
 
+    " { Syntastic
+        inoremap <leader>sc SyntasticCheck<cr>
+    " }
     " neocomplete {
         if count(g:spf13_bundle_groups, 'neocomplete')
             let g:acp_enableAtStartup = 0
