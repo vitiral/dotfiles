@@ -283,7 +283,9 @@
     inoremap <F1> <ESC>
     nnoremap <F1> <ESC>
     vnoremap <F1> <ESC>
-     
+    
+
+    " END GARRETT
     " Wrapped lines goes down/up to next row, rather than next line in file.
     noremap j gj
     noremap k gk
@@ -559,7 +561,8 @@
         if isdirectory(expand("~/.vim/bundle/sessionman.vim/"))
             nmap <leader>sl :SessionList<CR>
             nmap <leader>ss :SessionSave<CR>
-            nmap <leader>sc :SessionClose<CR>
+            nmap <leader>sc :SessionSave<CR>:wqa<CR>
+            nmap <leader>sd :SessionOpen default<CR>
         endif
     " }
 

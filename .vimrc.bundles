@@ -213,7 +213,7 @@
             Bundle 'vim-scripts/python.vim'
             Bundle 'python_match.vim'
             Bundle 'pythoncomplete'
-            Bundle 'cloudformdesign/python-syntax'
+            Bundle 'cloudformdesign/vim-python'
         endif
     " }
 
