@@ -54,11 +54,6 @@ If you want to install [msysgit], [Curl] and [spf13-vim] individually, follow th
 
     pip3 install flake8, pyflakes, pylint
 
-also, syntastic wasn't working for python3 so I switched the branch to this one (temporary fix)
-
-    cd ~/.vim/bundle/syntastic
-    git checkout ec434f50b189b3ba990052bd237e1da4f9c9c576
-
 #### Install [msysgit]
 
 After installation try running `git --version` within _command prompt_ (press Win-R,  type `cmd`, press Enter) to make sure all good:
