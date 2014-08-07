@@ -206,14 +206,14 @@
             "Bundle 'klen/python-mode'
             " TODO: add support for python2
             let g:syntastic_python_python_exec = 'python3'
-            " http://pep8.readthedocs.org/en/latest/intro.html#error-codes
+             
             let g:syntastic_python_flake8_args = '--ignore="E501,E302,E261,E701,E241,E126,E127,E128,W801"'
             " http://pylint-messages.wikidot.com/all-codes
             let g:syntastic_python_pylint_args='-d C0103,C0111,R0903,E1101,W0141,W0142,W0511 -f parseable -r n -i y'
             Bundle 'vim-scripts/python.vim'
             Bundle 'python_match.vim'
             Bundle 'pythoncomplete'
-            Bundle 'cloudformdesign/vim-python'
+            Bundle 'cloudformdesign/python-syntax'
         endif
     " }
 
