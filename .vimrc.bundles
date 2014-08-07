@@ -137,7 +137,7 @@
             Bundle 'gcmt/wildfire.vim'
             "Garrett's General"
             Bundle 'mileszs/ack.vim'
-
+            Bundle 'oplatek/Conque-Shell'
         endif
         " }
 

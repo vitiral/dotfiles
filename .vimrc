@@ -268,7 +268,7 @@ if !exists('g:spf13_no_easyWindows')
 endif
 
 "Garretts remappings
-command! ClearHistory !rm -rf $HOME/.vimswap $HOME/.vimundo $HOME/.vimviews/ $HOME/.vimbackup
+command! ClearHistory !rm -rf $HOME/.viminfo $HOME/.vimswap $HOME/.vimundo $HOME/.vimviews/ $HOME/.vimbackup
 
 nnoremap <leader>rr :!python3 %<CR>
 set relativenumber              " line numbers are relevant from 
@@ -281,9 +281,21 @@ inoremap jj <ESC>
 " leader w opens new split and switches to it
 nnoremap <leader>ww <C-w>v<C-w>l
 nnoremap <leader>ws :resize 10<cr>
-nnoremap <leader>wb <CTRL-W>_
+nnoremap <leader>wb :resize 1000<CR>
+nnoremap <leader>wq :wq<CR>
+nnoremap <leader>wz :q!<CR>
+" movement keys with ,w move to left-bottom/left-top/right-top/right-bottom of
+" screen
+nnoremap <leader>wh <C-w>h<C-w>h<C-w>h<C-w>h<C-w>k<C-w>k<C-w>k<C-w>k
+nnoremap <leader>wj <C-w>h<C-w>h<C-w>h<C-w>h<C-w>j<C-w>j<C-w>j<C-w>j
+nnoremap <leader>wk <C-w>l<C-w>l<C-w>l<C-w>l<C-w>k<C-w>k<C-w>k<C-w>k
+nnoremap <leader>wl <C-w>j<C-w>j<C-w>j<C-w>j<C-w>l<C-w>l<C-w>l<C-w>l
 " leader wrc opens rc window for editing
-nnoremap <leader>wrc <C-w>v<C-w>l:e $MYVIMRC
+nnoremap <leader>wrc <C-w>v<C-w>l:e $MYVIMRC<CR>
+" open ConqueTerm
+nnoremap <leader>wb <C-w>s<C-w>j:resize 13<cr>:ConqueTerm bash<CR>
+nnoremap <leader>wp <C-w>s<C-w>j:resize 13<cr>:ConqueTerm python3<CR>
+
 "Get rid of help key
 inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
@@ -568,6 +580,8 @@ map <silent> <F11> :call system("wmctrl -ir " . v:windowid . " -b toggle,fullscr
         nmap <leader>ss :SessionSave<CR>
         nmap <leader>sc :SessionSave<CR>:wqa<CR>
         nmap <leader>sd :SessionOpen default<CR>
+        " set as python session
+        nmap <leader>sp :set foldmethod=indent foldnestmax=2<CR>
     endif
 " }
 
