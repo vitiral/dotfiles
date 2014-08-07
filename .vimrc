@@ -1,5 +1,5 @@
 " Modeline and Notes {
-" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
+" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:"{"}
 "
 "                    __ _ _____              _
 "         ___ _ __  / _/ |___ /      __   __(_)_ __ ___
@@ -59,7 +59,12 @@
 " }
 
 " General {
-
+    " Automatically watch .vimrc and reload when changes are saved
+    augroup myvimrc
+        au!
+        au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
+    augroup END
+    
     set background=dark         " Assume a dark background
     " if !has('gui')
         "set term=$TERM          " Make arrow and other keys work
@@ -263,6 +268,8 @@ if !exists('g:spf13_no_easyWindows')
 endif
 
 "Garretts remappings
+command! ClearHistory !rm -rf $HOME/.vimswap $HOME/.vimundo $HOME/.vimviews/ $HOME/.vimbackup
+
 nnoremap <leader>rr :!python3 %<CR>
 set relativenumber              " line numbers are relevant from 
 
@@ -275,6 +282,8 @@ inoremap jj <ESC>
 nnoremap <leader>ww <C-w>v<C-w>l
 nnoremap <leader>ws :resize 10<cr>
 nnoremap <leader>wb <CTRL-W>_
+" leader wrc opens rc window for editing
+nnoremap <leader>wrc <C-w>v<C-w>l:e $MYVIMRC
 "Get rid of help key
 inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
@@ -661,7 +670,7 @@ map <silent> <F11> :call system("wmctrl -ir " . v:windowid . " -b toggle,fullscr
 
 " YouCompleteMe {
     if count(g:spf13_bundle_groups, 'youcompleteme')
-        command GG YcmCompleter GoTo
+        command! GG YcmCompleter GoTo
         
         let g:acp_enableAtStartup = 0
 
@@ -678,6 +687,7 @@ map <silent> <F11> :call system("wmctrl -ir " . v:windowid . " -b toggle,fullscr
         autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
         autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
         autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+
         autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
         autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
         autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
@@ -1160,3 +1170,4 @@ if has('gui_running')
     endif
 endif
 " }
+
