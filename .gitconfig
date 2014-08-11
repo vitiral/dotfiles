@@ -1,0 +1,20 @@
+[user]
+	name = Garrett Berg
+	email = gberg@neutral.io
+[core]
+	editor = vim
+[merge]
+	tool = vimdiff
+	conflictstyle = diff3
+[mergetool]
+	prompt = false
+[alias]
+  co = checkout
+  ci = commit
+  st = status
+  br = branch
+  hist = log --pretty=format:"%h%x20%an%x09%ad%x7C%d%s" --graph --date=short
+  type = cat-file -t
+  dump = cat-file -p
+
+
