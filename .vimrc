@@ -282,8 +282,8 @@ inoremap jj <ESC>
 nnoremap <leader>ww <C-w>v<C-w>l
 nnoremap <leader>ws :resize 10<cr>
 nnoremap <leader>wb :resize 1000<CR>
-nnoremap <leader>wq :wq<CR>
-nnoremap <leader>wz :q!<CR>
+nnoremap <leader>wq :bd!<CR>
+nnoremap <leader>wz :w<CR>:bd<CR>
 " movement keys with ,w move to left-bottom/left-top/right-top/right-bottom of
 " screen
 nnoremap <leader>wh <C-w>h<C-w>h<C-w>h<C-w>h<C-w>k<C-w>k<C-w>k<C-w>k
