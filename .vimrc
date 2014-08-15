@@ -280,6 +280,13 @@ nnoremap <leader><space> :noh<cr> " leader space clears search
 nnoremap ; :
 " jj exits to normal mode "
 inoremap jj <ESC>
+" inserting and appending single chars with s
+function! RepeatChar(char, count)
+   return repeat(a:char, a:count)
+ endfunction
+ nnoremap s :<C-U>exec "normal a".RepeatChar(nr2char(getchar()), v:count1)<CR>
+ nnoremap S :<C-U>exec "normal i".RepeatChar(nr2char(getchar()), v:count1)<CR>
+
 " leader w opens new split and switches to it
 nnoremap <leader>ww <C-w>v<C-w>l
 nnoremap <leader>ws :resize 10<cr>
@@ -294,9 +301,10 @@ nnoremap <leader>wk <C-w>l<C-w>l<C-w>l<C-w>l<C-w>k<C-w>k<C-w>k<C-w>k
 nnoremap <leader>wl <C-w>j<C-w>j<C-w>j<C-w>j<C-w>l<C-w>l<C-w>l<C-w>l
 " leader wrc opens rc window for editing
 nnoremap <leader>wrc <C-w>v<C-w>l:e $MYVIMRC<CR>
-" open ConqueTerm
-nnoremap <leader>wb <C-w>s<C-w>j:resize 13<cr>:ConqueTerm bash<CR>
-nnoremap <leader>wp <C-w>s<C-w>j:resize 13<cr>:ConqueTerm python3<CR>
+nnoremap <leader>wsd :cd %:p:h<CR>
+nnoremap <leader>wgd :echo expand('%:p:h')<CR>
+nnoremap <leader>wgp :echo expand('%:p')<CR>
+
 
 "Get rid of help key
 inoremap <F1> <ESC>
@@ -581,7 +589,8 @@ map <silent> <F11> :call system("wmctrl -ir " . v:windowid . " -b toggle,fullscr
         nmap <leader>sl :SessionList<CR>
         nmap <leader>ss :SessionSave<CR>
         nmap <leader>sc :SessionSave<CR>:wqa<CR>
-        nmap <leader>sd :SessionOpen default<CR>
+        nmap <leader>sdd :SessionOpen default<CR>
+        nmap <leader>so :SessionOpen 
         " set as python session
         nmap <leader>sp :set foldmethod=indent foldnestmax=2<CR>
     endif
@@ -689,6 +698,9 @@ map <silent> <F11> :call system("wmctrl -ir " . v:windowid . " -b toggle,fullscr
         command! GG YcmCompleter GoTo
         
         let g:acp_enableAtStartup = 0
+
+        " disable asking about completion files
+        let g:ycm_confirm_extra_conf = 1
 
         " enable completion from tags
         let g:ycm_collect_identifiers_from_tags_files = 1
