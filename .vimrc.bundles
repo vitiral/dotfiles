@@ -100,12 +100,17 @@
     "   let g:override_spf13_bundles = 1
     if !exists("g:override_spf13_bundles")
 
-        " General {
-        if count(g:spf13_bundle_groups, 'general')
+        " Minimal {
+        if count(g:spf13_bundle_groups, 'minimal')
             Bundle 'scrooloose/nerdtree'
             Bundle 'altercation/vim-colors-solarized'
             Bundle 'spf13/vim-colors'
             Bundle 'tpope/vim-surround'
+        endif
+        " }
+
+        " General {
+        if count(g:spf13_bundle_groups, 'general')
             Bundle 'tpope/vim-repeat'
             "Bundle 'spf13/vim-autoclose'
             Bundle 'kien/ctrlp.vim'
@@ -135,9 +140,6 @@
             Bundle 'kana/vim-textobj-user'
             Bundle 'kana/vim-textobj-indent'
             Bundle 'gcmt/wildfire.vim'
-            "Garrett's General"
-            Bundle 'mileszs/ack.vim'
-            Bundle 'oplatek/Conque-Shell'
         endif
         " }
 
@@ -153,16 +155,17 @@
         " General Programming {
         if count(g:spf13_bundle_groups, 'programming')
             " Pick one of the checksyntax, jslint, or syntastic
-            Bundle 'scrooloose/syntastic'
             " ignore some errors: http://pep8.readthedocs.org/en/latest/intro.html#error-codes
             Bundle 'tpope/vim-fugitive'
             Bundle 'mattn/webapi-vim'
             Bundle 'mattn/gist-vim'
             Bundle 'scrooloose/nerdcommenter'
             Bundle 'tpope/vim-commentary'
+            if !count(g:spf13_bundle_groups, 'minimal')
             Bundle 'godlygeek/tabular'
-            if executable('ctags')
-                Bundle 'majutsushi/tagbar'
+                if executable('ctags')
+                    Bundle 'majutsushi/tagbar'
+                endif
             endif
         endif
     " }
@@ -205,6 +208,8 @@
             " Pick either python-mode or pyflakes & pydoc
             "Bundle 'klen/python-mode'
             " TODO: add support for python2
+            Bundle 'cloudformdesign/vim-python'
+            Bundle 'scrooloose/syntastic'
             let g:syntastic_python_python_exec = 'python3'
              
             let g:syntastic_python_flake8_args = '--ignore="E501,E302,E261,E701,E241,E126,E127,E128,W801"'
@@ -213,7 +218,6 @@
             "Bundle 'vim-scripts/python.vim'
             Bundle 'python_match.vim'
             "Bundle 'pythoncomplete'
-            Bundle 'cloudformdesign/vim-python'
             "Bundle 'tmhedberg/SimpylFold'
         endif
     " }
