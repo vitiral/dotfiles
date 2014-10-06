@@ -92,7 +92,7 @@
     " list only the plugin groups you will use
     if !exists('g:spf13_bundle_groups')
         "let g:spf13_bundle_groups=['general', 'writing', 'neocomplcache', 'programming', 'php', 'ruby', 'python', 'javascript', 'html', 'misc',]
-        let g:spf13_bundle_groups=['general', 'writing', 'youcompleteme', 'programming', 'micro', 'php', 'ruby', 'python', 'javascript', 'html', 'misc',]
+        let g:spf13_bundle_groups=['minimal', 'general', 'writing', 'youcompleteme', 'programming', 'micro', 'php', 'ruby', 'python', 'javascript', 'html', 'misc',]
     endif
 
     " To override all the included bundles, add the following to your
