@@ -16,3 +16,4 @@ alias ssh_qual="ssh -A -i ~/.ssh/identity.pem ubuntu@54.197.147.153"
 alias ssh_ec2_results="scp -i ~/.ssh/identity.pem ubuntu@54.197.147.153:/home/ubuntu/code/scripts/nio-testing/results.csv ~/Downloads/results.csv ;\
     scp -i ~/.ssh/identity.pem ubuntu@54.197.147.153:/home/ubuntu/code/scripts/nio-testing/results_raw.csv ~/Downloads/results_raw.csv "
 
+alias mongo_server="mongo --host 192.168.100.90"
