@@ -95,11 +95,11 @@
     endif
 
     "set autowrite                       " Automatically write a file when leaving a modified buffer
+    set autoread
     set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
     set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
     set virtualedit=onemore             " Allow for cursor beyond last character
     set history=1000                    " Store a ton of history (default is 20)
-    set spell                           " Spell checking on
     set hidden                          " Allow buffer switching without saving
     set iskeyword-=.                    " '.' is an end of word designator
     set iskeyword-=#                    " '#' is an end of word designator
@@ -162,7 +162,7 @@ endif
 set tabpagemax=15               " Only show 15 tabs
 set showmode                    " Display the current mode
 
-"set cursorline                  " Highlight current line
+set cursorline                  " Highlight current line
 
 highlight clear SignColumn      " SignColumn should match background
 highlight clear LineNr          " Current line number row will have same background color in relative mode
@@ -289,8 +289,8 @@ function! RepeatChar(char, count)
 
 " leader w opens new split and switches to it
 nnoremap <leader>ww <C-w>v<C-w>l
-nnoremap <leader>ws :resize 10<cr>
-nnoremap <leader>wb :resize 1000<CR>
+nnoremap <leader>ws <C-w>s<C-w>j
+nnoremap <leader>ws :w<CR>
 nnoremap <leader>wq :bd!<CR>
 nnoremap <leader>wz :w<CR>:bd<CR>
 " movement keys with ,w move to left-bottom/left-top/right-top/right-bottom of
@@ -300,7 +300,8 @@ nnoremap <leader>wj <C-w>h<C-w>h<C-w>h<C-w>h<C-w>j<C-w>j<C-w>j<C-w>j
 nnoremap <leader>wk <C-w>l<C-w>l<C-w>l<C-w>l<C-w>k<C-w>k<C-w>k<C-w>k
 nnoremap <leader>wl <C-w>j<C-w>j<C-w>j<C-w>j<C-w>l<C-w>l<C-w>l<C-w>l
 " leader wrc opens rc window for editing
-nnoremap <leader>wrc <C-w>v<C-w>l:e $MYVIMRC<CR>
+nnoremap <leader>wr :checktime<CR>
+nnoremap <leader>wvrc <C-w>v<C-w>l:e $MYVIMRC<CR>
 nnoremap <leader>wsd :cd %:p:h<CR>
 nnoremap <leader>wgd :echo expand('%:p:h')<CR>
 nnoremap <leader>wgp :echo expand('%:p')<CR>
@@ -591,8 +592,6 @@ map <silent> <F11> :call system("wmctrl -ir " . v:windowid . " -b toggle,fullscr
         nmap <leader>sc :SessionSave<CR>:wqa<CR>
         nmap <leader>sdd :SessionOpen default<CR>
         nmap <leader>so :SessionOpen 
-        " set as python session
-        nmap <leader>sp :set foldmethod=indent foldnestmax=2<CR>
     endif
 " }
 
@@ -1203,4 +1202,10 @@ endif
 " }
 
 
-
+" { Extra things that have to go at the end for some reason
+" Change spelling checker to underline
+set spell                           " Spell checking on
+hi clear SpellBad 
+hi clear SpellCap " Remove highlight of non capitalized words as first char
+hi SpellBad cterm=underline
+" }
