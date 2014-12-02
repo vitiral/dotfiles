@@ -64,7 +64,7 @@
         au!
         au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
     augroup END
-    
+
     set background=dark         " Assume a dark background
     " if !has('gui')
         "set term=$TERM          " Make arrow and other keys work
@@ -74,6 +74,9 @@
     set mouse=a                 " Automatically enable mouse usage
     set mousehide               " Hide the mouse cursor while typing
     scriptencoding utf-8
+    " Fast search and replace
+    nnoremap <leader>rs :%s///gc<Left><Left><Left>
+
     
     if $TMUX==''
         if has('clipboard')
@@ -287,12 +290,17 @@ function! RepeatChar(char, count)
  nnoremap s :<C-U>exec "normal a".RepeatChar(nr2char(getchar()), v:count1)<CR>
  nnoremap S :<C-U>exec "normal i".RepeatChar(nr2char(getchar()), v:count1)<CR>
 
-" leader w opens new split and switches to it
-nnoremap <leader>ww <C-w>v<C-w>l
-nnoremap <leader>ws <C-w>s<C-w>j
-nnoremap <leader>ws :w<CR>
-nnoremap <leader>wq :bd!<CR>
-nnoremap <leader>wz :w<CR>:bd<CR>
+" leader wX does various things to windows 
+nnoremap <leader>wf <C-w>= " fix windows
+nnoremap <leader>wc :q<CR>,wf " close window and fix all windows
+nnoremap <leader>ws :w<CR>  " save window
+nnoremap <leader>ww <C-w>v<C-w>l<C-w>=  " horizontal split
+nnoremap <leader>wp <C-w>s<C-w>j<C-w>=  " vertical split
+nnoremap <leader>ws :w<CR>  " save window
+nnoremap <leader>wq :Kwbd<CR> " delete window buffer (don't close window)
+nnoremap <leader>wQ :Kwbd!<CR>  " force delete window buffer
+nnoremap <leader>wz :w<CR>:Kwbd<CR>  " save then delete window buffer
+nnoremap <leader>wb :b#<CR>  " switch back to previous buffer
 " movement keys with ,w move to left-bottom/left-top/right-top/right-bottom of
 " screen
 nnoremap <leader>wh <C-w>h<C-w>h<C-w>h<C-w>h<C-w>k<C-w>k<C-w>k<C-w>k
@@ -300,11 +308,10 @@ nnoremap <leader>wj <C-w>h<C-w>h<C-w>h<C-w>h<C-w>j<C-w>j<C-w>j<C-w>j
 nnoremap <leader>wk <C-w>l<C-w>l<C-w>l<C-w>l<C-w>k<C-w>k<C-w>k<C-w>k
 nnoremap <leader>wl <C-w>j<C-w>j<C-w>j<C-w>j<C-w>l<C-w>l<C-w>l<C-w>l
 " leader wrc opens rc window for editing
-nnoremap <leader>wr :checktime<CR>
-nnoremap <leader>wvrc <C-w>v<C-w>l:e $MYVIMRC<CR>
-nnoremap <leader>wsd :cd %:p:h<CR>
-nnoremap <leader>wgd :echo expand('%:p:h')<CR>
-nnoremap <leader>wgp :echo expand('%:p')<CR>
+nnoremap <leader>wr :checktime<CR>  " reload all buffers
+nnoremap <leader>wvrc :e $MYVIMRC<CR>  " open ~/.vimrc for editing
+nnoremap <leader>wpd :echo expand('%:p:h')<CR>
+nnoremap <leader>wpp :echo expand('%:p')<CR>
 
 
 "Get rid of help key
@@ -387,17 +394,17 @@ endif
 " Yank from the cursor to the end of the line, to be consistent with C and D.
 nnoremap Y y$
 
-" Code folding options
-nmap <leader>f0 :set foldlevel=0<CR>
-nmap <leader>f1 :set foldlevel=1<CR>
-nmap <leader>f2 :set foldlevel=2<CR>
-nmap <leader>f3 :set foldlevel=3<CR>
-nmap <leader>f4 :set foldlevel=4<CR>
-nmap <leader>f5 :set foldlevel=5<CR>
-nmap <leader>f6 :set foldlevel=6<CR>
-nmap <leader>f7 :set foldlevel=7<CR>
-nmap <leader>f8 :set foldlevel=8<CR>
-nmap <leader>f9 :set foldlevel=9<CR>
+"" Code folding options
+"nmap <leader>f0 :set foldlevel=0<CR>
+"nmap <leader>f1 :set foldlevel=1<CR>
+"nmap <leader>f2 :set foldlevel=2<CR>
+"nmap <leader>f3 :set foldlevel=3<CR>
+"nmap <leader>f4 :set foldlevel=4<CR>
+"nmap <leader>f5 :set foldlevel=5<CR>
+"nmap <leader>f6 :set foldlevel=6<CR>
+"nmap <leader>f7 :set foldlevel=7<CR>
+"nmap <leader>f8 :set foldlevel=8<CR>
+"nmap <leader>f9 :set foldlevel=9<CR>
 
 " Most prefer to toggle search highlighting rather than clear the current
 " search results. To clear search highlighting rather than toggle it on
@@ -605,13 +612,6 @@ map <silent> <F11> :call system("wmctrl -ir " . v:windowid . " -b toggle,fullscr
     if !has('python')
         let g:pymode = 0
     endif
-
-    if isdirectory(expand("~/.vim/bundle/python-mode"))
-        let g:pymode_lint_checkers = ['pyflakes']
-        let g:pymode_trim_whitespaces = 0
-        let g:pymode_options = 0
-        let g:pymode_rope = 0
-    endif
 " }
 
 " ctrlp {
@@ -716,7 +716,10 @@ map <silent> <F11> :call system("wmctrl -ir " . v:windowid . " -b toggle,fullscr
         autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
         autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
         autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-        autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+
+        if ! count(g:spf13_bundle_groups, 'pymode')
+            autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+        endif
 
         autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
         autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
@@ -944,7 +947,9 @@ map <silent> <F11> :call system("wmctrl -ir " . v:windowid . " -b toggle,fullscr
         autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
         autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
         autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-        autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+        if ! count(g:spf13_bundle_groups, 'pymode')
+            autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+        endif
         autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
         autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
         autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
@@ -968,7 +973,9 @@ map <silent> <F11> :call system("wmctrl -ir " . v:windowid . " -b toggle,fullscr
         autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
         autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
         autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-        autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+        if ! count(g:spf13_bundle_groups, 'pymode')
+            autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+        endif
         autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
         autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
         autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
