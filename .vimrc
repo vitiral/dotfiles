@@ -74,8 +74,6 @@
     set mouse=a                 " Automatically enable mouse usage
     set mousehide               " Hide the mouse cursor while typing
     scriptencoding utf-8
-    " Fast search and replace
-    nnoremap <leader>rs :%s///gc<Left><Left><Left>
 
     
     if $TMUX==''
@@ -308,7 +306,9 @@ nnoremap <leader>wj <C-w>h<C-w>h<C-w>h<C-w>h<C-w>j<C-w>j<C-w>j<C-w>j
 nnoremap <leader>wk <C-w>l<C-w>l<C-w>l<C-w>l<C-w>k<C-w>k<C-w>k<C-w>k
 nnoremap <leader>wl <C-w>j<C-w>j<C-w>j<C-w>j<C-w>l<C-w>l<C-w>l<C-w>l
 " leader wrc opens rc window for editing
-nnoremap <leader>wr :checktime<CR>  " reload all buffers
+nnoremap <leader>wR :checktime<CR>  " reload all buffers
+" Fast search and replace
+nnoremap <leader>wr :%s///gc<Left><Left><Left>
 nnoremap <leader>wvrc :e $MYVIMRC<CR>  " open ~/.vimrc for editing
 nnoremap <leader>wpd :echo expand('%:p:h')<CR>
 nnoremap <leader>wpp :echo expand('%:p')<CR>
