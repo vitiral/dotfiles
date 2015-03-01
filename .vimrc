@@ -273,7 +273,6 @@ endif
 "Garretts remappings
 command! ClearHistory !rm -rf $HOME/.viminfo $HOME/.vimswap $HOME/.vimundo $HOME/.vimviews/ $HOME/.vimbackup
 
-nnoremap <leader>rr :!python3 %<CR>
 set relativenumber              " line numbers are relevant from 
 
 nnoremap <leader><space> :noh<cr> " leader space clears search
@@ -313,6 +312,9 @@ nnoremap <leader>wvrc :e $MYVIMRC<CR>  " open ~/.vimrc for editing
 nnoremap <leader>wpd :echo expand('%:p:h')<CR>
 nnoremap <leader>wpp :echo expand('%:p')<CR>
 
+" python remappings
+nnoremap <leader>sb oimport ipdb; ipdb.set_trace()<ESC>
+nnoremap <leader>sB Oimport ipdb; ipdb.set_trace()<ESC>
 
 "Get rid of help key
 inoremap <F1> <ESC>
