@@ -1,0 +1,81 @@
+# Git
+alias g='git'
+alias gst='git status'
+alias gd='git diff'
+alias gdc='git diff --cached'
+#alias gdt='git diff-tree --no-commit-id --name-only -r'
+#alias gl='git pull'
+#alias gup='git pull --rebase'
+alias gp='git push'
+alias gpo='git push origin'
+#alias gdt='git difftool'
+alias gc='git commit'
+alias gcam='git commit -am'
+#alias gc!='git commit -v --amend'
+#alias gca='git commit -v -a'
+alias gco='git checkout'
+alias gcm='git checkout master'
+alias gcb='git checkout -b'
+#alias gr='git remote'
+#alias grv='git remote -v'
+#alias grmv='git remote rename'
+#alias grrm='git remote remove'
+#alias grset='git remote set-url'
+#alias grup='git remote update'
+#alias grbi='git rebase -i'
+#alias grbc='git rebase --continue'
+#alias grba='git rebase --abort'
+alias gb='git branch'
+alias gbd='git branch -d'
+#alias gba='git branch -a'
+#alias gbr='git branch --remote'
+#alias gcount='git shortlog -sn'
+#alias gcl='git config --list'
+#alias gcp='git cherry-pick'
+#alias glg='git log --stat --max-count=10'
+#alias glgg='git log --graph --max-count=10'
+#alias glgga='git log --graph --decorate --all'
+#alias glo='git log --oneline --decorate --color'
+alias glog='git log --oneline --decorate --color --graph'
+alias gss='git status -s'
+alias ga='git add'
+#alias gap='git add --patch'
+#alias gaa='git add --all'
+alias gm='git merge'
+#alias grh='git reset HEAD'
+#alias grhh='git reset HEAD --hard'
+#alias gclean='git reset --hard && git clean -dfx'
+#alias gwc='git whatchanged -p --abbrev-commit --pretty=medium'
+
+## Sign and verify commits with GPG
+#alias gcs='git commit -S'
+#alias gsps='git show --pretty=short --show-signature'
+
+## Sign and verify tags with GPG
+#alias gts='git tag -s'
+#alias gvt='git verify-tag'
+
+##remove the gf alias
+##alias gf='git ls-files | grep'
+
+#alias gpoat='git push origin --all && git push origin --tags'
+#alias gmt='git mergetool --no-prompt'
+
+#alias gg='git gui citool'
+#alias gga='git gui citool --amend'
+#alias gk='gitk --all --branches'
+
+#alias gsts='git stash show --text'
+#alias gsta='git stash'
+#alias gstp='git stash pop'
+#alias gstd='git stash drop'
+
+# OS specific aliases
+if [[ `uname` == 'Darwin' ]]; then
+    alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
+    alias minicom=/opt/minicom/2.2/bin/minicom
+elif [[ `uname` == 'Linux' ]]; then
+    # None so far...
+elif [[ `uname` == 'Cygwin' ]]; then
+    # None so far...
+fi
