@@ -1,9 +1,8 @@
 '''
 Script to auto load python interpreter with useful symbols.
 
-## Modules
 # system
-sys, os, configparser, reload, re, pprint
+sys, os, configparser, reload (rl), re, pprint
 
 p=print, pp=pprint.pprint
 path=os.path, pslit=path.split, abspath=better form os path.abspath
@@ -20,13 +19,8 @@ Data to play with:
 
 # visualization
 matplotlib as mpl,  bokeh as bk (plt=bk.plotting, fig=plt.figure)
-
-## convinience
-p = print
-pp = pprint.pprint
-abspath = like os.path.abspath but also expands user
-
 '''
+
 from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
 
@@ -126,32 +120,42 @@ exec(tryimp('pymongo'))
 if loaded:
     try:
         lp = abspath("~/.secret/mongo.cfg")
+        if not path.exists(lp):
+            raise SystemError
         config = configparser.ConfigParser()
         config.read(lp)
-        lp = dict(config['creds'])
+        lp = config['creds']
         client = pymongo.MongoClient(lp['host'], int(lp['port']))
         db = client[lp['database']]
         db.authenticate(lp['username'], lp['password'],
                         source=lp['source'])
+        print("[ OK  ] loaded db = {}".format(db))
+    except SystemError:
+        pass  # config file doesn't exist
     except Exception as e:
-        print("[WARN ] Could not completely load mongo database {}: {}".
+        print("[ERROR] loading mongo db: {}: {}".
               format(type(E), E))
 
 
 ##################################################
-# ## load local and cwd configs
+# ## load local and cwd configs.
+# ##    Pass them if they don't exist
 try:
-    # import ipdb; ipdb.set_trace()
     lp = "~/.pythonrc_local.py"
     exec(filestr(lp))
-    print("[OK   ] loaded {}".format(lp))
+    print("[ OK  ] loaded {}".format(lp))
     localrc = True
-except: pass
+except Exception as e:
+    if path.exists(abspath(lp)):
+        print("[ERROR] could not load {}: {}: {}".format(lp, type(e), e))
 try:
-    exec(filestr("interactive.py"))
-    print("[OK   ] loaded cwd/interactive.py")
+    lp = "interactive.py"
+    exec(filestr(lp))
+    print("[ OK  ] loaded cwd/interactive.py")
     interactiverc = True
-except: pass
+except Exception as e:
+    if path.exists(abspath(lp)):
+        print("[ERROR] could not load {}: {}: {}".format(lp, type(e), e))
 
 
 ##################################################
