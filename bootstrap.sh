@@ -172,5 +172,10 @@ clone_vundle    "Successfully cloned vundle"
 
 setup_vundle    "Now updating/installing plugins using Vundle"
 
+msg             "Now adding custom symlinks for other software"
+bash ~/.spf13-vim-3/link_all.sh
+
 msg             "\nThanks for installing $app_name."
 msg             "© `date +%Y` http://vim.spf13.com/"
+
+
