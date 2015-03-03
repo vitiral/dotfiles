@@ -79,3 +79,6 @@ elif [[ `uname` == 'Linux' ]]; then
 elif [[ `uname` == 'Cygwin' ]]; then
     # None so far...
 fi
+
+# python startup
+export PYTHONSTARTUP="$HOME/.pythonrc.py"

@@ -162,6 +162,7 @@
             Bundle 'mattn/webapi-vim'
             Bundle 'mattn/gist-vim'
             Bundle 'scrooloose/nerdcommenter'
+            "Bundle 'vim-scripts/Conque-Shell'
             let g:NERDCustomDelimiters = { 'python': { 'left': '# '} }
             Bundle 'tpope/vim-commentary'
             if !count(g:spf13_bundle_groups, 'minimal')

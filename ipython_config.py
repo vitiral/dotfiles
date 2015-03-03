@@ -35,16 +35,6 @@ c = get_config()
 
 # lines of code to run at IPython startup.
 c.InteractiveShellApp.exec_lines = [
-    # python2 interface
-    'import sys, os',
-    'from __future__ import (absolute_import, division, print_function,'
-    'unicode_literals)',
-    '''  # python 2 compatibility
-if sys.version_info.major < 3:
-    range = xrange
-    del xrange
-    ''',
-
     # load extension modules
     '%load_ext autoreload',
     '%autoreload 2',  # reload all code before execution
@@ -53,27 +43,6 @@ if sys.version_info.major < 3:
     '%automagic 1',  # don't need % for magic
     '%autocall 1',   # don't need function parenthesis
 
-    # basic
-    'import re',
-    'path = os.path',
-    'psplit = path.split',
-    'import pprint',
-    'p = print',
-    'pp = pprint.pprint',
-
-    # basic scientific libraries
-    'import numpy as np',
-    'import pandas as pd',
-    'idx = pd.IndexSlice',
-    'import bokeh.plotting as plt',
-    'import bokeh',
-    'import math',
-    'import statistics',
-    'stats = statistics',
-
-    # toolbox
-    'import cloudtb as tb',
-    'from cloudtb.builtin import *'  # import should be builtins
 ]
 
 # A file to be run
