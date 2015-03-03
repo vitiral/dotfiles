@@ -1,3 +1,32 @@
+'''
+Script to auto load python interpreter with useful symbols.
+
+## Modules
+# system
+sys, os, configparser, reload, re, pprint
+
+p=print, pp=pprint.pprint
+path=os.path, pslit=path.split, abspath=better form os path.abspath
+
+# Scientific
+math, statistics (stats)
+numpy as np (A = np.carray)
+pandas as pd (DF = pd.DataFrame, idx=pd.IndexSlice)
+cloudtb as tb, from cloudtb.builtin import *  # tons of useful functions
+
+Data to play with:
+    r = range(10), l = list(r), d = {n: n for n in r}
+    a = np.array(r), df = pd.DataFrame({'x': l, 'y': l})
+
+# visualization
+matplotlib as mpl,  bokeh as bk (plt=bk.plotting, fig=plt.figure)
+
+## convinience
+p = print
+pp = pprint.pprint
+abspath = like os.path.abspath but also expands user
+
+'''
 from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
 
@@ -69,20 +98,27 @@ except ImportError:
     print('[WARN ] Module "{0}" could not be loaded')
 '''.format
 
-exec(tryimp('numpy as np'))
-if loaded:
-    a = np.array(r)  # play with data
-exec(tryimp('pandas as pd'))
-if loaded:
-    idx = pd.IndexSlice
-    df = pd.DataFrame({'x': l, 'y': l})  # play with data
-exec(tryimp('bokeh'))
-if loaded:
-    import bokeh.plotting as plt
 exec(tryimp("cloudtb as tb"))
 if loaded:
     from cloudtb.builtin import *
 
+exec(tryimp('numpy as np'))
+if loaded:
+    A = np.array
+    a = A(r)  # play with data
+exec(tryimp('pandas as pd'))
+if loaded:
+    DF = pd.DataFrame
+    idx = pd.IndexSlice
+    df = DF({'x': l, 'y': l})  # play with data
+
+# visualization
+exec(tryimp('matplotlib as mpl'))
+exec(tryimp('bokeh'))
+if loaded:
+    bk = bokeh
+    import bokeh.plotting as plt
+    fig = plt.figure
 
 ##################################################
 # ## database tools
@@ -121,4 +157,4 @@ except: pass
 ##################################################
 # ## cleanup
 pythonrc = True
-del loaded, lp, config
+del loaded, lp, config, tryimp
