@@ -1,34 +1,39 @@
 '''
 Script to auto load python interpreter with useful symbols.
 
-# system
-sys, os, configparser, reload (rl), re, pprint
+reload this file with rconfig()
 
-p=print, pp=pprint.pprint
-path=os.path, pslit=path.split, abspath=better form os path.abspath
+# Additional config files
+## ~/.pythonrc_local.py
+run as if within this file after this file is loaded
 
-# Scientific
-math, statistics (stats)
-numpy as np (A = np.carray)
-pandas as pd (DF = pd.DataFrame, idx=pd.IndexSlice)
-cloudtb as tb, from cloudtb.builtin import *  # tons of useful functions
+## cwd/interactive.py
+if this file exists in the cwd where the python interpreter is launched,
+it is automatically loaded after everything else
 
-Data to play with:
-    r = range(10), l = list(r), d = {n: n for n in r}
-    a = np.array(r), df = pd.DataFrame({'x': l, 'y': l})
 
-# visualization
-matplotlib as mpl,  bokeh as bk (plt=bk.plotting, fig=plt.figure)
+# Secret settings
+Settings are stored in config files in the ~/.secret directory. Use these
+to automatically connect and authenticate to your favorite databases
+
+## mongo.cfg                # Example MongoDB config file
+[creds]
+host = 127.0.0.1            # default ip address of server
+port = 27017                # default port of server
+database = mydb             # your database name. Loaded as `mdb`
+username = admin            # default username
+password = admin            # your mongo db password
+source = admin              # default source for authentication
 '''
 
 from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
 
-# user, user local, and cwd configurations
-# stored as ~/.pythonrc.py, ~/.pythonrc_local.py, cwd/interactive.py
 pythonrc, localrc, interactiverc = False, False, False
 
 loaded, lp, config = (None,) * 3  # deleted at end
+
+hello = 'hi'
 
 try:
     __IPYTHON__
@@ -39,27 +44,42 @@ except NameError:
 ##################################################
 # ## basic namespace
 
+
 import sys
 import os
-import configparser
+import configparser                 # parses easily written config files
+import itertools
+import traceback
+tb = traceback                      # Note: tb.format_tb(exc.__traceback__)
+it = itertools
 from imp import reload
-rl = reload
-
 
 import re
 import pprint
 path = os.path
 psplit = path.split
+# better abspath  (expands user automatically)
 abspath = lambda p: path.abspath(path.expanduser(p))
 p = print
 pp = pprint.pprint
 
+try:
+    configfile = __file__
+except NameError:
+    configfile = abspath(sys.argv[0])
+
 
 def filestr(filepath):
-    '''read file contents'''
+    '''read file contents into a string'''
     filepath = abspath(filepath)
     with open(filepath, 'r') as f:
         return f.read()
+
+
+def rconfig():
+    '''Reload the config file for the python interpreter'''
+    print("Reloading {}".format(configfile))
+    exec(filestr(configfile))
 
 
 ##################################################
@@ -126,10 +146,10 @@ if loaded:
         config.read(lp)
         lp = config['creds']
         client = pymongo.MongoClient(lp['host'], int(lp['port']))
-        db = client[lp['database']]
-        db.authenticate(lp['username'], lp['password'],
+        mdb = client[lp['database']]
+        mdb.authenticate(lp['username'], lp['password'],
                         source=lp['source'])
-        print("[ OK  ] loaded db = {}".format(db))
+        print("[ OK  ] loaded mdb = {}".format(mdb))
     except SystemError:
         pass  # config file doesn't exist
     except Exception as e:
@@ -160,5 +180,6 @@ except Exception as e:
 
 ##################################################
 # ## cleanup
+print("[ OK  ] loaded {}".format(configfile))
 pythonrc = True
 del loaded, lp, config, tryimp
