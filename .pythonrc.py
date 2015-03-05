@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 '''
 Script to auto load python interpreter with useful symbols.
 
@@ -33,8 +34,6 @@ pythonrc, localrc, interactiverc = False, False, False
 
 loaded, lp, config = (None,) * 3  # deleted at end
 
-hello = 'hi'
-
 try:
     __IPYTHON__
     # Nothing here yet
@@ -47,7 +46,8 @@ except NameError:
 
 import sys
 import os
-import configparser                 # parses easily written config files
+try: import configparser                 # parses easily written config files
+except ImportError: import ConfigParser as configparser
 import itertools
 import traceback
 tb = traceback                      # Note: tb.format_tb(exc.__traceback__)
@@ -84,37 +84,42 @@ def rconfig():
 
 ##################################################
 # ## python2 compatibility (more to be added)
-if sys.version_info.major < 3:
+pyversion = sys.version_info.major
+if pyversion < 3:
+    pyversion = 2
     range = xrange
-    del xrange
 
 
 ##################################################
 # ## basic scientific libraries
 
-import math
-import statistics
-stats = statistics
-
-# data to play with
-r = range(10)
-l = list(r)
-d = {key: key for key in r}
-s = set(r)
-
-# Load optional scientific packages
 tryimp = '''
 try:
     loaded = False
     import {0}
     loaded = True
-except ImportError:
-    print('[WARN ] Module "{0}" could not be loaded')
+except ImportError as E:
+    if pyversion > 2:
+        print('[WARN ] Module "{0}" could not be loaded: {{}}: {{}}'.format(
+            type(E), E))
 '''.format
 
 exec(tryimp("cloudtb as tb"))
 if loaded:
     from cloudtb.builtin import *
+
+import math
+
+# data to play with
+r = range(10)
+l = list(r)
+d = dict((key, key) for key in r)
+s = set(r)
+
+# Load optional scientific packages
+exec(tryimp("statistics"))
+if loaded:
+    stats = statistics
 
 exec(tryimp('numpy as np'))
 if loaded:
