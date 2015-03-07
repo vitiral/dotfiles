@@ -28,6 +28,6 @@ elif [[ $CURRENT_OS == 'Cygwin' ]]; then
     antigen bundle cygwin
 fi
 
-source ~/.alias
+source "$HOME/.alias"
 # # Tell antigen that you're done.
 antigen apply
