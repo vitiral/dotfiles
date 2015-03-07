@@ -2,16 +2,19 @@
 # development commands
 
 export PYTHONSTARTUP="$HOME/.pythonrc.py"
+alias sudo='sudo '
 alias py='python3'
 alias pyt='/usr/local/bin/py.test-3.4'
-alias pyt='/usr/local/bin/py.test-3.4'
+alias pytdoc='/usr/local/bin/py.test-3.4 --doctest-modules'  # don't forget you need to give module path
 alias pytdb='/usr/local/bin/py.test-3.4 -sx --pdb'
 alias pdb='py -m ipdb'
 alias dbe='py -m cloudtb.dbe'
 alias pydev='py setup.py develop'
+alias pypi='py setup.py register -r pypi'  # http://peterdowns.com/posts/first-time-with-pypi.html
 
-alias py2='python2'
+alias py2='python2.7'
 alias py2t='/usr/local/bin/py.test-2.7'
+alias py2tdoc='/usr/local/bin/py.test-2.7 --doctest-modules'
 alias py2tdb='/usr/local/bin/py.test-2.7 -sx --pdb'
 alias pdb2='py2 -m ipdb'
 alias dbe2='py2 -m cloudtb.dbe'
