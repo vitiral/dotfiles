@@ -158,6 +158,7 @@ if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"
     let g:solarized_visibility="normal"
     "color solarized             " Load a colorscheme
     color molokai
+    set background=dark
 endif
 
 set tabpagemax=15               " Only show 15 tabs
