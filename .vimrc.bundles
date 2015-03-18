@@ -108,6 +108,7 @@
             Bundle 'spf13/vim-colors'
             Bundle 'tpope/vim-surround'
             Bundle 'rgarver/Kwbd.vim'
+            Bundle 'cloudformdesign/vim.ergonomic'
         endif
         " }
 
