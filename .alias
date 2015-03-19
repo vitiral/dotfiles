@@ -10,7 +10,10 @@ alias pytdb='/usr/local/bin/py.test-3.4 -sx --pdb'
 alias pdb='py -m ipdb'
 alias dbe='py -m cloudtb.dbe'
 alias pydev='py setup.py develop'
-alias pypi='py setup.py register -r pypi'  # http://peterdowns.com/posts/first-time-with-pypi.html
+# http://peterdowns.com/posts/first-time-with-pypi.html
+# passwords are stored at .pypirc
+alias pypi='py setup.py register -r pypi'
+alias pypitest='py setup.py register -r pypitest'
 
 alias py2='python2.7'
 alias py2t='/usr/local/bin/py.test-2.7'

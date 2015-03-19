@@ -260,6 +260,7 @@ else
     let maplocalleader=g:spf13_localleader
 endif
 
+
 " Easier moving in tabs and windows
 " The lines conflict with the default digraph mapping of <C-K>
 " If you prefer that functionality, add the following to your
@@ -272,24 +273,15 @@ if !exists('g:spf13_no_easyWindows')
     map <C-H> <C-W>h
 endif
 
-"Garretts remappings
 command! ClearHistory !rm -rf $HOME/.viminfo $HOME/.vimswap $HOME/.vimundo $HOME/.vimviews/ $HOME/.vimbackup
 
-set relativenumber              " line numbers are relevant from 
+" ,<space> clears search history
+nnoremap <leader><space> :noh<cr>
+inoremap { {<CR>}<Esc>ko
 
-nnoremap <leader><space> :noh<cr> " leader space clears search
-" commands can start with ;"
-nnoremap ; :
-" jj exits to normal mode "
-inoremap jj <ESC>
-" inserting and appending single chars with s
-function! RepeatChar(char, count)
-   return repeat(a:char, a:count)
- endfunction
- nnoremap s :<C-U>exec "normal a".RepeatChar(nr2char(getchar()), v:count1)<CR>
- nnoremap S :<C-U>exec "normal i".RepeatChar(nr2char(getchar()), v:count1)<CR>
 
-" leader wX does various things to windows 
+" { Window Management
+" ,wX does various things to windows 
 nnoremap <leader>wf <C-w>= " fix windows
 nnoremap <leader>wc :q<CR>,wf " close window and fix all windows
 nnoremap <leader>ws :w<CR>  " save window
@@ -314,6 +306,10 @@ nnoremap <leader>wvrc :e $MYVIMRC<CR>  " open ~/.vimrc for editing
 nnoremap <leader>wpd :echo expand('%:p:h')<CR>
 nnoremap <leader>wpp :echo expand('%:p')<CR>
 
+" }
+
+set relativenumber              " line numbers are relevant from 
+
 " python remappings
 nnoremap <leader>sb oimport ipdb; ipdb.set_trace()<ESC>
 nnoremap <leader>sB Oimport ipdb; ipdb.set_trace()<ESC>
@@ -322,8 +318,6 @@ nnoremap <leader>sB Oimport ipdb; ipdb.set_trace()<ESC>
 inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
-
-" END GARRETT
 
 " Wrapped lines goes down/up to next row, rather than next line in file.
 noremap j gj
@@ -1220,3 +1214,4 @@ hi clear SpellBad
 hi clear SpellCap " Remove highlight of non capitalized words as first char
 hi SpellBad cterm=underline
 " }
+
