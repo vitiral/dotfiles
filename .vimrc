@@ -228,6 +228,7 @@ set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
 " .vimrc.before.local file:
 "   let g:spf13_keep_trailing_whitespace = 1
 autocmd FileType c,cpp,java,go,php,javascript,python,twig,xml,yml,perl autocmd BufWritePre <buffer> if !exists('g:spf13_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
+autocmd FileType make set noexpandtab
 "autocmd FileType go autocmd BufWritePre <buffer> Fmt
 autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
 autocmd FileType haskell setlocal expandtab shiftwidth=2 softtabstop=2
