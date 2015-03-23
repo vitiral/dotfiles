@@ -103,12 +103,14 @@
 
         " Minimal {
         if count(g:spf13_bundle_groups, 'minimal')
+            Bundle 'tpope/vim-fugitive'
             Bundle 'scrooloose/nerdtree'
             Bundle 'altercation/vim-colors-solarized'
             Bundle 'spf13/vim-colors'
             Bundle 'tpope/vim-surround'
             Bundle 'rgarver/Kwbd.vim'
             Bundle 'cloudformdesign/vim.ergonomic'
+            Bundle 'scrooloose/nerdcommenter'
         endif
         " }
 
@@ -159,10 +161,8 @@
         if count(g:spf13_bundle_groups, 'programming')
             " Pick one of the checksyntax, jslint, or syntastic
             " ignore some errors: http://pep8.readthedocs.org/en/latest/intro.html#error-codes
-            Bundle 'tpope/vim-fugitive'
             Bundle 'mattn/webapi-vim'
             Bundle 'mattn/gist-vim'
-            Bundle 'scrooloose/nerdcommenter'
             "Bundle 'vim-scripts/Conque-Shell'
             let g:NERDCustomDelimiters = { 'python': { 'left': '# '} }
             Bundle 'tpope/vim-commentary'
