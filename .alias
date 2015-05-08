@@ -12,7 +12,7 @@ alias dbe='py -m cloudtb.dbe'
 alias pydev='py setup.py develop'
 # http://peterdowns.com/posts/first-time-with-pypi.html
 # passwords are stored at .pypirc
-alias pypi='py setup.py register -r pypi'
+alias pypi='py setup.py register -r pypi sdist upload'
 alias pypitest='py setup.py register -r pypitest'
 
 alias py2='python2.7'
@@ -59,6 +59,7 @@ alias ga='git add'
 #alias gap='git add --patch'
 #alias gaa='git add --all'
 alias gm='git merge'
+alias ghash='git rev-parse HEAD'
 
 ## Sign and verify commits with GPG
 #alias gcs='git commit -S'

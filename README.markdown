@@ -29,6 +29,13 @@ The easiest way to install spf13-vim is to use our [automatic installer](https:/
 
 *Requires Git 1.7+ and Vim 7.3+*
 
+### Embeeded Systems
+For Embedded systems it is recommeneded to edit `~/vimrc.before.local` with the following line:
+```
+let g:spf13_bundle_groups=['minimal']
+```
+
+### Install
 ```bash
 
     curl https://raw.githubusercontent.com/cloudformdesign/spf13-vim/master/spf13-vim.sh -L > spf13-vim.sh && sh spf13-vim.sh
