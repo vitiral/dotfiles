@@ -4,9 +4,9 @@
 export PYTHONSTARTUP="$HOME/.pythonrc.py"
 alias sudo='sudo '
 alias py='python3'
-alias pyt='/usr/local/bin/py.test-3.4'
-alias pytdoc='/usr/local/bin/py.test-3.4 --doctest-modules'  # don't forget you need to give module path
-alias pytdb='/usr/local/bin/py.test-3.4 -sx --pdb'
+alias pyt='py.test-3.4'
+alias pytdoc='pyt --doctest-modules'  # don't forget you need to give module path
+alias pytdb='pyt -sx --pdb'
 alias pdb='py -m ipdb'
 alias dbe='py -m cloudtb.dbe'
 alias pydev='py setup.py develop'
@@ -16,22 +16,28 @@ alias pypi='py setup.py register -r pypi'
 alias pypitest='py setup.py register -r pypitest'
 
 alias py2='python2.7'
-alias py2t='/usr/local/bin/py.test-2.7'
-alias py2tdoc='/usr/local/bin/py.test-2.7 --doctest-modules'
-alias py2tdb='/usr/local/bin/py.test-2.7 -sx --pdb'
+alias py2t='py.test-2.7'
+alias py2tdoc='py2t --doctest-modules'
+alias py2tdb='py2t -sx --pdb'
 alias pdb2='py2 -m ipdb'
 alias dbe2='py2 -m cloudtb.dbe'
 alias py2dev='py2 setup.py develop'
 
+alias lic_mit="wget -q https://raw.githubusercontent.com/cloudformdesign/licenses/master/LICENSE.MIT -O LICENSE.txt && echo created license"
+
+# pyboard development
+alias pyb="sudo screen /dev/ttyACM0"
 
 ##################################################
 # Git
+alias gpyignore="wget -q https://raw.githubusercontent.com/github/gitignore/master/Python.gitignore -O .gitignore && echo created python .gitignore file"
 alias g='git'
 alias gs='git status'
 alias gst='git status'
 alias gss='git status -s'
 alias gd='git diff'
 alias gdc='git diff --cached'
+alias gdn='git diff --name-only'
 alias gp='git push'
 alias gpo='git push origin'
 alias gc='git commit'
