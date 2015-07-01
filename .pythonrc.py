@@ -17,14 +17,6 @@ it is automatically loaded after everything else
 Settings are stored in config files in the ~/.secret directory. Use these
 to automatically connect and authenticate to your favorite databases
 
-## mongo.cfg                # Example MongoDB config file
-[creds]
-host = 127.0.0.1            # default ip address of server
-port = 27017                # default port of server
-database = mydb             # your database name. Loaded as `mdb`
-username = admin            # default username
-password = admin            # your mongo db password
-source = admin              # default source for authentication
 '''
 
 from __future__ import (absolute_import, division, print_function,
@@ -46,8 +38,6 @@ except NameError:
 
 import sys
 import os
-try: import configparser                 # parses easily written config files
-except ImportError: import ConfigParser as configparser
 import itertools
 import traceback
 tb = traceback                      # Note: tb.format_tb(exc.__traceback__)
@@ -62,6 +52,11 @@ psplit = path.split
 abspath = lambda p: path.abspath(path.expanduser(p))
 p = print
 pp = pprint.pprint
+
+from yaml import safe_load as yaml_load
+def yload(fname):
+    with open(fname) as f:
+        return yaml_load(f)
 
 try:
     configfile = __file__
@@ -141,23 +136,36 @@ if loaded:
 
 ##################################################
 # ## database tools
+'''
+## ~/.secret/mongo.cfg         # Example MongoDB config file
+local:
+    host: 127.0.0.1            # default ip address of server
+    port: 27017                # default port of server
+    database: mydb             # your database name. Loaded as `mdb`
+    username: admin            # default username. Leave these lines out if no pwd
+    password: admin            # your mongo db password
+    source: admin              # default source for authentication
+'''
 exec(tryimp('pymongo'))
 if loaded:
     try:
         lp = abspath("~/.secret/mongo.cfg")
         if not path.exists(lp):
             raise SystemError
-        config = configparser.ConfigParser()
-        config.read(lp)
-        lp = config['creds']
-        client = pymongo.MongoClient(lp['host'], int(lp['port']))
-        mdb = client[lp['database']]
-        mdb.authenticate(lp['username'], lp['password'],
-                        source=lp['source'])
-        print("[ OK  ] loaded mdb = {}".format(mdb))
+        config = yload(lp)
+        # Load keys as local variables
+        for key, settings in config.items():
+            client = pymongo.MongoClient(settings['host'],
+                                         int(settings['port']))
+            mdb = client[settings['database']]
+            if 'username' in settings:
+                mdb.authenticate(settings['username'], settings['password'],
+                                source=lp['source'])
+            exec("{}=mdb".format(key))  # dump into namespace
+            print("[ OK  ] loaded {} = {}".format(key, mdb))
     except SystemError:
         pass  # config file doesn't exist
-    except Exception as e:
+    except Exception as E:
         print("[ERROR] loading mongo db: {}: {}".
               format(type(E), E))
 
