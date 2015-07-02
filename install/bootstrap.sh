@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 ############################  SETUP PARAMETERS
-app_name='spf13-vim'
-app_dir="$HOME/.spf13-vim-3"
-[ -z "$git_uri" ] && git_uri='https://github.com/cloudformdesign/spf13-vim.git'
+app_name='dotfiles'
+app_dir="$HOME/.dotfiles"
+[ -z "$git_uri" ] && git_uri='https://github.com/cloudformdesign/dotfiles.git'
 git_branch='master'
 debug_mode='0'
 fork_maintainer='0'
@@ -172,5 +172,10 @@ clone_vundle    "Successfully cloned vundle"
 
 setup_vundle    "Now updating/installing plugins using Vundle"
 
+msg             "Now adding custom symlinks for other software"
+bash ~/.spf13-vim-3/link_all.sh
+
 msg             "\nThanks for installing $app_name."
 msg             "© `date +%Y` http://vim.spf13.com/"
+
+
