@@ -172,5 +172,13 @@ clone_vundle    "Successfully cloned vundle"
 
 setup_vundle    "Now updating/installing plugins using Vundle"
 
+if [[ -e $app_dir/.vim/bundle/YouCompleteMe ]]; then
+    cd $app_dir/.vim/bundle/YouCompleteMe
+    if [[ ! -e third_party/ycmd/libclang.so ]]; then
+        echo "compiling YouCompleteMe"
+        ./install.sh --clang-completer 
+    fi
+fi
+
 msg             "\nThanks for installing $app_name."
 msg             "© `date +%Y` http://vim.spf13.com/"
