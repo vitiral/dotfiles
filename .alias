@@ -93,3 +93,6 @@ elif [[ `uname` == 'Cygwin' ]]; then
     :  # pass, none yet
 fi
 
+if [[ -e ~/.alias.local ]]; then
+    source ~/.alias.local
+fi
