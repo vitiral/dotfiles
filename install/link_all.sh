@@ -1,9 +1,9 @@
 cd ~
-ln -s .spf13-vim-3/.alias
-ln -s .spf13-vim-3/.bash_profile .bash_profile
-ln -s .spf13-vim-3/.bashrc .bashrc 
-ln -s .spf13-vim-3/.tmux.conf .tmux.conf 
-ln -s .spf13-vim-3/.zshrc
+ln -s .dotfiles/.alias
+ln -s .dotfiles/.bash_profile .bash_profile
+ln -s .dotfiles/.bashrc .bashrc 
+ln -s .dotfiles/.tmux.conf .tmux.conf 
+ln -s .dotfiles/.zshrc
 
 # ipyython
 cd ~
