@@ -1,5 +1,8 @@
 source ~/.antigen/antigen/antigen.zsh
-source ~/.shell.local
+
+if [ -e ~/.shell.local ]; then
+    source ~/.shell.local
+fi
 
 bindkey 
 

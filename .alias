@@ -109,4 +109,6 @@ elif [[ `uname` == 'Cygwin' ]]; then
 fi
 
 export PATH="$PATH:$HOME/bin/"
-source ~/.alias.local
+if [[ -e ~/.alias.local ]]; then
+    source ~/.alias.local
+fi
