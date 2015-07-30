@@ -4,6 +4,8 @@ $SYS_INSTALL git
 $SYS_INSTALL zsh tmux vim
 $SYS_INSTALL cmake
 $SYS_INSTALL mongodb
+$SYS_INSTALL golang
+
 
 # install base python packages
 $SYS_INSTALL python-dev python3-dev

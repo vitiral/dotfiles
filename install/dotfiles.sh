@@ -176,7 +176,7 @@ if [[ -e $app_dir/.vim/bundle/YouCompleteMe ]]; then
     cd $app_dir/.vim/bundle/YouCompleteMe
     if [[ ! -e third_party/ycmd/libclang.so ]]; then
         echo "compiling YouCompleteMe"
-        ./install.sh --clang-completer 
+        ./install.sh --clang-completer --gocode-completer
     fi
 fi
 

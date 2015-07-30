@@ -282,6 +282,7 @@ nnoremap <leader><space> :noh<cr>
 
 " { Window Management
 " ,wX does various things to windows 
+" wgX is reserved for 'window goto' for tools like youcompleteme
 nnoremap <leader>wf <C-w>= " fix windows
 nnoremap <leader>wc :q<CR>,wf " close window and fix all windows
 nnoremap <leader>ws :w<CR>  " save window
@@ -652,24 +653,24 @@ map <silent> <F11> :call system("wmctrl -ir " . v:windowid . " -b toggle,fullscr
 "}
 
 " TagBar {
-    if isdirectory(expand("~/.vim/bundle/tagbar/"))
-        nnoremap <silent> <leader>tt :TagbarToggle<CR>
+    "if isdirectory(expand("~/.vim/bundle/tagbar/"))
+        "nnoremap <silent> <leader>tt :TagbarToggle<CR>
 
-        " If using go please install the gotags program using the following
-        " go install github.com/jstemmer/gotags
-        " And make sure gotags is in your path
-        let g:tagbar_type_go = {
-            \ 'ctagstype' : 'go',
-            \ 'kinds'     : [  'p:package', 'i:imports:1', 'c:constants', 'v:variables',
-                \ 't:types',  'n:interfaces', 'w:fields', 'e:embedded', 'm:methods',
-                \ 'r:constructor', 'f:functions' ],
-            \ 'sro' : '.',
-            \ 'kind2scope' : { 't' : 'ctype', 'n' : 'ntype' },
-            \ 'scope2kind' : { 'ctype' : 't', 'ntype' : 'n' },
-            \ 'ctagsbin'  : 'gotags',
-            \ 'ctagsargs' : '-sort -silent'
-            \ }
-    endif
+        "" If using go please install the gotags program using the following
+        "" go install github.com/jstemmer/gotags
+        "" And make sure gotags is in your path
+        "let g:tagbar_type_go = {
+            "\ 'ctagstype' : 'go',
+            "\ 'kinds'     : [  'p:package', 'i:imports:1', 'c:constants', 'v:variables',
+                "\ 't:types',  'n:interfaces', 'w:fields', 'e:embedded', 'm:methods',
+                "\ 'r:constructor', 'f:functions' ],
+            "\ 'sro' : '.',
+            "\ 'kind2scope' : { 't' : 'ctype', 'n' : 'ntype' },
+            "\ 'scope2kind' : { 'ctype' : 't', 'ntype' : 'n' },
+            "\ 'ctagsbin'  : 'gotags',
+            "\ 'ctagsargs' : '-sort -silent'
+            "\ }
+    "endif
 "}
 
 
@@ -693,6 +694,8 @@ map <silent> <F11> :call system("wmctrl -ir " . v:windowid . " -b toggle,fullscr
 " YouCompleteMe {
     if count(g:spf13_bundle_groups, 'youcompleteme')
         command! GG YcmCompleter GoTo
+        nnoremap <leader>wg :YcmCompleter GoTo<CR>
+
         
         let g:acp_enableAtStartup = 0
 

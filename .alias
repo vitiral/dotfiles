@@ -1,7 +1,10 @@
 ##################################################
 # development commands
 
+
 export PYTHONSTARTUP="$HOME/.pythonrc.py"
+export PYTHONDONTWRITEBYTECODE=0            # prevents .pyc files
+
 alias sudo='sudo '
 alias py='python3'
 alias pyt='py.test-3.4'
@@ -30,6 +33,14 @@ alias lic_mit="wget -q https://raw.githubusercontent.com/cloudformdesign/license
 
 # pyboard development
 alias pyb="sudo screen /dev/ttyACM0"
+
+alias py2analyze="pyreverse sf_platform/core/rtfi/ -p dependencies && xdot classes_dependencies.dot &&"
+alias pyclean="rm -r ./**/*.pyc"
+
+#alias py2graph="sfood sf_platform/core/rtfi | sfood-graph > graph.dot && xdot graph.dot"
+
+
+alias prep="grep '' -n -P -C 2 --exclude-dir '.ropeproject'"
 
 ##################################################
 # Git
@@ -80,6 +91,8 @@ alias ipscan="sudo nmap -sn 192.168.0.0/24 | grep 'Nmap scan report for'"
 
 # File System
 alias dd="dcfldd"
+alias untar="tar -zxvf"
+
 
 ##################################################
 # OS specific aliases
@@ -87,9 +100,13 @@ if [[ `uname` == 'Darwin' ]]; then
     alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
     alias minicom=/opt/minicom/2.2/bin/minicom
 elif [[ `uname` == 'Linux' ]]; then
-    :  # pass, none yet
+    # arrow keys are bound to moving words. Use cntrl to 
+    bindkey "^L" forward-word
+    bindkey "^H" backward-word
     setxkbmap -layout us -option ctrl:nocaps
 elif [[ `uname` == 'Cygwin' ]]; then
     :  # pass, none yet
 fi
 
+export PATH="$PATH:$HOME/bin/"
+source ~/.alias.local

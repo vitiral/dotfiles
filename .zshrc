@@ -1,6 +1,8 @@
 source ~/.antigen/antigen/antigen.zsh
 source ~/.shell.local
 
+bindkey 
+
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
 
