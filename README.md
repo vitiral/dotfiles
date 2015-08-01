@@ -5,7 +5,7 @@ grew to the point where it could not longer be called spf13 though.
 
 # Install
 ```bash
-    curl https://raw.githubusercontent.com/cloudformdesign/dotfiles/master/install/install.sh -L > install.sh && sh install.sh
+    curl https://raw.githubusercontent.com/cloudformdesign/dotfiles/master/install/install.sh -L > install.sh && bash install.sh
 ```
 
 ## Embedded Systems
