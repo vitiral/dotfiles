@@ -1,12 +1,16 @@
 # cleanup home folder
 cd ~
 rm .bash*
-mkdir projects software
-SYS_INSTALL="sudo apt-get install"
+rm -r Music Pictures Public Templates Videos
+
+SYS_INSTALL="sudo apt-get install -y"
+
+# remove crap
+sudo apt-get remove -y thunderbird shotwell empathy rhythmbox brasero cheese
 
 # update and upgrade
-sudo apt-get update
-sudo apt-get upgrade
+sudo apt-get update -y
+sudo apt-get upgrade -y
 
 # system specific tools
 $SYS_INSTALL flashplugin-installer ubuntu-restricted-extras
@@ -18,7 +22,7 @@ $SYS_INSTALL openjdk-7-jdk
 $SYS_INSTALL unity-tweak-tool
 
 # Install microcode. Check microcode with `dmesg | grep microcode`
-# $SYS_INSTALL microcode.ctl intel-microcode
+$SYS_INSTALL microcode.ctl intel-microcode
 
 # disable search feature (amazon can't spy on me)
 gsettings set com.canonical.Unity.Lenses remote-content-search none 

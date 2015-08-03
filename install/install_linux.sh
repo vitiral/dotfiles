@@ -5,6 +5,7 @@ $SYS_INSTALL zsh tmux vim
 $SYS_INSTALL cmake
 $SYS_INSTALL mongodb
 $SYS_INSTALL golang
+$SYS_INSTALL libffi-dev pkg-config  # micropython
 
 
 # install base python packages

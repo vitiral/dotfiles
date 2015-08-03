@@ -1,6 +1,8 @@
 flake8
 pyflakes
 pylint
+ropevim
+pexpect
 
 virtualenv
 ipython[notebook]
