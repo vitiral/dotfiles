@@ -1,11 +1,12 @@
 
 # dev tools
 $SYS_INSTALL git
-$SYS_INSTALL zsh tmux vim
+$SYS_INSTALL zsh tmux vim pcregrep
 $SYS_INSTALL cmake
 $SYS_INSTALL mongodb
 $SYS_INSTALL golang
 $SYS_INSTALL libffi-dev pkg-config  # micropython
+$SYS_INSTALL ssh nmap
 
 
 # install base python packages

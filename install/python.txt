@@ -1,7 +1,6 @@
 flake8
 pyflakes
 pylint
-ropevim
 pexpect
 
 virtualenv
@@ -17,11 +16,11 @@ mock
 requests
 flask
 
-numpy
-pandas
+# numpy
+# pandas
+# matplotlib
+# bokeh
 statistics
 pymongo
-matplotlib
-bokeh
 
 ansicolors

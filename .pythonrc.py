@@ -46,6 +46,7 @@ from imp import reload
 
 import re
 import pprint
+import six
 path = os.path
 psplit = path.split
 # better abspath  (expands user automatically)

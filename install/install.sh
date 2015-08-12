@@ -64,6 +64,7 @@ git clone https://github.com/zsh-users/antigen.git
 sudo chsh -s /usr/bin/zsh
 sudo chsh -s /usr/bin/zsh $USER
 
+
 # install default dot files
 bash $SCRIPTPATH/dotfiles.sh
 bash $SCRIPTPATH/link_all.sh
@@ -74,16 +75,26 @@ source $SCRIPTPATH/install_third.sh
 # python
 cd ~/projects
 git clone git@github.com:cloudformdesign/cloudtb.git
+cd ~/software
+
+virtualenv python2-env
+virtualenv python3-env
+
+py2=python2-env/bin/python
+py3=python3-env/bin/python
+
+pip2=python2-env/bin/pip
+pip3=python3-env/bin/pip
+
 cd ~/projects/cloudtb
+$pip2 install -r "$SCRIPTPATH/python.txt"
+$pip2 install -r extras.txt
+$python2 setup.py develop
+$pip2 install ropevim  # needed for vim (only works with python2)
 
-sudo pip2 install -r "$SCRIPTPATH/python.txt"
-sudo pip2 install -r extras.txt
-sudo python2 setup.py develop
-
-sudo pip3 install -r "$SCRIPTPATH/python.txt"
-sudo pip3 install -r extras.txt
-sudo python3 setup.py develop
-
+$pip3 install -r "$SCRIPTPATH/python.txt"
+$pip3 install -r extras.txt
+$python3 setup.py develop
 
 echo "Done. You should now (probably) reboot"
 
