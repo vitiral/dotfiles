@@ -1,7 +1,16 @@
 ##################################################
 # development commands
+pathadd() {
+    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+        export PATH="${PATH:+"$PATH:"}$1"  # handles case where path is empty
+    fi
+}
 
-
+pathinsert() {
+    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+        export PATH="$1:$PATH"
+    fi
+}
 
 alias sudo='sudo '
 alias lic_mit="wget -q https://raw.githubusercontent.com/cloudformdesign/licenses/master/LICENSE.MIT -O LICENSE.txt && echo created license"
@@ -13,8 +22,12 @@ alias prep="grep '' -n -P -C 2 --exclude-dir '.ropeproject'"
 export PYTHONSTARTUP="$HOME/.pythonrc.py"
 export PYTHONDONTWRITEBYTECODE=0            # prevents .pyc files
 
+# use the local installation of python first
+pathinsert "$HOME/software/python3-env/bin"
+pathinsert "$HOME/software/python2-env/bin"
+
 alias py='python3'
-alias pyt='py.test-3.4'
+alias pyt='py.test-3.4 --tb short'
 alias pytdoc='pyt --doctest-modules'  # don't forget you need to give module path
 alias pytdb='pyt -sx --pdb'
 alias pdb='py -m ipdb'
@@ -26,7 +39,7 @@ alias pypi='py setup.py register -r pypi sdist upload'
 alias pypitest='py setup.py register -r pypitest'
 
 alias py2='python2.7'
-alias py2t='py.test-2.7'
+alias py2t='py.test-2.7 --tb short'
 alias py2tdoc='py2t --doctest-modules'
 alias py2tdb='py2t -sx --pdb'
 alias pdb2='py2 -m ipdb'
@@ -99,11 +112,25 @@ alias ghash='git rev-parse HEAD'
 
 ##################################################
 # Networking
-alias ipscan="sudo nmap -sn 192.168.0.0/24 | grep 'Nmap scan report for'"
+#ipscan() {
+#    sudo nmap -sn $1/24 | grep 'Nmap scan report for'
+#}
+
+alias netinfo='echo "## netstat -nr:" && netstat -nr && echo "## ifconfig:" && ifconfig | pcregrep -M "(eth0|wlan0)\s+Link.*\n\s+inet"'
 
 # File System
 alias dd="dcfldd"
 alias untar="tar -zxvf"
+
+# automatically move ssh public credentials into authorized_keys of system connecting with
+ssh_autoauth() {
+    tmp_keys="/tmp/${USER}_tmpauthkeys"
+    ssh_keys="~/.ssh/authorized_keys"
+    command="cat > $tmp_keys && mkdir -p ~/.ssh && cat $tmp_keys >> $ssh_keys && sort -u $ssh_keys > $tmp_keys && mv $tmp_keys $ssh_keys"
+    # echo $command
+    cat ~/.ssh/id_rsa.pub | ssh $1 $command
+    ssh $1
+}
 
 
 ##################################################
@@ -120,7 +147,8 @@ elif [[ `uname` == 'Cygwin' ]]; then
     :  # pass, none yet
 fi
 
-export PATH="$PATH:$HOME/bin/"
 if [[ -e ~/.alias.local ]]; then
     source ~/.alias.local
 fi
+
+pathinsert "$HOME/bin"
