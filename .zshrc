@@ -1,9 +1,5 @@
 source ~/.antigen/antigen/antigen.zsh
 
-if [ -e ~/.shell.local ]; then
-    source ~/.shell.local
-fi
-
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
 
@@ -33,5 +29,10 @@ elif [[ $CURRENT_OS == 'Cygwin' ]]; then
 fi
 
 source "$HOME/.alias"
+
+if [ -e ~/.shell.local ]; then
+    source ~/.shell.local
+fi
+
 # Tell antigen that you're done.
 antigen apply

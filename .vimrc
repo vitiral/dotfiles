@@ -71,8 +71,8 @@
     " endif
     filetype plugin indent on   " Automatically detect file types.
     syntax on                   " Syntax highlighting
-    set mouse=a                 " Automatically enable mouse usage
-    set mousehide               " Hide the mouse cursor while typing
+    "set mouse=a                 " Automatically enable mouse usage
+    "set mousehide               " Hide the mouse cursor while typing
     scriptencoding utf-8
 
     
@@ -193,6 +193,8 @@ endif
 set backspace=indent,eol,start  " Backspace for dummies
 set linespace=0                 " No extra spaces between rows
 set nu                          " Line numbers on
+set relativenumber              " line numbers are relevant from 
+
 set showmatch                   " Show matching brackets/parenthesis
 set incsearch                   " Find as you type search
 set hlsearch                    " Highlight search terms
@@ -306,10 +308,11 @@ nnoremap <leader>wr :%s///gc<Left><Left><Left>
 nnoremap <leader>wvrc :e $MYVIMRC<CR>  " open ~/.vimrc for editing
 nnoremap <leader>wpd :echo expand('%:p:h')<CR>
 nnoremap <leader>wpp :echo expand('%:p')<CR>
+" toggle off line numbers
+nnoremap <leader>n :set relativenumber!<cr>:set nonu!<cr>
 
 " }
 
-set relativenumber              " line numbers are relevant from 
 
 " python remappings
 nnoremap <leader>sb oimport ipdb; ipdb.set_trace()<ESC>

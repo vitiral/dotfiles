@@ -1,12 +1,14 @@
 ##################################################
 # development commands
-pathadd() {
+pathappend() {
+    # properly append path to end of PATH
     if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
         export PATH="${PATH:+"$PATH:"}$1"  # handles case where path is empty
     fi
 }
 
 pathinsert() {
+    # properly insert path at beginning of PATH
     if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
         export PATH="$1:$PATH"
     fi
@@ -25,6 +27,7 @@ export PYTHONDONTWRITEBYTECODE=0            # prevents .pyc files
 # use the local installation of python first
 pathinsert "$HOME/software/python3-env/bin"
 pathinsert "$HOME/software/python2-env/bin"
+pathinsert "$HOME/bin"
 
 alias py='python3'
 alias pyt='py.test-3.4 --tb short'
@@ -127,9 +130,8 @@ ssh_autoauth() {
     tmp_keys="/tmp/${USER}_tmpauthkeys"
     ssh_keys="~/.ssh/authorized_keys"
     command="cat > $tmp_keys && mkdir -p ~/.ssh && cat $tmp_keys >> $ssh_keys && sort -u $ssh_keys > $tmp_keys && mv $tmp_keys $ssh_keys"
-    # echo $command
     cat ~/.ssh/id_rsa.pub | ssh $1 $command
-    ssh $1
+    ssh "$@"
 }
 
 
@@ -151,4 +153,3 @@ if [[ -e ~/.alias.local ]]; then
     source ~/.alias.local
 fi
 
-pathinsert "$HOME/bin"
