@@ -30,6 +30,7 @@ $SYS_INSTALL xorg-server xorg-xinit xorg-xev slim i3 termite
 $SYS_INSTALL \
     git \
     zsh tmux vim \
+    wget \
     cmake \
     python2 
 

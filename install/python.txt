@@ -4,7 +4,7 @@ pylint
 pexpect
 
 virtualenv
-ipython[notebook]
+ipython
 ipdb
 psutil
 pyyaml
@@ -15,12 +15,8 @@ mock
 
 requests
 flask
-
-# numpy
-# pandas
-# matplotlib
-# bokeh
-statistics
 pymongo
+
+statistics
 
 ansicolors

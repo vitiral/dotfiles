@@ -25,12 +25,15 @@ export PYTHONSTARTUP="$HOME/.pythonrc.py"
 export PYTHONDONTWRITEBYTECODE=0            # prevents .pyc files
 
 # use the local installation of python first
-pathinsert "$HOME/software/python3-env/bin"
-pathinsert "$HOME/software/python2-env/bin"
+python_root="$HOME/software/pyconda/envs"
+py2bin="${python_root}/python2/bin"
+py3bin="${python_root}/python3/bin"
+pathinsert $py3bin
+pathinsert $py2bin
 pathinsert "$HOME/bin"
 
 alias py='python3'
-alias pyt='py.test-3.4 --tb short'
+alias pyt="$py3bin/py.test --tb short"
 alias pytdoc='pyt --doctest-modules'  # don't forget you need to give module path
 alias pytdb='pyt -sx --pdb'
 alias pdb='py -m ipdb'
@@ -41,8 +44,8 @@ alias pydev='py setup.py develop'
 alias pypi='py setup.py register -r pypi sdist upload'
 alias pypitest='py setup.py register -r pypitest'
 
-alias py2='python2.7'
-alias py2t='py.test-2.7 --tb short'
+alias py2='python2'
+alias py2t="$py2bin/py.test --tb short"
 alias py2tdoc='py2t --doctest-modules'
 alias py2tdb='py2t -sx --pdb'
 alias pdb2='py2 -m ipdb'
@@ -59,7 +62,6 @@ alias upy='micropython'
 alias upip='~/projects/micropython/tools/pip-micropython'
 # pyboard development
 alias pyb="sudo screen /dev/ttyACM0"
-
 
 ##################################################
 # Tmux

@@ -77,6 +77,7 @@ bash $SCRIPTPATH/link_all.sh
 
 # extra software, etc
 source $SCRIPTPATH/install_third.sh
+source $SCRIPTPATH/install_python.sh
 
 echo "Done. You should now (probably) reboot"
 
