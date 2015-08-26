@@ -1,0 +1,73 @@
+" Main commands you need to know
+" c - buffer mode, this is what lets you move around and copy+paste. 
+"   Use / to find something, c to go into buffer mode and v to go into visual mode
+
+" Autocomplete using Firefox Awesomebar subsystem
+set complete=l
+
+" Select the longest autocomplete match
+set wildmode='list:full'
+
+" Don't beep
+set noerrorbells
+
+" Make Firefox run faster by using JIT
+set! javascript.options.jit.chrome=true
+
+" Use characters for hints instead of numbers
+set hintchars=asdfghklqwertyuiop
+
+inoremap jj <ESC>
+inoremap JU ()<left>
+inoremap JI []<left>
+inoremap JM {}<left>
+inoremap J< <><left>
+
+" Movement
+inoremap JL <right>
+
+" v in normal mode goes straight into visual mode (useful after find)
+nnoremap v cv
+
+" exit c+v mode with q
+cnoremap q <ESC>
+vnoremap q <ESC>
+
+" Reload configuration file into current browser, useful for updating after editing this file.
+command! sourcerc :source ~/.vimperatorrc
+
+" Show properties of an object within JavaScript.
+javascript <<EOB
+function inspect(what) {
+    var nodes = [];
+    for (var node in what)
+        nodes.push(node);
+    liberator.echo(nodes.sort().join(', '));
+}
+EOB
+
+"===[ Mappings ]========================================================
+
+" Press 'F10' to toggle Vimperator
+noremap <F10> :vimperatortoggle<CR>
+
+" Press 'cntrl+h' to go to previous tab
+noremap <C-h> :tabprevious<CR>
+" Press 'cntrl+l' to go to next tab
+noremap <C-l> :tabnext<CR>
+
+" Press 'C-a' to select all
+noremap <C-a> <C-v><C-a>
+
+" Press 'C-c' to copy, 'C-v' or 'S-Insert' to paste, or 'C-x' to cut
+" noremap <C-c> <C-v><C-c>
+" noremap <C-v> <C-v><C-v>
+" noremap <C-x> <C-v><C-x>
+" cnoremap <C-c> <C-v><C-c>
+" cnoremap <C-v> <C-v><C-v>
+" cnoremap <S-Insert> <C-v><C-v>
+" cnoremap <C-x> <C-v><C-x>
+" inoremap <C-c> <C-v><C-c>
+" inoremap <C-v> <C-v><C-v>
+" inoremap <S-Insert> <C-v><C-v>
+" inoremap <C-x> <C-v><C-x>

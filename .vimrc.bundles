@@ -108,8 +108,7 @@
             Bundle 'altercation/vim-colors-solarized'
             Bundle 'spf13/vim-colors'
             Bundle 'tpope/vim-surround'
-            Bundle 'rgarver/Kwbd.vim'
-            Bundle 'cloudformdesign/vim.ergonomic'
+            Bundle 'vitiral/vim.ergonomic'
             Bundle 'scrooloose/nerdcommenter'
         endif
         " }
@@ -212,39 +211,22 @@
         if count(g:spf13_bundle_groups, 'python')
 
             Bundle 'python-rope/ropevim'
+            " Do not use pymode - the code folding alone completely ground vim to a halt
 
-            let g:pymode = 1
-            let g:pymode_run = 0
-            let g:pymode_doc = 0
-            let g:pymode_lint_cwindow = 0
-            let g:pymode_breakpoint = 0
-            let g:pymode_folding = 1
-            if ! count(g:spf13_bundle_groups, 'pymode')
-                " we only want pymode syntax
-                let g:pymode_rope = 0
-                let g:pymode_lint = 0
-                "let g:pymode_syntax = 1
-                "let g:pymode_syntax_all = 1
-                "Bundle 'python_match.vim'
-                "Bundle 'cloudformdesign/vim-python'
-                Bundle 'scrooloose/syntastic'
-                let g:syntastic_python_python_exec = 'python2'
-                " http://flake8.readthedocs.org/en/latest/warnings.html
-                "let g:syntastic_python_flake8_args = '--ignore="E501,E701,E241,E126,E127,E128,W801"'  " mark 'line too long'
-                let g:syntastic_python_flake8_args = '--ignore="E701,E501,E241,E126,E127,E128,W801"'
-                " http://pylint-messages.wikidot.com/all-codes
-                let g:syntastic_python_pylint_args='-d C0103,C0111,R0903,R0904,E501,E1101,E1103,W0141,W0142,W0201,W0232,W0511 -f parseable -r n -i y'
-            else
-                let g:pymode_lint_ignore = 'E501,E302,E261,E701,E241,E126,E127,E128,W801,C0103,C0111,R0903,E1101,W0141,W0142,W0511'
-            endif
-
-            Bundle 'klen/python-mode'
-            let g:pymode_options_colorcolumn = 0
-
+            " we only want pymode syntax
+            "Bundle 'python_match.vim'
+            "Bundle 'vitiral/vim-python'
+            Bundle 'scrooloose/syntastic'
+            let g:syntastic_python_python_exec = 'python2'
+            " http://flake8.readthedocs.org/en/latest/warnings.html
+            "let g:syntastic_python_flake8_args = '--ignore="E501,E701,E241,E126,E127,E128,W801"'  " mark 'line too long'
+            let g:syntastic_python_flake8_args = '--ignore="E701,E501,E241,E126,E127,E128,W801"'
+            " http://pylint-messages.wikidot.com/all-codes
+            let g:syntastic_python_pylint_args='-d C0103,C0111,R0903,R0904,E501,E1101,E1103,W0141,W0142,W0201,W0232,W0511 -f parseable -r n -i y'
+            Bundle 'tmhedberg/SimpylFold'
 
             "Bundle 'vim-scripts/python.vim'
             "Bundle 'pythoncomplete'
-            "Bundle 'tmhedberg/SimpylFold'
         endif
     " }
 
