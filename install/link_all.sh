@@ -1,9 +1,10 @@
 cd ~
-ln -s .dotfiles/.alias
-ln -s .dotfiles/.bash_profile .bash_profile
-ln -s .dotfiles/.bashrc .bashrc 
-ln -s .dotfiles/.tmux.conf .tmux.conf 
-ln -s .dotfiles/.zshrc
+ln -s .dotfiles/.alias .
+ln -s .dotfiles/.bash_profile .
+ln -s .dotfiles/.bashrc .
+ln -s .dotfiles/.tmux.conf .
+ln -s .dotfiles/.zshrc .
+ln -s .dotfiles/.vimperatorrc .
 
 # ipyython
 cd ~
