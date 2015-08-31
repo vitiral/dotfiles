@@ -15,15 +15,22 @@ set noerrorbells
 set! javascript.options.jit.chrome=true
 
 " Use characters for hints instead of numbers
-set hintchars=0123456789
+" set hintchars=0123456789
+set hintchars=asdfghklzxcvnqweop
+
+
+set tabnumbers
+set editor=vim
+set sh=/usr/bin/zsh
+set gui=none,bookmarks
+let mapleader=","
 
 " Scroll up and down faster
-
 nnoremap j 5j
 nnoremap k 5k
 
 " Make hints larger (125% is the key point)
-:highlight Hint font-size:100%;color:white;background-color:red;padding:2px;
+:highlight Hint font-size:125%;color:white;background-color:red;padding:2px;
 
 inoremap jj <ESC>
 inoremap JU ()<left>
