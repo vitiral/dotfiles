@@ -1,0 +1,54 @@
+servers = (
+  {
+    address = "chat.freenode.net";
+    chatnet = "freenode";
+    port = "6697";
+    use_ssl = "yes";
+    ssl_verify = "yes";
+    ssl_capath = "/etc/ssl/certs";
+    autoconnect = "yes";
+  }
+);
+
+chatnets = { freenode = { type = "IRC"; }; };
+
+channels = ( );
+
+aliases = { };
+
+statusbar = {
+  default = {
+    window = {
+      items = {
+        barstart = { priority = "100"; };
+        time = { };
+        user = { };
+        window = { };
+        window_empty = { };
+        lag = { priority = "-1"; };
+        act = { priority = "10"; };
+        more = { priority = "-1"; alignment = "right"; };
+        barend = { priority = "100"; alignment = "right"; };
+        vim_mode = { };
+        vim_windows = { };
+      };
+    };
+
+    prompt = {
+      items = {
+        uberprompt = { priority = "-1"; };
+        input = { priority = "10"; };
+      };
+      position = "100";
+    };
+  };
+};
+settings = {
+  core = { 
+    real_name = "garrett";
+    user_name = "vitiral";
+    nick = "vitiral";
+  };
+  "fe-text" = { actlist_sort = "refnum"; };
+};
+ignores = ( { level = "JOINS PARTS QUITS"; } );
