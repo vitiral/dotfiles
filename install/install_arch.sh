@@ -1,5 +1,6 @@
 set -e  # errors cause failure
-
+SCRIPT=$(readlink -f "$0")
+SCRIPTPATH=$(dirname "$SCRIPT")
 SYS_INSTALL="sudo pacman -S --noconfir --needed --ignore all"
 CREATE_USER=garrett
 
@@ -26,8 +27,18 @@ if [[ ! -e /boot/intel-ucode.img ]]; then
 fi
 
 # interface and user manager
-$SYS_INSTALL xorg-server xorg-xinit xorg-xev slim i3 \
-    rxvt-unicode xorg-xrdb urxvt-perls xclip
+$SYS_INSTALL xorg-server xorg-xinit xorg-xev i3 i3lock \
+    rxvt-unicode xorg-xrdb urxvt-perls xclip ttf-dejavu
+
+if [[ -e ~/.zlogin ]]; then
+    ln -s $SCRIPTPATH/.zlogin ~/.zlogin
+fi
+
+# Use i3lock to lock the screen on lid close (i3 config handles timeout situation)
+if [[ `systemctl is-active i3lock.service` != "active" ]]; then
+    sudo cp $SCRIPTPATH/../etc/i3lock.service /etc/systemd/system/i3lock.service
+    sudo systemctl enable i3lock.service
+fi
 
 # dev tools
 $SYS_INSTALL \
