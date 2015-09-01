@@ -20,6 +20,9 @@ alias sudo='sudo '
 alias lic_mit="wget -q https://raw.githubusercontent.com/cloudformdesign/licenses/master/LICENSE.MIT -O LICENSE.txt && echo created license"
 alias prep="grep '' -n -P -C 2 --exclude-dir '.ropeproject'"
 alias pdf="apvlv"
+function cless(){
+    pygmentize -f terminal "$1" | /usr/bin/less -R
+}
 
 ##################################################
 # Python
