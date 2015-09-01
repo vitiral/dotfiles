@@ -1,6 +1,7 @@
+set -e  # errors cause failure
+
 SYS_INSTALL="sudo pacman -S --noconfir --needed --ignore all"
 CREATE_USER=garrett
-set -e  # errors cause failure
 
 if [[ ! -e /etc/localtime ]]; then
     ln -sf /usr/share/zoneinfo/Zone/SubZone /etc/localtime
@@ -20,19 +21,21 @@ fi
 
 if [[ ! -e /boot/intel-ucode.img ]]; then
     echo "installing ucode"
+    UCODE_MSG="See https://wiki.archlinux.org/index.php/Microcode for setting up microcode"
     $SYS_INSTALL intel-ucode 
 fi
 
-# graphical interface and user manager
-$SYS_INSTALL xorg-server xorg-xinit xorg-xev slim i3 termite 
+# interface and user manager
+$SYS_INSTALL xorg-server xorg-xinit xorg-xev slim i3 \
+    rxvt-unicode xorg-xrdb urxvt-perls xclip
 
 # dev tools
 $SYS_INSTALL \
-    git \
     zsh tmux vim \
-    wget \
+    git \
+    openssh wget \
     cmake \
-    python2 
+    python2
 
 # compression
 $SYS_INSTALL unace unrar zip unzip sharutils uudeview cabextract file-roller
@@ -40,8 +43,8 @@ $SYS_INSTALL unace unrar zip unzip sharutils uudeview cabextract file-roller
 # usertools
 $SYS_INSTALL \
     firefox \
-    apvlv 
+    apvlv
 
-echo "See https://wiki.archlinux.org/index.php/Microcode for setting up microcode"
+echo $UCODE_MSG
 echo "See https://wiki.archlinux.org/index.php/Xorg for info on setting up video driver"
 
