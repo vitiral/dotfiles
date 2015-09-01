@@ -23,6 +23,9 @@ inoremap JI []<left>
 inoremap JM {}<left>
 inoremap J< <><left>
 
+" Figure out what we do when we can't see the tabs... this should be opened in a new window or something?
+" :ignorekeys add docs.google.com
+
 " Movement
 inoremap JL <right>
 
