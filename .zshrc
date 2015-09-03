@@ -1,6 +1,5 @@
 source ~/.antigen/antigen/antigen.zsh
 
-
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
 
@@ -8,23 +7,22 @@ antigen use oh-my-zsh
 antigen bundle pip
 
 # vim mode
-antigen bundle zsh-users/zsh-history-substring-search
-antigen bundle sharat87/zsh-vim-mode
 
-bindkey -v
-bindkey -M viins 'jj' vi-cmd-mode
-bindkey "^?" backward-delete-char
-bindkey "^W" backward-kill-word
-bindkey "^H" backward-delete-char
-bindkey "^U" backward-kill-line
+#bindkey -v
+#bindkey -M viins 'jj' vi-cmd-mode
+#bindkey "^?" backward-delete-char
+#bindkey "^W" backward-kill-word
+#bindkey "^H" backward-delete-char
+#bindkey "^U" backward-kill-line
 
-vi-search-fix() {
-    zle vi-cmd-mode
-    zle .vi-history-search-backward
-}
-autoload vi-search-fix
-zle -N vi-search-fix
-bindkey -M viins '\e/' vi-search-fix
+#antigen bundle sharat87/zsh-vim-mode
+#vi-search-fix() {
+#    zle vi-cmd-mode
+#    zle .vi-history-search-backward
+#}
+#autoload vi-search-fix
+#zle -N vi-search-fix
+#bindkey -M viins '\e/' vi-search-fix
 
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
@@ -48,11 +46,12 @@ elif [[ $CURRENT_OS == 'Cygwin' ]]; then
     antigen bundle cygwin
 fi
 
+# Tell antigen that you're done.
+antigen apply
+
 source "$HOME/.alias"
 
 if [ -e ~/.shell.local ]; then
     source ~/.shell.local
 fi
 
-# Tell antigen that you're done.
-antigen apply

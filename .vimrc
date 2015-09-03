@@ -158,7 +158,7 @@ if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"
     let g:solarized_visibility="normal"
     color solarized             " Load a colorscheme
     "color molokai
-    set background=dark
+    set background=light
     highlight Normal ctermfg=green
     highlight Comment ctermfg=lightgrey
 endif
