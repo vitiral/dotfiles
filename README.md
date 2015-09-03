@@ -5,7 +5,13 @@ grew to the point where it could not longer be called spf13 though.
 
 # Install
 ```bash
-    curl https://raw.githubusercontent.com/cloudformdesign/dotfiles/master/install/install.sh -L > install.sh && bash install.sh
+curl http://git.io/vGyih -L > install.sh && bash install.sh
+```
+
+# Arch Linux
+For arch linux it is recommended to run install_arch.sh first
+```bash
+curl http://git.io/vGyiS -L > install_arch.sh && bash install_arch.sh
 ```
 
 ## Embedded Systems
