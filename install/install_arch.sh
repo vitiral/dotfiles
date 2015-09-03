@@ -5,8 +5,17 @@ SYS_INSTALL="sudo pacman -S --noconfir --needed --ignore all"
 CREATE_USER=garrett
 
 # system settings
-sudo cp $SCRIPTPATH/etc/99-sysctl.confg /etc/sysctl.d/  # swappiness
+sudo cp $SCRIPTPATH/etc/99-sysctl.confg /etc/sysctl.d/          # very low swappiness
 sudo cp $SCRIPTPATH/etc/50-synaptics.conf /etc/X11/xorg.conf.d  # touchpad
+
+$SYS_INSTALL hdparm
+if sudo hdparm -I /dev/sda | grep "TRIM supported"; then
+    # SSD stuff
+    sudo cp $SCRIPTPATH/etc/60-schedulers.rules /etc/udev/rules.d
+    if [[ `systemctl is-active fstrim.timer` != "active" ]]; then
+        sudo systemctl enable fstrim.timer
+    fi
+fi
 
 if [[ ! -e /etc/locale.conf ]]; then
     sudo cp $SCRIPTPATH/etc/locale.gen /etc
@@ -15,7 +24,7 @@ if [[ ! -e /etc/locale.conf ]]; then
 fi
 
 if [[ ! -e /etc/localtime ]]; then
-    sudo ln -sf /usr/share/zoneinfo/Zone/SubZone /etc/localtime
+    sudo ln -sf /usr/share/zoneinfo/America/Denver /etc/localtime
     sudo hwclock --systohc --utc
 fi
 

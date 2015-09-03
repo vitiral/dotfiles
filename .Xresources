@@ -1,4 +1,5 @@
-URxvt.font: xft:DejaVu Sans Mono:size=11
+URxvt.font: xft:inconsolata:size=13,-*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
+!URxvt.font: xft:inconsolata:size=13,xft:symbola:size=13
 URxvt*loginShell: false
 URxvt.letterSpace: 0
 URxvt*background: black
@@ -13,7 +14,7 @@ URxvt.keysym.Shift-Control-V: perl:clipboard:paste
 URxvt.clipboard.copycmd: xsel -ib
 URxvt.clipboard.pastecmd: xsel -ob
 
-! launch urls
+! launch urls quickly
 !URxvt.perl-ext-common:      default.clipborad.url-select.keyboard-select
 !URxvt.url-select.launcher:  firefox
 !URxvt.url-select.underline: true

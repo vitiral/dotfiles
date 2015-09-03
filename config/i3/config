@@ -7,6 +7,8 @@
 #
 # To get a config file with the same key positions, but for your current
 # layout, use the i3-config-wizard
+#
+# Use 
 
 # Mod=Alt
 set $mod Mod1
@@ -44,14 +46,10 @@ bindsym $movemod+a move scratchpad
 bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
-bindsym $mod+Shift+q kill
+bindsym $mod+d kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+a exec dmenu_run
 
 # change focus
 bindsym $mod+h focus left
@@ -77,9 +75,12 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-# TODO: fix these
-bindsym $mod+u split horizontal
-bindsym $mod+minus split vertical
+bindsym $mod+backslash  split horizontal
+bindsym $mod+bar        split horizontal
+bindsym $mod+apostrophe split vertical
+bindsym $mod+quotedbl   split vertical
+bindsym $mod+minus      split vertical
+# need " split verticle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
@@ -92,8 +93,8 @@ bindsym $mod+Shift+space floating toggle
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
 
-# focus the parent container
-bindsym $mod+a focus parent
+## focus the parent container
+#bindsym $mod+a focus parent
 
 # focus the child container
 #bindsym $mod+d focus child
