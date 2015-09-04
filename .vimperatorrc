@@ -32,17 +32,15 @@ nnoremap k 5k
 " Make hints larger (125% is the key point)
 :highlight Hint font-size:125%;color:white;background-color:red;padding:2px;
 
-inoremap jj <ESC>
-inoremap JU ()<left>
-inoremap JI []<left>
-inoremap JM {}<left>
-inoremap J< <><left>
+inoremap <C-j> <ESC>
+inoremap <C-u> ()<left>
+inoremap <C-i> []<left>
+inoremap <C-m> {}<left>
+inoremap <C-h> <left>
+inoremap <C-l> <right>
 
 " Figure out what we do when we can't see the tabs... this should be opened in a new window or something?
 " :ignorekeys add docs.google.com
-
-" Movement
-inoremap JL <right>
 
 " v in normal mode goes straight into visual mode (useful after find)
 nnoremap v cv
@@ -74,18 +72,10 @@ noremap <C-h> :tabprevious<CR>
 " Press 'cntrl+l' to go to next tab
 noremap <C-l> :tabnext<CR>
 
-" Press 'C-a' to select all
-noremap <C-a> <C-v><C-a>
+" Terminal like copy/paste
+inoremap <C-S-c> <C-c>
+inoremap <C-S-v> <C-v>
 
-" Press 'C-c' to copy, 'C-v' or 'S-Insert' to paste, or 'C-x' to cut
-" noremap <C-c> <C-v><C-c>
-" noremap <C-v> <C-v><C-v>
-" noremap <C-x> <C-v><C-x>
-" cnoremap <C-c> <C-v><C-c>
-" cnoremap <C-v> <C-v><C-v>
-" cnoremap <S-Insert> <C-v><C-v>
-" cnoremap <C-x> <C-v><C-x>
-" inoremap <C-c> <C-v><C-c>
-" inoremap <C-v> <C-v><C-v>
-" inoremap <S-Insert> <C-v><C-v>
-" inoremap <C-x> <C-v><C-x>
+" Vim like copy/paste
+inoremap <A-y> <C-c>
+inoremap <A-p> <C-v>

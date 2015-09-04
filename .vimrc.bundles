@@ -25,7 +25,6 @@
 
     " Basics {
         set nocompatible        " Must be first line
-        set background=dark     " Assume a dark background
     " }
 
     " Windows Compatible {
@@ -91,9 +90,7 @@
     " In your .vimrc.before.local file
     " list only the plugin groups you will use
     if !exists('g:spf13_bundle_groups')
-        "let g:spf13_bundle_groups=['general', 'writing', 'neocomplcache', 'programming', 'php', 'ruby', 'python', 'javascript', 'html', 'misc',]
-        "let g:spf13_bundle_groups=['minimal', 'general', 'writing', 'pymode', 'programming', 'micro', 'php', 'ruby', 'python', 'javascript', 'html', 'misc',]
-        let g:spf13_bundle_groups=['minimal', 'general', 'writing', 'youcompleteme', 'programming', 'micro', 'php', 'python', 'golang', 'html', 'misc',]
+        let g:spf13_bundle_groups=['minimal', 'general', 'writing', 'youcompleteme', 'programming', 'micro', 'python', 'golang', 'html', 'misc',]
     endif
 
     " To override all the included bundles, add the following to your
@@ -103,130 +100,72 @@
 
         " Minimal {
         if count(g:spf13_bundle_groups, 'minimal')
+            " git support
             Bundle 'tpope/vim-fugitive'
-            Bundle 'scrooloose/nerdtree'
+            " shows which lines have been added/removed version control
+            Bundle 'mhinz/vim-signify'
+            " better colors
             Bundle 'altercation/vim-colors-solarized'
-            Bundle 'spf13/vim-colors'
+            " use surounding text in commands
             Bundle 'tpope/vim-surround'
-            Bundle 'vitiral/vim.ergonomic'
+            " easier typing of common commands in insert mode
+            "Bundle 'vitiral/vim-ergonomic'
+            " comment out lines easier
             Bundle 'scrooloose/nerdcommenter'
+            let g:NERDCustomDelimiters = { 'python': { 'left': '# '} }
         endif
         " }
 
         " General {
         if count(g:spf13_bundle_groups, 'general')
-            Bundle 'tpope/vim-repeat'
-            "Bundle 'spf13/vim-autoclose'
-            Bundle 'kien/ctrlp.vim'
-            Bundle 'tacahiroy/ctrlp-funky'
+            " edit text using multiple cursors. Cntrl-n in normal mode
             Bundle 'terryma/vim-multiple-cursors'
-            Bundle 'vim-scripts/sessionman.vim'
-            Bundle 'matchit.zip'
-            if (has("python") || has("python3")) && exists('g:spf13_use_powerline') && !exists('g:spf13_use_old_powerline')
-                Bundle 'Lokaltog/powerline', {'rtp':'/powerline/bindings/vim'}
-            elseif exists('g:spf13_use_powerline') && exists('g:spf13_use_old_powerline')
-                Bundle 'Lokaltog/vim-powerline'
-            else
-                Bundle 'bling/vim-airline'
-            endif
+            " use . after plugin map
+            Bundle 'tpope/vim-repeat'
+            " Shows lots of details (column, row, etc)
+            Bundle 'bling/vim-airline'
+            " shows buffers below
             Bundle 'bling/vim-bufferline'
+            " allows for easier searching (<leader><leader><standard vim search key>)
             Bundle 'Lokaltog/vim-easymotion'
-            Bundle 'jistr/vim-nerdtree-tabs'
-            Bundle 'flazz/vim-colorschemes'
-            Bundle 'mbbill/undotree'
+            " shows indent levels
             Bundle 'nathanaelkane/vim-indent-guides'
-            if !exists('g:spf13_no_views')
-                Bundle 'vim-scripts/restore_view.vim'
-            endif
-            Bundle 'mhinz/vim-signify'
-            Bundle 'tpope/vim-abolish.git'
-            Bundle 'osyo-manga/vim-over'
-            Bundle 'kana/vim-textobj-user'
-            Bundle 'kana/vim-textobj-indent'
-            Bundle 'gcmt/wildfire.vim'
-        endif
-        " }
-
-        " Writing {
-        if count(g:spf13_bundle_groups, 'writing')
-            Bundle 'reedes/vim-litecorrect'
-            Bundle 'reedes/vim-textobj-sentence'
-            Bundle 'reedes/vim-textobj-quote'
-            Bundle 'reedes/vim-wordy'
+            " show prior screen position when opening file
+            Bundle 'vim-scripts/restore_view.vim'
+            "Bundle 'kana/vim-textobj-user'
+            "Bundle 'kana/vim-textobj-indent'
         endif
         " }
 
         " General Programming {
         if count(g:spf13_bundle_groups, 'programming')
-            " Pick one of the checksyntax, jslint, or syntastic
-            " ignore some errors: http://pep8.readthedocs.org/en/latest/intro.html#error-codes
-            Bundle 'mattn/webapi-vim'
-            Bundle 'mattn/gist-vim'
-            "Bundle 'vim-scripts/Conque-Shell'
-            let g:NERDCustomDelimiters = { 'python': { 'left': '# '} }
-            Bundle 'tpope/vim-commentary'
+            Bundle 'scrooloose/syntastic'
+            let g:syntastic_python_python_exec = 'python2'
             if !count(g:spf13_bundle_groups, 'minimal')
-            Bundle 'godlygeek/tabular'
-                if executable('ctags')
-                    Bundle 'majutsushi/tagbar'
-                endif
+                Bundle 'godlygeek/tabular'
             endif
         endif
     " }
 
     " Snippets & AutoComplete {
-        if count(g:spf13_bundle_groups, 'snipmate')
-            Bundle 'garbas/vim-snipmate'
-            Bundle 'honza/vim-snippets'
-            " Source support_function.vim to support vim-snippets.
-            if filereadable(expand("~/.vim/bundle/vim-snippets/snippets/support_functions.vim"))
-                source ~/.vim/bundle/vim-snippets/snippets/support_functions.vim
-            endif
-        elseif count(g:spf13_bundle_groups, 'youcompleteme')
+        if count(g:spf13_bundle_groups, 'youcompleteme')
+            " Best general language code completer around
             Bundle 'Valloric/YouCompleteMe'
+            " TODO: figure this out. automatically write common code
+            " use snippets + community library of snippets
             Bundle 'SirVer/ultisnips'
             Bundle 'honza/vim-snippets'
-        elseif count(g:spf13_bundle_groups, 'neocomplcache')
-            Bundle 'Shougo/neocomplcache'
-            Bundle 'Shougo/neosnippet'
-            Bundle 'Shougo/neosnippet-snippets'
-            Bundle 'honza/vim-snippets'
-        elseif count(g:spf13_bundle_groups, 'neocomplete')
-            Bundle 'Shougo/neocomplete.vim.git'
-            Bundle 'Shougo/neosnippet'
-            Bundle 'Shougo/neosnippet-snippets'
-            Bundle 'honza/vim-snippets'
-        endif
-    " }
-
-    " PHP {
-        if count(g:spf13_bundle_groups, 'php')
-            Bundle 'spf13/PIV'
-            Bundle 'arnaud-lb/vim-php-namespace'
-            Bundle 'beyondwords/vim-twig'
         endif
     " }
 
     " Python {
         if count(g:spf13_bundle_groups, 'python')
-
-            Bundle 'python-rope/ropevim'
-            " Do not use pymode - the code folding alone completely ground vim to a halt
-
-            " we only want pymode syntax
-            "Bundle 'python_match.vim'
-            "Bundle 'vitiral/vim-python'
-            Bundle 'scrooloose/syntastic'
-            let g:syntastic_python_python_exec = 'python2'
-            " http://flake8.readthedocs.org/en/latest/warnings.html
-            "let g:syntastic_python_flake8_args = '--ignore="E501,E701,E241,E126,E127,E128,W801"'  " mark 'line too long'
             let g:syntastic_python_flake8_args = '--ignore="E701,E501,E241,E126,E127,E128,W801"'
-            " http://pylint-messages.wikidot.com/all-codes
             let g:syntastic_python_pylint_args='-d C0103,C0111,R0903,R0904,E501,E1101,E1103,W0141,W0142,W0201,W0232,W0511 -f parseable -r n -i y'
+            " code refactoring
+            Bundle 'python-rope/ropevim'
+            " code folding with reasonable cpu requirements (don't use pymode it makes things laggy)
             Bundle 'tmhedberg/SimpylFold'
-
-            "Bundle 'vim-scripts/python.vim'
-            "Bundle 'pythoncomplete'
         endif
     " }
 
@@ -246,29 +185,6 @@
         endif
     " }
 
-    " Scala {
-        if count(g:spf13_bundle_groups, 'scala')
-            Bundle 'derekwyatt/vim-scala'
-            Bundle 'derekwyatt/vim-sbt'
-            Bundle 'xptemplate'
-        endif
-    " }
-
-    " Haskell {
-        if count(g:spf13_bundle_groups, 'haskell')
-            Bundle 'travitch/hasksyn'
-            Bundle 'dag/vim2hs'
-            Bundle 'Twinside/vim-haskellConceal'
-            Bundle 'Twinside/vim-haskellFold'
-            Bundle 'lukerandall/haskellmode-vim'
-            Bundle 'eagletmt/neco-ghc'
-            Bundle 'eagletmt/ghcmod-vim'
-            Bundle 'Shougo/vimproc'
-            Bundle 'adinapoli/cumino'
-            Bundle 'bitc/vim-hdevtools'
-        endif
-    " }
-
     " HTML {
         if count(g:spf13_bundle_groups, 'html')
             Bundle 'amirh/HTML-AutoCloseTag'
@@ -278,49 +194,12 @@
         endif
     " }
 
-    " Ruby {
-        if count(g:spf13_bundle_groups, 'ruby')
-            Bundle 'tpope/vim-rails'
-            let g:rubycomplete_buffer_loading = 1
-            "let g:rubycomplete_classes_in_global = 1
-            "let g:rubycomplete_rails = 1
-        endif
-    " }
-
-    " Go Lang {
-        if count(g:spf13_bundle_groups, 'go')
-            "Bundle 'Blackrush/vim-gocode'
-            Bundle 'fatih/vim-go'
-        endif
-    " }
-
-    " Microcontroller {
-        if count(g:spf13_bundle_groups, 'micro')
-            "Bundle 'jplaut/vim-arduino-ino'
-        endif
-    " }
     " Misc {
         if count(g:spf13_bundle_groups, 'misc')
             Bundle 'tpope/vim-markdown'
-            Bundle 'spf13/vim-preview'
-            Bundle 'tpope/vim-cucumber'
-            Bundle 'cespare/vim-toml'
-            Bundle 'quentindecock/vim-cucumber-align-pipes'
-            Bundle 'Puppet-Syntax-Highlighting'
         endif
     " }
 
     endif
 
 " }
-
-" Use fork bundles config if available {
-    if filereadable(expand("~/.vimrc.bundles.fork"))
-        source ~/.vimrc.bundles.fork
-    endif
-" }
-
-" Use local bundles config if available {
-    if filereadable(expand("~/.vimrc.bundles.local"))
-        source ~/.vimrc.bundles.local
-    endif
