@@ -3,16 +3,23 @@ URxvt.font: xft:inconsolata:size=13,-*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
 URxvt*loginShell: false
 URxvt.letterSpace: 0
 URxvt*background: black
-URxvt*foreground: white
+URxvt*foreground: grey
 URxvt*color12: blue50
 
 ! copy paste
-URxvt.perl-ext-common: default,clipboard
+URxvt.perl-ext-common: default,clipboard,keyboard-select
 URxvt.iso14755: false
-URxvt.keysym.Shift-Control-C: perl:clipboard:copy
-URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+! vimlike copy/paste with Alt
+URxvt.keysym.M-y:     perl:clipboard:copy
+URxvt.keysym.M-p:     perl:clipboard:paste
+! standard termial copy/paste
+URxvt.keysym.S-C-c:   perl:clipboard:copy
+URxvt.keysym.S-C-v:   perl:clipboard:paste
 URxvt.clipboard.copycmd: xsel -ib
 URxvt.clipboard.pastecmd: xsel -ob
+
+! Text selection (visual mode)
+URxvt.keysym.Control-v: perl:keyboard-select:activate
 
 ! launch urls quickly
 !URxvt.perl-ext-common:      default.clipborad.url-select.keyboard-select

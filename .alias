@@ -114,6 +114,10 @@ alias ga='git add'
 alias gm='git merge'
 alias ghash='git rev-parse HEAD'
 
+gitio() {
+    curl -i http://git.io -F "url=$1"
+}
+
 ## Sign and verify commits with GPG
 #alias gcs='git commit -S'
 #alias gsps='git show --pretty=short --show-signature'

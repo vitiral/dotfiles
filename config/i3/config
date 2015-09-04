@@ -17,7 +17,7 @@ set $mod Mod1
 # set $mod Mod4
 
 # set up screen lock
-exec xautolock -time 10 -locker i3lock
+exec xautolock -time 11 -locker i3lock -c 000000
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -49,7 +49,7 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+d kill
 
 # start dmenu (a program launcher)
-bindsym $mod+a exec dmenu_run
+bindsym $mod+semicolon exec dmenu_run
 
 # change focus
 bindsym $mod+h focus left
