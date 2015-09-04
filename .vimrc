@@ -1,19 +1,5 @@
-" Modeline and Notes {
+" vimrc for vitiral
 " vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:"{"}
-"
-"                    __ _ _____              _
-"         ___ _ __  / _/ |___ /      __   __(_)_ __ ___
-"        / __| '_ \| |_| | |_ \ _____\ \ / /| | '_ ` _ \
-"        \__ \ |_) |  _| |___) |_____|\ V / | | | | | | |
-"        |___/ .__/|_| |_|____/        \_/  |_|_| |_| |_|
-"            |_|
-"
-"   This is the personal .vimrc file of Steve Francia.
-"   While much of it is beneficial for general use, I would
-"   recommend picking out the parts you want and understand.
-"
-"   You can find me at http://spf13.com
-" }
 
 " Environment {
 
@@ -65,9 +51,6 @@ endif
         endif
     endif
 
-    " switch to the current file directory when a new buffer is opened
-    autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
-
     set autoread
     set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
     set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
@@ -104,6 +87,30 @@ endif
 " }
 
 " Vim UI {
+" Ergonomic {
+    " commands can start with ;"
+    nnoremap ; :
+
+    " Leader is , instead of \
+    let mapleader = ','
+
+    " Notes: os wide Cntrl i=tab, n=enter
+    " vim specific: t=indents code (from where?)
+    " Easier to escape
+    nnoremap <C-f> <nop>
+    inoremap <C-f> <ESC>
+    vnoremap <C-f> <ESC>
+    cnoremap <C-f> <ESC>
+
+    " Hard to reach symbols
+    inoremap <C-u> ()<left>
+    inoremap <C-h> []<left>
+    inoremap <C-b> {}<left>
+    inoremap <C-l> <right>
+
+    " insert lines
+    inoremap <C-o> <esc>o
+" }
 
 if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
     let g:solarized_termcolors=256
@@ -164,12 +171,9 @@ set ignorecase                  " Case insensitive search
 set smartcase                   " Case sensitive when uc present
 set wildmenu                    " Show list instead of just completing
 set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
-
-
 " }
 
 " Formatting {
-
 set nowrap                      " Do not wrap long lines
 set autoindent                  " Indent at the same level of the previous line
 set shiftwidth=4                " Use indents of 4 spaces
@@ -190,9 +194,6 @@ autocmd BufNewFile,BufRead *.coffee set filetype=coffee
 " }
 
 " Key (re)Mappings {
-
-" Leader is , instead of \
-let mapleader = ','
 
 " Yank from the cursor to the end of the line, to be consistent with C and D.
 nnoremap Y y$
@@ -216,18 +217,16 @@ map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
 " Easier formatting
 nnoremap <silent> <leader>q gwip
 
-
 " Window Management {
 " ,wX does various things to windows 
 " wgX is reserved for 'window goto' for tools like youcompleteme
 nnoremap <leader>wf <C-w>= " fix windows
 nnoremap <leader>ww <C-w>v<C-w>l<C-w>=  " horizontal split
 nnoremap <leader>wp <C-w>s<C-w>j<C-w>=  " vertical split
-" leader wrc opens rc window for editing
 nnoremap <leader>wr :checktime<CR>  " reload all buffers
-" Fast search and replace
+" leader wrc opens rc window for editing
 nnoremap <leader>wvrc :e $MYVIMRC<CR>  " open ~/.vimrc for editing
-" find current directory/file
+" show current directory/file
 nnoremap <leader>wpd :echo expand('%:p:h')<CR>
 nnoremap <leader>wpp :echo expand('%:p')<CR>
 
@@ -261,7 +260,6 @@ map <leader>ew :e %%
 map <leader>es :sp %%
 map <leader>ev :vsp %%
 map <leader>et :tabe %%
-
 
 command! ClearHistory !rm -rf $HOME/.viminfo $HOME/.vimswap $HOME/.vimundo $HOME/.vimviews/ $HOME/.vimbackup
 
@@ -349,22 +347,22 @@ map zh zH
 " }
 
 " Tabular {
-    if isdirectory(expand("~/.vim/bundle/tabular"))
-        nmap <Leader>a& :Tabularize /&<CR>
-        vmap <Leader>a& :Tabularize /&<CR>
-        nmap <Leader>a= :Tabularize /=<CR>
-        vmap <Leader>a= :Tabularize /=<CR>
-        nmap <Leader>a: :Tabularize /:<CR>
-        vmap <Leader>a: :Tabularize /:<CR>
-        nmap <Leader>a:: :Tabularize /:\zs<CR>
-        vmap <Leader>a:: :Tabularize /:\zs<CR>
-        nmap <Leader>a, :Tabularize /,<CR>
-        vmap <Leader>a, :Tabularize /,<CR>
-        nmap <Leader>a,, :Tabularize /,\zs<CR>
-        vmap <Leader>a,, :Tabularize /,\zs<CR>
-        nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
-        vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
-    endif
+if isdirectory(expand("~/.vim/bundle/tabular"))
+    nmap <Leader>a& :Tabularize /&<CR>
+    vmap <Leader>a& :Tabularize /&<CR>
+    nmap <Leader>a= :Tabularize /=<CR>
+    vmap <Leader>a= :Tabularize /=<CR>
+    nmap <Leader>a: :Tabularize /:<CR>
+    vmap <Leader>a: :Tabularize /:<CR>
+    nmap <Leader>a:: :Tabularize /:\zs<CR>
+    vmap <Leader>a:: :Tabularize /:\zs<CR>
+    nmap <Leader>a, :Tabularize /,<CR>
+    vmap <Leader>a, :Tabularize /,<CR>
+    nmap <Leader>a,, :Tabularize /,\zs<CR>
+    vmap <Leader>a,, :Tabularize /,\zs<CR>
+    nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
+    vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
+endif
 " }
 
 " JSON {
@@ -374,81 +372,55 @@ map zh zH
 
 
 " Version control Fugitive {
-    if isdirectory(expand("~/.vim/bundle/vim-fugitive/"))
-        nnoremap <silent> <leader>gs :Gstatus<CR>
-        nnoremap <silent> <leader>gd :Gdiff<CR>
-        nnoremap <silent> <leader>gc :Gcommit<CR>
-        nnoremap <silent> <leader>gb :Gblame<CR>
-        nnoremap <silent> <leader>gl :Glog<CR>
-        nnoremap <silent> <leader>gp :Git push<CR>
-        nnoremap <silent> <leader>gr :Gread<CR>
-        nnoremap <silent> <leader>gw :Gwrite<CR>
-        nnoremap <silent> <leader>ge :Gedit<CR>
-        " Mnemonic _i_nteractive
-        nnoremap <silent> <leader>gi :Git add -p %<CR>
-        nnoremap <silent> <leader>gg :SignifyToggle<CR>
-    endif
+if isdirectory(expand("~/.vim/bundle/vim-fugitive/"))
+    nnoremap <silent> <leader>gs :Gstatus<CR>
+    nnoremap <silent> <leader>gd :Gdiff<CR>
+    nnoremap <silent> <leader>gc :Gcommit<CR>
+    nnoremap <silent> <leader>gb :Gblame<CR>
+    nnoremap <silent> <leader>gl :Glog<CR>
+    nnoremap <silent> <leader>gp :Git push<CR>
+    nnoremap <silent> <leader>gr :Gread<CR>
+    nnoremap <silent> <leader>gw :Gwrite<CR>
+    nnoremap <silent> <leader>ge :Gedit<CR>
+    " Mnemonic _i_nteractive
+    nnoremap <silent> <leader>gi :Git add -p %<CR>
+    nnoremap <silent> <leader>gg :SignifyToggle<CR>
+endif
 "}
 
 " YouCompleteMe {
-    if count(g:spf13_bundle_groups, 'youcompleteme')
-        command! GG YcmCompleter GoTo
-        nnoremap <leader>wg :YcmCompleter GoTo<CR>
+    command! GG YcmCompleter GoTo
+    nnoremap <leader>wg :YcmCompleter GoTo<CR>
+    let g:acp_enableAtStartup = 0
+    let g:ycm_confirm_extra_conf = 1
+    let g:ycm_collect_identifiers_from_tags_files = 1
+    let g:ycm_server_keep_logfiles = 1
+    " remap Ultisnips for compatibility for YCM
+    let g:UltiSnipsExpandTrigger = '<C-j>'
+    let g:UltiSnipsJumpForwardTrigger = '<C-j>'
+    let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
 
-        let g:acp_enableAtStartup = 0
-
-        " disable asking about completion files
-        let g:ycm_confirm_extra_conf = 1
-
-        " enable completion from tags
-        let g:ycm_collect_identifiers_from_tags_files = 1
-
-        " remap Ultisnips for compatibility for YCM
-        "let g:UltiSnipsExpandTrigger = '<C-j>'
-        "let g:UltiSnipsJumpForwardTrigger = '<C-j>'
-        let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
-        
-        " Keep log files
-        let g:ycm_server_keep_logfiles = 1
-
-        " Enable omni completion.
-        autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-        autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-        autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-
-        autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-        " For snippet_complete marker.
-        if has('conceal')
-            set conceallevel=2 concealcursor=i
-        endif
-
-        " Disable the neosnippet preview candidate window
-        " When enabled, there can be too much visual noise
-        " especially when splits are used.
-        set completeopt-=preview
-    endif
-" }
-
-" Normal Vim omni-completion {
-    " Enable omni-completion.
+    " Enable omni completion on unsuported files
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    if ! count(g:spf13_bundle_groups, 'pymode')
-        autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    endif
     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-    autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-    autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+
+    " For snippet_complete marker.
+    if has('conceal')
+        set conceallevel=2 concealcursor=i
+    endif
+
+    " Disable the neosnippet preview candidate window. Can be too much visual noise
+    set completeopt-=preview
 " }
 
 " indent_guides {
-    if isdirectory(expand("~/.vim/bundle/vim-indent-guides/"))
-        let g:indent_guides_start_level = 2
-        let g:indent_guides_guide_size = 1
-        let g:indent_guides_enable_on_vim_startup = 1
-    endif
+if isdirectory(expand("~/.vim/bundle/vim-indent-guides/"))
+    let g:indent_guides_start_level = 2
+    let g:indent_guides_guide_size = 1
+    let g:indent_guides_enable_on_vim_startup = 1
+endif
 " }
 
 
@@ -483,14 +455,12 @@ map zh zH
 if has('gui_running')
     set guioptions-=T           " Remove the toolbar
     set lines=40                " 40 lines of text instead of 24
-    if !exists("g:spf13_no_big_font")
-        if LINUX() && has("gui_running")
-            set guifont=Andale\ Mono\ Regular\ 12,Menlo\ Regular\ 11,Consolas\ Regular\ 12,Courier\ New\ Regular\ 14
-        elseif OSX() && has("gui_running")
-            set guifont=Andale\ Mono\ Regular:h12,Menlo\ Regular:h11,Consolas\ Regular:h12,Courier\ New\ Regular:h14
-        elseif WINDOWS() && has("gui_running")
-            set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
-        endif
+    if LINUX() && has("gui_running")
+        set guifont=Andale\ Mono\ Regular\ 12,Menlo\ Regular\ 11,Consolas\ Regular\ 12,Courier\ New\ Regular\ 14
+    elseif OSX() && has("gui_running")
+        set guifont=Andale\ Mono\ Regular:h12,Menlo\ Regular:h11,Consolas\ Regular:h12,Courier\ New\ Regular:h14
+    elseif WINDOWS() && has("gui_running")
+        set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
     endif
 else
     if &term == 'xterm' || &term == 'screen'
@@ -516,16 +486,7 @@ function! InitializeDirectories()
         let dir_list['undo'] = 'undodir'
     endif
 
-    " To specify a different directory in which to place the vimbackup,
-    " vimviews, vimundo, and vimswap files/directories, add the following to
-    " your .vimrc.before.local file:
-    "   let g:spf13_consolidated_directory = <full path to desired directory>
-    "   eg: let g:spf13_consolidated_directory = $HOME . '/.vim/'
-    if exists('g:spf13_consolidated_directory')
-        let common_dir = g:spf13_consolidated_directory . prefix
-    else
-        let common_dir = parent . '/.' . prefix
-    endif
+    let common_dir = parent . '/.' . prefix
 
     for [dirname, settingname] in items(dir_list)
         let directory = common_dir . dirname . '/'
