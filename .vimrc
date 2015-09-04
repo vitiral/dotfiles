@@ -2,7 +2,6 @@
 " vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:"{"}
 
 " Environment {
-
 silent function! OSX()
     return has('macunix')
 endfunction
@@ -29,6 +28,7 @@ endif
 if filereadable(expand("~/.vimrc.bundles"))
     source ~/.vimrc.bundles
 endif
+" }
 
 "" General {
     " Automatically watch .vimrc and reload when changes are saved
@@ -110,6 +110,12 @@ endif
 
     " insert lines
     inoremap <C-o> <esc>o
+    
+    " Easier moving in tabs and windows
+    map <C-J> <C-W>j
+    map <C-K> <C-W>k
+    map <C-L> <C-W>l
+    map <C-H> <C-W>h
 " }
 
 if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
@@ -162,7 +168,7 @@ set linespace=0                 " No extra spaces between rows
 set nu                          " Line numbers on
 set relativenumber              " line numbers are relevant from cursor
 
-" Search configurations
+" Search configurations {
 set showmatch                   " Show matching brackets/parenthesis
 set incsearch                   " Find as you type search
 set hlsearch                    " Highlight search terms
@@ -171,6 +177,7 @@ set ignorecase                  " Case insensitive search
 set smartcase                   " Case sensitive when uc present
 set wildmenu                    " Show list instead of just completing
 set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
+" }
 " }
 
 " Formatting {
@@ -194,28 +201,47 @@ autocmd BufNewFile,BufRead *.coffee set filetype=coffee
 " }
 
 " Key (re)Mappings {
+" General reMappings {
+    " Yank from the cursor to the end of the line, to be consistent with C and D.
+    nnoremap Y y$
 
-" Yank from the cursor to the end of the line, to be consistent with C and D.
-nnoremap Y y$
+    " ,<space> clears search history
+    nnoremap <leader><space> :noh<cr>
 
-" ,<space> clears search history
-nnoremap <leader><space> :noh<cr>
+    " Map <Leader>ff to display all lines with keyword under cursor
+    " and ask which one to jump to
+    nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 
-" Easier moving in tabs and windows
-map <C-J> <C-W>j
-map <C-K> <C-W>k
-map <C-L> <C-W>l
-map <C-H> <C-W>h
+    " Easier formatting
+    nnoremap <silent> <leader>q gwip
 
-" Map <Leader>ff to display all lines with keyword under cursor
-" and ask which one to jump to
-nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+    " python remappings
+    nnoremap <leader>sb oimport ipdb; ipdb.set_trace()<ESC>
+    nnoremap <leader>sB Oimport ipdb; ipdb.set_trace()<ESC>
 
-" Find merge conflict markers
-map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
+    "Get rid of help key
+    inoremap <F1> <ESC>
+    nnoremap <F1> <ESC>
+    vnoremap <F1> <ESC>
 
-" Easier formatting
-nnoremap <silent> <leader>q gwip
+    cmap Tabe tabe
+
+    " Visual shifting (does not exit Visual mode)
+    vnoremap < <gv
+    vnoremap > >gv
+
+    " Allow using the repeat operator with a visual selection (!)
+    " http://stackoverflow.com/a/8064607/127816
+    vnoremap . :normal .<CR>
+
+    " Easier horizontal scrolling
+    map zl zL
+    map zh zH
+    " What is going on with this fold? {
+        " Find merge conflict markers
+        map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
+    " }}}}
+" }
 
 " Window Management {
 " ,wX does various things to windows 
@@ -234,38 +260,28 @@ nnoremap <leader>wpp :echo expand('%:p')<CR>
 nnoremap <leader>wn :set relativenumber!<cr>:set nonu!<cr>
 " }
 
-" python remappings
-nnoremap <leader>sb oimport ipdb; ipdb.set_trace()<ESC>
-nnoremap <leader>sB Oimport ipdb; ipdb.set_trace()<ESC>
-
-"Get rid of help key
-inoremap <F1> <ESC>
-nnoremap <F1> <ESC>
-vnoremap <F1> <ESC>
-
 " Command Remappings {
-" search and replace
-cmap repl %s///gc<Left><Left><Left>
-" search and replace in all buffers
-cmap brepl bufdo %s///gc<Left><Left><Left>
-" Change Working Directory to that of the current file
-cmap cwd lcd %:p:h
-cmap cd. lcd %:p:h
-" For when you forget to sudo.. Really Write the file.
-cmap w!! w !sudo tee % >/dev/null
+    " search and replace
+    cmap repl %s///gc<Left><Left><Left>
+    " search and replace in all buffers
+    cmap brepl bufdo %s///gc<Left><Left><Left>
+    " Change Working Directory to that of the current file
+    cmap cwd lcd %:p:h
+    cmap cd. lcd %:p:h
+    " For when you forget to sudo.. Really Write the file.
+    cmap w!! w !sudo tee % >/dev/null
 
-" Some helpers to edit mode (auto expands directory)
-cnoremap %% <C-R>=expand('%:h').'/'<cr>
-map <leader>ew :e %%
-map <leader>es :sp %%
-map <leader>ev :vsp %%
-map <leader>et :tabe %%
+    " Some helpers to edit mode (auto expands directory)
+    cnoremap %% <C-R>=expand('%:h').'/'<cr>
+    map <leader>ew :e %%
+    map <leader>es :sp %%
+    map <leader>ev :vsp %%
+    map <leader>et :tabe %%
 
-command! ClearHistory !rm -rf $HOME/.viminfo $HOME/.vimswap $HOME/.vimundo $HOME/.vimviews/ $HOME/.vimbackup
-
+    command! ClearHistory !rm -rf $HOME/.viminfo $HOME/.vimswap $HOME/.vimundo $HOME/.vimviews/ $HOME/.vimbackup
 " }
 
-" Terrible Wrapping {
+" Fix Terrible Movement Wrapping {
     " End/Start of line motion keys act relative to row/wrap width in the
     " presence of `:set wrap`, and relative to line for `:set nowrap`.
     " Same for 0, home, end, etc
@@ -300,7 +316,7 @@ command! ClearHistory !rm -rf $HOME/.viminfo $HOME/.vimswap $HOME/.vimundo $HOME
         vnoremap ^ :<C-U>call WrapRelativeMotion("^", 1)<CR>
 " }
 
-" Stupid shift key fixes
+" Stupid shift key fixes {
 if has("user_commands")
     command! -bang -nargs=* -complete=file E e<bang> <args>
     command! -bang -nargs=* -complete=file W w<bang> <args>
@@ -312,24 +328,11 @@ if has("user_commands")
     command! -bang QA qa<bang>
     command! -bang Qa qa<bang>
 endif
-cmap Tabe tabe
 
-" Visual shifting (does not exit Visual mode)
-vnoremap < <gv
-vnoremap > >gv
-
-" Allow using the repeat operator with a visual selection (!)
-" http://stackoverflow.com/a/8064607/127816
-vnoremap . :normal .<CR>
-
-" Easier horizontal scrolling
-map zl zL
-map zh zH
-
+" }
 " }
 
 " Plugins {
-
 " Ctags {
     set tags=./tags;/,~/.vimtags
 
@@ -369,7 +372,6 @@ endif
     nmap <leader>jt <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
     let g:vim_json_syntax_conceal = 0 
 " }
-
 
 " Version control Fugitive {
 if isdirectory(expand("~/.vim/bundle/vim-fugitive/"))
@@ -423,7 +425,6 @@ if isdirectory(expand("~/.vim/bundle/vim-indent-guides/"))
 endif
 " }
 
-
 " vim-airline {
     " Set configuration options for the statusline plugin vim-airline.
     " Use the powerline theme and optionally enable powerline symbols.
@@ -446,7 +447,6 @@ endif
         endif
     endif
 " }
-
 " }
 
 " GUI Settings {
@@ -472,7 +472,6 @@ endif
 " }
 
 " Functions {
-
 " Initialize directories {
 function! InitializeDirectories()
     let parent = $HOME
@@ -543,7 +542,6 @@ endfunction
 command! -complete=file -nargs=+ Shell call s:RunShellCommand(<q-args>)
 " e.g. Grep current file for <search_term>: Shell grep -Hn <search_term> %
 " }
-
 " }
 
 " Use local vimrc if available {
