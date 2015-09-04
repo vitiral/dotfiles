@@ -109,7 +109,7 @@
             " use surounding text in commands
             Bundle 'tpope/vim-surround'
             " easier typing of common commands in insert mode
-            "Bundle 'vitiral/vim-ergonomic'
+            Bundle 'vitiral/vim-ergonomic'
             " comment out lines easier
             Bundle 'scrooloose/nerdcommenter'
             let g:NERDCustomDelimiters = { 'python': { 'left': '# '} }
