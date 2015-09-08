@@ -76,6 +76,13 @@ noremap <C-l> :tabnext<CR>
 inoremap <C-S-c> <C-c>
 inoremap <C-S-v> <C-v>
 
-" Vim like copy/paste
+" Special copy paste
 inoremap <A-y> <C-c>
+nnoremap <A-y> <C-c>
+cnoremap <A-y> <C-c>
+vnoremap <A-y> <C-c>
+
 inoremap <A-p> <C-v>
+nnoremap <A-p> <C-v>
+cnoremap <A-p> <C-v>
+vnoremap <A-p> <C-v>

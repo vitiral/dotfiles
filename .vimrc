@@ -195,6 +195,7 @@ set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
 " Filetype specific
 autocmd FileType c,cpp,java,go,php,javascript,python,twig,xml,yml,perl autocmd BufWritePre <buffer> call StripTrailingWhitespace()
 autocmd FileType make set noexpandtab   " make files use Tabs (not spaces)
+autocmd FileType markdown set wrap linebreak nolist textwidth=0 wrapmargin=0
 "autocmd FileType go autocmd BufWritePre <buffer> Fmt
 autocmd BufNewFile,BufRead *.coffee set filetype=coffee
 
