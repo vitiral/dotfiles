@@ -18,7 +18,6 @@ set! javascript.options.jit.chrome=true
 " set hintchars=0123456789
 set hintchars=asdfghklzxcvnqweop
 
-
 set tabnumbers
 set editor=vim
 set sh=/usr/bin/zsh
@@ -32,12 +31,21 @@ nnoremap k 5k
 " Make hints larger (125% is the key point)
 :highlight Hint font-size:125%;color:white;background-color:red;padding:2px;
 
-inoremap <C-j> <ESC>
-inoremap <C-u> ()<left>
-inoremap <C-i> []<left>
-inoremap <C-m> {}<left>
-inoremap <C-h> <left>
-inoremap <C-l> <right>
+" Ergonomic {
+    " Esc
+    nnoremap <C-f> <nop>
+    inoremap <C-f> <ESC>
+    vnoremap <C-f> <ESC>
+    cnoremap <C-f> <ESC>
+    " Hard to reach symbols
+    inoremap <C-u> ()<left>
+    inoremap <C-h> []<left>
+    inoremap <C-b> {}<left>
+    inoremap <C-l> <right>
+    " insert lines
+    inoremap <C-o> <ESC>o
+" }
+
 
 " Figure out what we do when we can't see the tabs... this should be opened in a new window or something?
 " :ignorekeys add docs.google.com
@@ -77,12 +85,12 @@ inoremap <C-S-c> <C-c>
 inoremap <C-S-v> <C-v>
 
 " Special copy paste
-inoremap <A-y> <C-c>
-nnoremap <A-y> <C-c>
-cnoremap <A-y> <C-c>
-vnoremap <A-y> <C-c>
+inoremap <A-c> <C-c>
+nnoremap <A-c> <C-c>
+cnoremap <A-c> <C-c>
+vnoremap <A-c> <C-c>
 
-inoremap <A-p> <C-v>
-nnoremap <A-p> <C-v>
-cnoremap <A-p> <C-v>
-vnoremap <A-p> <C-v>
+inoremap <A-v> <C-v>
+nnoremap <A-v> <C-v>
+cnoremap <A-v> <C-v>
+vnoremap <A-v> <C-v>
