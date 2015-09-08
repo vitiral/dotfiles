@@ -22,7 +22,8 @@ set hintchars=asdfghklzxcvnqweop
 set tabnumbers
 set editor=vim
 set sh=/usr/bin/zsh
-set gui=none,bookmarks
+" For when I am super-user and don't need to show tabs
+set gui=none,bookmarks,tabs
 let mapleader=","
 
 " Scroll up and down faster
