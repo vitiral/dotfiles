@@ -1,4 +1,5 @@
 " vimrc for vitiral
+" Check out the spf-13 vim configuration for an updated vimrc
 " vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:"{"}
 
 " Environment {
@@ -101,13 +102,12 @@ endif
     inoremap <C-f> <ESC>
     vnoremap <C-f> <ESC>
     cnoremap <C-f> <ESC>
-
     " Hard to reach symbols
     inoremap <C-u> ()<left>
-    inoremap <C-h> []<left>
+    inoremap <C-t> []<left>
     inoremap <C-b> {}<left>
     inoremap <C-l> <right>
-
+    lnoremap <C-h> <left>
     " insert lines
     inoremap <C-o> <esc>o
     
@@ -248,17 +248,20 @@ autocmd BufNewFile,BufRead *.coffee set filetype=coffee
 " ,wX does various things to windows 
 " wgX is reserved for 'window goto' for tools like youcompleteme
 nnoremap <leader>wf <C-w>= " fix windows
-nnoremap <leader>ww <C-w>v<C-w>l<C-w>=  " horizontal split
-nnoremap <leader>wp <C-w>s<C-w>j<C-w>=  " vertical split
+" horizontal+verticl splits
+nnoremap <leader>ww <C-w>v<C-w>l<C-w>=
+nnoremap <leader>wv <C-w>s<C-w>j<C-w>=
+" toggle paste
+nnoremap <silent> <leader>wp :set paste!<CR>
+" toggle line numbers
+nnoremap <silent> <leader>wn :set relativenumber!<cr>:set nonu!<cr>
+" reload files
 nnoremap <leader>wr :checktime<CR>  " reload all buffers
-" leader wrc opens rc window for editing
-nnoremap <leader>wvrc :e $MYVIMRC<CR>  " open ~/.vimrc for editing
+" leader wc opens rc window for editing
+nnoremap <leader>wc :e $MYVIMRC<CR>  " open ~/.vimrc for editing
 " show current directory/file
 nnoremap <leader>wpd :echo expand('%:p:h')<CR>
 nnoremap <leader>wpp :echo expand('%:p')<CR>
-
-" toggle line numbers
-nnoremap <leader>wn :set relativenumber!<cr>:set nonu!<cr>
 " }
 
 " Command Remappings {

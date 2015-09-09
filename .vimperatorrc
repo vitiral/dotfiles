@@ -1,38 +1,50 @@
 " Main commands you need to know
 " c - buffer mode, this is what lets you move around and copy+paste. 
 "   Use / to find something, c to go into buffer mode and v to go into visual mode
+" v - fast enter to visual selection mode. Useful for after search
+" cntrl-f: same as ESC, enter normal mode from anywhere
 
-" Autocomplete using Firefox Awesomebar subsystem
-set complete=l
 
-" Select the longest autocomplete match
-set wildmode='list:full'
+" Firefox Settings {
+    " Don't show menu bar or url input
+    set gui=none,bookmarks,tabs
+    " Make Firefox run faster by using JIT
+    set! javascript.options.jit.chrome=true
+    " Disable Alt key for menu toggle
+    set! ui.key.menuAccessKey=0
+    set! ui.key.menuAccessKeyFocuses=false
+    set tabnumbers
+    set sh=/usr/bin/zsh
+" }
 
-" Don't beep
-set noerrorbells
 
-" Make Firefox run faster by using JIT
-set! javascript.options.jit.chrome=true
+" General Vimperator settings {
+    set editor=vim
 
-" Use characters for hints instead of numbers
-" set hintchars=0123456789
-set hintchars=asdfghklzxcvnqweop
+    " Use characters for hints instead of numbers
+    set hintchars=asdfghklzxcvnqweop
 
-set tabnumbers
-set editor=vim
-set sh=/usr/bin/zsh
-" For when I am super-user and don't need to show tabs
-set gui=none,bookmarks,tabs
-let mapleader=","
+    " change hint size
+    :highlight Hint font-size:105%;color:white;background-color:red;padding:2px;
 
-" Scroll up and down faster
-nnoremap j 5j
-nnoremap k 5k
+    " Autocomplete using Firefox Awesomebar subsystem
+    set complete=l
 
-" Make hints larger (125% is the key point)
-:highlight Hint font-size:125%;color:white;background-color:red;padding:2px;
+    " Select the longest autocomplete match
+    set wildmode='list:full'
+
+    " Don't beep
+    set noerrorbells
+
+    " Scroll up and down faster
+    nnoremap j 5j
+    nnoremap k 5k
+" }
+
 
 " Ergonomic {
+    let mapleader=","
+
     " Esc
     nnoremap <C-f> <nop>
     inoremap <C-f> <ESC>
@@ -40,58 +52,68 @@ nnoremap k 5k
     cnoremap <C-f> <ESC>
     " Hard to reach symbols
     inoremap <C-u> ()<left>
-    inoremap <C-h> []<left>
+    inoremap <C-t> []<left>
     inoremap <C-b> {}<left>
     inoremap <C-l> <right>
+    inoremap <C-h> <left>
     " insert lines
     inoremap <C-o> <ESC>o
 " }
 
+" Keymappings {
+    " v in normal mode goes straight into visual mode (useful after find)
+    nnoremap v cv
 
-" Figure out what we do when we can't see the tabs... this should be opened in a new window or something?
-" :ignorekeys add docs.google.com
+    " exit c+v mode with q
+    cnoremap q <ESC>
+    vnoremap q <ESC>
 
-" v in normal mode goes straight into visual mode (useful after find)
-nnoremap v cv
+    " Press 'F10' to toggle Vimperator
+    noremap <F10> :vimperatortoggle<CR>
 
-" exit c+v mode with q
-cnoremap q <ESC>
-vnoremap q <ESC>
+    " Press 'cntrl+h' to go to previous tab
+    noremap <C-h> :tabprevious<CR>
+    " Press 'cntrl+l' to go to next tab
+    noremap <C-l> :tabnext<CR>
 
-" Reload configuration file into current browser, useful for updating after editing this file.
-command! sourcerc :source ~/.vimperatorrc
+    " Terminal like copy/paste
+    inoremap <C-S-c> <C-c>
+    inoremap <C-S-v> <C-v>
 
-" Show properties of an object within JavaScript.
-javascript <<EOB
-function inspect(what) {
-    var nodes = [];
-    for (var node in what)
-        nodes.push(node);
-    liberator.echo(nodes.sort().join(', '));
-}
-EOB
+    " Special copy paste
+    inoremap <A> <nop>
+    nnoremap <A> <nop>
+    cnoremap <A> <nop>
+    vnoremap <A> <nop>
 
-"===[ Mappings ]========================================================
+    inoremap <A-c> <C-c>
+    nnoremap <A-c> <C-c>
+    cnoremap <A-c> <C-c>
+    vnoremap <A-c> <C-c>
 
-" Press 'F10' to toggle Vimperator
-noremap <F10> :vimperatortoggle<CR>
+    inoremap <A-v> <C-v>
+    nnoremap <A-v> <C-v>
+    cnoremap <A-v> <C-v>
+    vnoremap <A-v> <C-v>
 
-" Press 'cntrl+h' to go to previous tab
-noremap <C-h> :tabprevious<CR>
-" Press 'cntrl+l' to go to next tab
-noremap <C-l> :tabnext<CR>
+    " Reload configuration file into current browser, useful for updating after editing this file.
+    command! sourcerc :source ~/.vimperatorrc
 
-" Terminal like copy/paste
-inoremap <C-S-c> <C-c>
-inoremap <C-S-v> <C-v>
+    " dev console with dev command
+    command! dev emenu Tools.Web Developer.Web Console<CR>
+" }
 
-" Special copy paste
-inoremap <A-c> <C-c>
-nnoremap <A-c> <C-c>
-cnoremap <A-c> <C-c>
-vnoremap <A-c> <C-c>
 
-inoremap <A-v> <C-v>
-nnoremap <A-v> <C-v>
-cnoremap <A-v> <C-v>
-vnoremap <A-v> <C-v>
+" Extra Functions {
+    " Show properties of an object within JavaScript.
+    javascript <<EOB
+    function inspect(what) {
+        var nodes = [];
+        for (var node in what)
+            nodes.push(node);
+        liberator.echo(nodes.sort().join(', '));
+    }
+    EOB
+" }
+
+
