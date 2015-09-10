@@ -6,6 +6,7 @@
 
 
 " Firefox Settings {
+    set titlestring="Firefox"
     " Don't show menu bar or url input
     set gui=none,bookmarks,tabs
     " Make Firefox run faster by using JIT
@@ -15,17 +16,55 @@
     set! ui.key.menuAccessKeyFocuses=false
     set tabnumbers
     set sh=/usr/bin/zsh
+    set! browser.newtab.url=about:blank
+    " Pipelining (download webpages over multiple pipes)
+    set! network.http.pipelining=true
+    set! network.http.pipelining.maxrequests=4
+    set! network.http.max-connections=4
+    set! network.http.max-connections-per-server=4
+    " no warnings
+    set! browser.shell.checkDefaultBrowser=false
+    set! browser.tabs.warnOnClose=false
+    set! browser.tabs.warnOnCloseOtherTabs=false
+    set! browser.tabs.warnOnOpen=false
+    set! general.warnOnAboutConfig=false
+    " open tabs to the right of the current
+    set! browser.tabs.insertRelatedAfterCurrent=true
+    set! browser.tabs.insertRelatedAfterCurrent.override=true
+    " privacy stuff
+    set! privacy.donottrackheader.enabled=true
+    set! network.cookie.cookieBehavior=1
+    set! general.useragent.override="Mozilla/5.0 (Windows NT 6.1; WOW64; rv:28.0) Gecko/20100101 Firefox/38.0"
+    "" Google stuff
+    set! browser.safebrowsing.appRepURL=""
+    set! browser.safebrowsing.debug=false
+    set! browser.safebrowsing.downloads.enabled=false
+    set! browser.safebrowsing.downloads.remote.enabled=false
+    set! browser.safebrowsing.enabled=false
+    set! browser.safebrowsing.gethashURL=""
+    set! browser.safebrowsing.malware.enabled=false
+    set! browser.safebrowsing.malware.reportURL=""
+    set! browser.safebrowsing.reportErrorURL=""
+    set! browser.safebrowsing.reportGenericURL=""
+    set! browser.safebrowsing.reportMalwareErrorURL=""
+    set! browser.safebrowsing.reportMalwareURL=""
+    set! browser.safebrowsing.reportPhishURL=""
+    set! browser.safebrowsing.reportURL=""
+    set! browser.safebrowsing.updateURL=""
 " }
 
 
 " General Vimperator settings {
     set editor=vim
 
-    " Use characters for hints instead of numbers
-    set hintchars=asdfghklzxcvnqweop
+    " Hints
+    set hintchars=asdfghjklzxvbnwertyuip
+    hi Hint font-family: inconsolata; font-size: 14px; font-weight: bold; text-transform: uppercase; color: black; background: #f0f0f0; border: 1px solid #333; padding: .25em; margin-top: -.25em; margin-left: -.5em;
 
-    " change hint size
-    :highlight Hint font-size:105%;color:white;background-color:red;padding:2px;
+    " other fonts
+    hi Normal font-family: inconsolata, unifont; font-size:16px; background: white; color:black;
+    hi CmdLine>* font-family: inconsolata, unifont; font-size:16px;
+    set ani
 
     " Autocomplete using Firefox Awesomebar subsystem
     set complete=l
@@ -105,4 +144,19 @@
 
     " dev console with dev command
     command! dev emenu Tools.Web Developer.Web Console<CR>
+" }
+
+" Firefox Extensions {
+    " what to show and hide?
+    set! extensions.lastpass.showNotifications=false
+    set! extensions.lastpass.showSaveSiteNotifications=true
+    set! extensions.lastpass.showChangePasswordNotifications=true
+    set! extensions.lastpass.showFormFillNotifications=true
+    set! extensions.lastpass.showFillNotifications=false
+    set! extensions.lastpass.showHomepageAfterLogin=false
+    set! extensions.lastpass.showLoginNotifications=false
+    " a better icon
+    set! extensions.lastpass.Icon=1
+    " speak American
+    set! extensions.lastpass.language=en-US
 " }
