@@ -155,6 +155,11 @@ bar {
         status_command i3status
 }
 
+# Function keys {
+    bindsym F5 exec xbacklight -dec 10
+    bindsym F6 exec xbacklight -inc 10
+# }
+
 # I ALMOST got this to work, but not quite
 # bindsym $mod+y exec xsel -ib
 # bindsym $mod+p exec xsel -ob

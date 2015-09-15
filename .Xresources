@@ -1,4 +1,4 @@
-URxvt.font: xft:inconsolata:size=13,-*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
+URxvt.font: xft:inconsolata:size=14,-*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
 !URxvt.font: xft:inconsolata:size=13,xft:symbola:size=13
 URxvt*loginShell: false
 URxvt.letterSpace: 0
@@ -19,8 +19,8 @@ URxvt.keysym.M-v:     perl:clipboard:paste
 URxvt.keysym.S-C-C:   perl:clipboard:copy
 URxvt.keysym.S-C-V:   perl:clipboard:paste
 
-! Text selection (visual mode). Overrides standard terminal C-v
-URxvt.keysym.C-v: perl:keyboard-select:activate
+! Text selection (visual mode)
+URxvt.keysym.M-S-V: perl:keyboard-select:activate
 
 ! launch urls quickly
 !URxvt.perl-ext-common:      default.clipborad.url-select.keyboard-select
