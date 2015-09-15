@@ -87,7 +87,7 @@ endif
     endif
 " }
 
-" Vim UI {
+0" Vim UI {
 " Ergonomic {
     " commands can start with ;"
     nnoremap ; :
@@ -127,6 +127,9 @@ if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"
     set background=light
     highlight Normal ctermfg=green
     highlight Comment ctermfg=lightgrey
+    highlight LineNr ctermfg=white ctermbg=darkgrey
+    highlight Folded ctermfg=black ctermbg=grey
+    highlight CursorLine ctermfg=green ctermbg=darkgrey
 endif
 
 set tabpagemax=15               " Only show 15 tabs
@@ -181,7 +184,9 @@ set wildmode=list:longest,full  " Command <Tab> completion, list matches, then l
 " }
 
 " Formatting {
-set nowrap                      " Do not wrap long lines
+"set nowrap                      " Do not wrap long lines
+set wrap linebreak nolist textwidth=0 wrapmargin=0
+set showbreak=#////#
 set autoindent                  " Indent at the same level of the previous line
 set shiftwidth=4                " Use indents of 4 spaces
 set expandtab                   " Tabs are spaces, not tabs
@@ -195,7 +200,7 @@ set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
 " Filetype specific
 autocmd FileType c,cpp,java,go,php,javascript,python,twig,xml,yml,perl autocmd BufWritePre <buffer> call StripTrailingWhitespace()
 autocmd FileType make set noexpandtab   " make files use Tabs (not spaces)
-autocmd FileType markdown set wrap linebreak nolist textwidth=0 wrapmargin=0
+"autocmd FileType markdown set wrap linebreak nolist textwidth=0 wrapmargin=0
 "autocmd FileType go autocmd BufWritePre <buffer> Fmt
 autocmd BufNewFile,BufRead *.coffee set filetype=coffee
 
@@ -347,12 +352,6 @@ endif
     endif
 " }
 
-" AutoCloseTag {
-    " Make it so AutoCloseTag works for xml and xhtml files as well
-    au FileType xhtml,xml ru ftplugin/html/autoclosetag.vim
-    nmap <Leader>ac <Plug>ToggleAutoCloseMappings
-" }
-
 " Tabular {
 if isdirectory(expand("~/.vim/bundle/tabular"))
     nmap <Leader>a& :Tabularize /&<CR>
@@ -370,11 +369,6 @@ if isdirectory(expand("~/.vim/bundle/tabular"))
     nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
     vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
 endif
-" }
-
-" JSON {
-    nmap <leader>jt <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
-    let g:vim_json_syntax_conceal = 0 
 " }
 
 " Version control Fugitive {
@@ -421,13 +415,6 @@ endif
     set completeopt-=preview
 " }
 
-" indent_guides {
-if isdirectory(expand("~/.vim/bundle/vim-indent-guides/"))
-    let g:indent_guides_start_level = 2
-    let g:indent_guides_guide_size = 1
-    let g:indent_guides_enable_on_vim_startup = 1
-endif
-" }
 
 " vim-airline {
     " Set configuration options for the statusline plugin vim-airline.
@@ -449,6 +436,17 @@ endif
             let g:airline_left_sep='›'  " Slightly fancier than '>'
             let g:airline_right_sep='‹' " Slightly fancier than '<'
         endif
+    endif
+" }
+
+" CntrlP {
+    set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+    set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+    highlight CtrlPMatch guifg=#ffffff guibg=#000000 ctermfg=1 ctermbg=0
+    let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+    if executable('ag')
+        " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+        let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
     endif
 " }
 " }
