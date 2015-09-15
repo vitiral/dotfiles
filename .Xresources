@@ -4,7 +4,7 @@ URxvt*loginShell: false
 URxvt.letterSpace: 0
 URxvt*background: black
 URxvt*foreground: grey
-URxvt*color12: blue50
+URxvt*color12: pink
 
 URxvt.perl-ext-common: default,clipboard,keyboard-select
 

@@ -3,6 +3,7 @@ SCRIPT=$(readlink -f "$0")
 SCRIPTPATH=$(dirname "$SCRIPT")
 SYS_INSTALL="sudo pacman -S --noconfir --needed --ignore all"
 CREATE_USER=garrett
+NETCONNECT='wireless'
 
 # system settings
 sudo cp $SCRIPTPATH/etc/99-sysctl.confg /etc/sysctl.d/          # very low swappiness
@@ -29,11 +30,17 @@ if [[ ! -e /etc/localtime ]]; then
 fi
 
 # wireless (wifi-menu and autoconnect)
-netctl_service="netctl-auto@wlp2s0.service"
-if [[ `systemctl is-active $netctl_service` != "active" ]]; then
-    $SYS_INSTALL iw wpa_supplicant dialog wpa_actiond
-    sudo systemctl enable $netctl_service
+if [[ $NETCONNECT -eq "wireless" ]]; then
+    netctl_service="netctl-auto@wlp2s0.service"
+    if [[ `systemctl is-active $netctl_service` != "active" ]]; then
+        $SYS_INSTALL iw wpa_supplicant dialog wpa_actiond
+        sudo systemctl enable $netctl_service
+    fi
+else
+    $SYS_INSTALL dhcpcd
+    NETWORK_MSG="Must enable network manually"
 fi
+    
 
 if [[ ! -e /home/$CREATE_USER ]]; then
    sudo useradd -m -g users -G wheel -s /usr/bin/zsh $CREATE_USER
@@ -78,9 +85,11 @@ $SYS_INSTALL unace unrar zip unzip sharutils uudeview cabextract file-roller
 ## usertools
 $SYS_INSTALL \
     firefox \
-    apvlv
+    apvlv \
+    libreoffice-still
 
 echo "You need to set your own passwd with passwd"
+echo $NETWORK_MSG
 echo $UCODE_MSG
 echo $USER_MSG
 echo "See https://wiki.archlinux.org/index.php/Xorg for info on setting up video driver"
