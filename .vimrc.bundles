@@ -59,6 +59,7 @@ com! -nargs=+         UnBundle
     if executable('ag')
         Bundle 'mileszs/ack.vim'
         let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
+        set grepprg=ag\ --nogroup\ --nocolor
     elseif executable('ack-grep')
         let g:ackprg="ack-grep -H --nocolor --nogroup --column"
         Bundle 'mileszs/ack.vim'
@@ -82,6 +83,7 @@ com! -nargs=+         UnBundle
     " comment out lines easier
     Bundle 'scrooloose/nerdcommenter'
     let g:NERDCustomDelimiters = { 'python': { 'left': '# '} }
+    Bundle 'kien/ctrlp.vim'
 " }
 
 " General {
@@ -97,8 +99,15 @@ com! -nargs=+         UnBundle
     Bundle 'Lokaltog/vim-easymotion'
     " shows indent levels
     Bundle 'nathanaelkane/vim-indent-guides'
+    let g:indent_guides_start_level = 2
+    let g:indent_guides_guide_size = 1
+    let g:indent_guides_enable_on_vim_startup = 1
     " show prior screen position when opening file
     Bundle 'vim-scripts/restore_view.vim'
+    " always changes directory to root of project
+    Bundle 'airblade/vim-rooter'
+    let g:rooter_change_directory_for_non_project_files=1
+    let g:rooter_silent_chdir=1
 " }
 
 " General Programming {
@@ -136,6 +145,8 @@ com! -nargs=+         UnBundle
 
 " Javascript {
     Bundle 'elzr/vim-json'
+    nmap <leader>jt <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
+    let g:vim_json_syntax_conceal = 0 
     Bundle 'groenewege/vim-less'
     Bundle 'pangloss/vim-javascript'
     Bundle 'briancollins/vim-jst'
@@ -144,6 +155,8 @@ com! -nargs=+         UnBundle
 
 " HTML {
     Bundle 'amirh/HTML-AutoCloseTag'
+        au FileType xhtml,xml ru ftplugin/html/autoclosetag.vim
+    nmap <Leader>ac <Plug>ToggleAutoCloseMappings
     Bundle 'hail2u/vim-css3-syntax'
     Bundle 'gorodinskiy/vim-coloresque'
     Bundle 'tpope/vim-haml'
