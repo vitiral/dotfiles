@@ -75,9 +75,11 @@
     " Don't beep
     set noerrorbells
 
-    " Scroll up and down faster
+    " Scroll around faster
     nnoremap j 5j
     nnoremap k 5k
+    nnoremap l 3l
+    nnoremap h 3h
 
     " ,<space> clears search history
     nnoremap <leader><space> :noh<cr>
