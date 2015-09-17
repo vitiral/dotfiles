@@ -80,6 +80,7 @@ alias tnew="tmux new -s"
 alias trm="tmux kill-session -t"
 alias tmv="tmux rename-session -t"  # target-session new-name
 alias tkill="tmux kill-server"
+alias town="tmux detach -a"  # detach all other sessions from tmux, getting it to correct size
 
 ##################################################
 # Git

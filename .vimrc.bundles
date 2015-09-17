@@ -83,7 +83,11 @@ com! -nargs=+         UnBundle
     " comment out lines easier
     Bundle 'scrooloose/nerdcommenter'
     let g:NERDCustomDelimiters = { 'python': { 'left': '# '} }
+    " File searching funcionality
     Bundle 'kien/ctrlp.vim'
+    Bundle 'vim-scripts/EasyGrep'
+    let g:EasyGrepRecursive=1
+    let g:EasyGrepCommand=1
 " }
 
 " General {

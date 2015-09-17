@@ -23,6 +23,7 @@
     set! network.http.max-connections=4
     set! network.http.max-connections-per-server=4
     " no warnings
+    set! security.dialog_enable_delay=0
     set! browser.shell.checkDefaultBrowser=false
     set! browser.tabs.warnOnClose=false
     set! browser.tabs.warnOnCloseOtherTabs=false
@@ -35,7 +36,6 @@
     set! privacy.donottrackheader.enabled=true
     set! network.cookie.cookieBehavior=1
     set! general.useragent.override="Mozilla/5.0 (Windows NT 6.1; WOW64; rv:28.0) Gecko/20100101 Firefox/38.0"
-    "" Google stuff
     set! browser.safebrowsing.appRepURL=""
     set! browser.safebrowsing.debug=false
     set! browser.safebrowsing.downloads.enabled=false
@@ -51,11 +51,18 @@
     set! browser.safebrowsing.reportPhishURL=""
     set! browser.safebrowsing.reportURL=""
     set! browser.safebrowsing.updateURL=""
+
+    " send referrer headers only to the same domain
+    set! network.http.sendRefererHeader=1
+    set! network.http.referer.XOriginPolicy=1
+    set! network.http.referer.spoofSource=true
+    set! network.http.referer.trimmingPolicy=2
 " }
 
 
 " General Vimperator settings {
     set editor=vim
+    set defsearch=duckduckgo
 
     " Hints
     set hintchars=asdfghjklzxvbnwertyuip
@@ -64,7 +71,7 @@
     " other fonts
     hi Normal font-family: inconsolata, unifont; font-size:16px; background: white; color:black;
     hi CmdLine>* font-family: inconsolata, unifont; font-size:16px;
-    set ani
+    set animations=false
 
     " Autocomplete using Firefox Awesomebar subsystem
     set complete=l
@@ -147,16 +154,56 @@
 " }
 
 " Firefox Extensions {
-    " what to show and hide?
-    set! extensions.lastpass.showNotifications=false
-    set! extensions.lastpass.showSaveSiteNotifications=true
-    set! extensions.lastpass.showChangePasswordNotifications=true
-    set! extensions.lastpass.showFormFillNotifications=true
-    set! extensions.lastpass.showFillNotifications=false
-    set! extensions.lastpass.showHomepageAfterLogin=false
-    set! extensions.lastpass.showLoginNotifications=false
-    " a better icon
-    set! extensions.lastpass.Icon=1
-    " speak American
-    set! extensions.lastpass.language=en-US
+    " LastPass {
+        " stupid keys
+        set! extensions.lastpass.defaultffidHkKeyCode=0
+        set! extensions.lastpass.defaultffidHkMods=""
+        set! extensions.lastpass.generateHkKeyCode=0
+        set! extensions.lastpass.generateHkMods=""
+        set! extensions.lastpass.homeHkKeyCode=0
+        set! extensions.lastpass.homeHkMods=""
+        set! extensions.lastpass.nextHkKeyCode=76
+        set! extensions.lastpass.nextHkMods="control shift"
+        set! extensions.lastpass.prevHkKeyCode=0
+        set! extensions.lastpass.prevHkMods=""
+        set! extensions.lastpass.recheckHkKeyCode=0
+        set! extensions.lastpass.recheckHkMods=""
+        set! extensions.lastpass.saveallHkKeyCode=0
+        set! extensions.lastpass.saveallHkMods=""
+        set! extensions.lastpass.searchHkKeyCode=0
+        set! extensions.lastpass.searchHkMods=""
+        set! extensions.lastpass.submitHkKeyCode=0
+        set! extensions.lastpass.submitHkMods=""
+        " what to show and hide?
+        set! extensions.lastpass.showNotifications=false
+        set! extensions.lastpass.showSaveSiteNotifications=true
+        set! extensions.lastpass.showChangePasswordNotifications=true
+        set! extensions.lastpass.showFormFillNotifications=true
+        set! extensions.lastpass.showFillNotifications=false
+        set! extensions.lastpass.showHomepageAfterLogin=false
+        set! extensions.lastpass.showLoginNotifications=false
+        " a better icon
+        set! extensions.lastpass.Icon=1
+        " speak American
+        set! extensions.lastpass.language=en-US
+    " }
+    " Ghostery {
+        " make Ghostery more ghostlike
+        set! extensions.ghostery.tutorial=true
+        set! extensions.ghostery.showBubble=false
+        set! extensions.ghostery.showBugCount=false
+        set! extensions.ghostery.showClick2Play=false
+        set! extensions.ghostery.showClick2PlayButton=false
+        set! extensions.ghostery.toolbarButton=false
+        set! extensions.ghostery.updateNotification=false
+        set! extensions.ghostery.autoUpdateBugs=true
+        " other blockings
+        set! extensions.ghostery.cookieProtect=true
+        set! extensions.ghostery.enableCleanup=true
+        set! extensions.ghostery.blockFrame=true
+        set! extensions.ghostery.blockImage=true
+        set! extensions.ghostery.blockObject=true
+        set! extensions.ghostery.preventRedirect=false
+        set! extensions.ghostery.blockingMode=0
+    " }
 " }

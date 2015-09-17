@@ -218,6 +218,8 @@ autocmd BufNewFile,BufRead *.coffee set filetype=coffee
     " and ask which one to jump to
     nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 
+    nnoremap <leader>b :ls<CR>:b<space>
+
     " Easier formatting
     nnoremap <silent> <leader>q gwip
 
@@ -265,8 +267,8 @@ nnoremap <leader>wr :checktime<CR>  " reload all buffers
 " leader wc opens rc window for editing
 nnoremap <leader>wc :e $MYVIMRC<CR>  " open ~/.vimrc for editing
 " show current directory/file
-nnoremap <leader>wpd :echo expand('%:p:h')<CR>
-nnoremap <leader>wpp :echo expand('%:p')<CR>
+nnoremap <leader>wd :echo expand('%:p:h')<CR>
+nnoremap <leader>wp :echo expand('%:p')<CR>
 " }
 
 " Command Remappings {
@@ -319,7 +321,7 @@ nnoremap <leader>wpp :echo expand('%:p')<CR>
     " Overwrite the Visual+select mode mappings from above
     " to ensure the correct vis_sel flag is passed to function
     vnoremap $ :<C-U>call WrapRelativeMotion("$", 1)<CR>
-    vnoremap <End> :<C-U>call WrapRelativeMotion("$", 1)<CR>
+    vnoremap \<End> :<C-U>call WrapRelativeMotion("$", 1)<CR>
     vnoremap 0 :<C-U>call WrapRelativeMotion("0", 1)<CR>
     vnoremap <Home> :<C-U>call WrapRelativeMotion("0", 1)<CR>
         vnoremap ^ :<C-U>call WrapRelativeMotion("^", 1)<CR>
@@ -342,6 +344,13 @@ endif
 " }
 
 " Plugins {
+" This is not working at all like it should... giving up for now
+function! BSearch(pat)
+   execute "normal /" . a:pat . "\<CR>"
+endfunction
+
+" }
+
 " Ctags {
     set tags=./tags;/,~/.vimtags
 

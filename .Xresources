@@ -12,7 +12,7 @@ URxvt.perl-ext-common: default,clipboard,keyboard-select
 URxvt.iso14755: false
 URxvt.clipboard.copycmd: xsel -ib
 URxvt.clipboard.pastecmd: xsel -ob
-!! vimlike copy/paste with Alt
+!! mac like copy/paste with Alt
 URxvt.keysym.M-c:     perl:clipboard:copy
 URxvt.keysym.M-v:     perl:clipboard:paste
 ! standard termial copy/paste
