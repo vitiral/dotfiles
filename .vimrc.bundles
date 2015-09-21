@@ -56,15 +56,16 @@ com! -nargs=+         UnBundle
     Bundle 'gmarik/vundle'
     Bundle 'MarcWeber/vim-addon-mw-utils'
     Bundle 'tomtom/tlib_vim'
+    Bundle 'mileszs/ack.vim'
+    " Command to automatically do search for regexp at same time as Ack
+    command! -nargs=1 Ack2 execute "Ack " . <q-args> | execute "/".<q-args>
+    nnoremap gf :Ack2<space>
+
     if executable('ag')
-        Bundle 'mileszs/ack.vim'
         let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
         set grepprg=ag\ --nogroup\ --nocolor
     elseif executable('ack-grep')
         let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-        Bundle 'mileszs/ack.vim'
-    elseif executable('ack')
-        Bundle 'mileszs/ack.vim'
     endif
 " }
 
@@ -86,6 +87,7 @@ com! -nargs=+         UnBundle
     " File searching funcionality
     Bundle 'kien/ctrlp.vim'
     Bundle 'vim-scripts/EasyGrep'
+    Bundle 'scrooloose/nerdtree'
     let g:EasyGrepRecursive=1
     let g:EasyGrepCommand=1
 " }

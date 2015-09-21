@@ -88,8 +88,7 @@
     nnoremap l 3l
     nnoremap h 3h
 
-    " ,<space> clears search history
-    nnoremap <leader><space> :noh<cr>
+    nnoremap <leader>/ :noh<cr>
 " }
 
 

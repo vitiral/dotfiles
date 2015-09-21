@@ -87,7 +87,7 @@ endif
     endif
 " }
 
-0" Vim UI {
+" Vim UI {
 " Ergonomic {
     " commands can start with ;"
     nnoremap ; :
@@ -198,12 +198,11 @@ set splitbelow                  " Puts new split windows to the bottom of the cu
 set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
 
 " Filetype specific
-autocmd FileType c,cpp,java,go,php,javascript,python,twig,xml,yml,perl autocmd BufWritePre <buffer> call StripTrailingWhitespace()
+autocmd FileType c,cpp,java,go,php,javascript,python,twig,xml,yml,perl,markdown autocmd BufWritePre <buffer> call StripTrailingWhitespace()
 autocmd FileType make set noexpandtab   " make files use Tabs (not spaces)
 "autocmd FileType markdown set wrap linebreak nolist textwidth=0 wrapmargin=0
 "autocmd FileType go autocmd BufWritePre <buffer> Fmt
 autocmd BufNewFile,BufRead *.coffee set filetype=coffee
-
 " }
 
 " Key (re)Mappings {
@@ -213,6 +212,7 @@ autocmd BufNewFile,BufRead *.coffee set filetype=coffee
 
     " ,<space> clears search history
     nnoremap <leader><space> :noh<cr>
+    nnoremap <leader>/ :noh<cr>
 
     " Map <Leader>ff to display all lines with keyword under cursor
     " and ask which one to jump to
@@ -269,13 +269,11 @@ nnoremap <leader>wc :e $MYVIMRC<CR>  " open ~/.vimrc for editing
 " show current directory/file
 nnoremap <leader>wd :echo expand('%:p:h')<CR>
 nnoremap <leader>wp :echo expand('%:p')<CR>
+" open nerdtree
+nnoremap <leader>wt :execute ":NERDTree " . expand('%:ph')<CR>
 " }
 
 " Command Remappings {
-    " search and replace
-    cmap repl %s///gc<Left><Left><Left>
-    " search and replace in all buffers
-    cmap brepl bufdo %s///gc<Left><Left><Left>
     " Change Working Directory to that of the current file
     cmap cwd lcd %:p:h
     cmap cd. lcd %:p:h
@@ -344,13 +342,6 @@ endif
 " }
 
 " Plugins {
-" This is not working at all like it should... giving up for now
-function! BSearch(pat)
-   execute "normal /" . a:pat . "\<CR>"
-endfunction
-
-" }
-
 " Ctags {
     set tags=./tags;/,~/.vimtags
 
