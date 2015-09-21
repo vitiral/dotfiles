@@ -1,6 +1,7 @@
 
 # std dotfiles
 cd ~
+ln -s .dotfiles/.xinitrc .
 ln -s .dotfiles/.Xresources .
 ln -s .dotfiles/.alias .
 ln -s .dotfiles/.bash_profile .
