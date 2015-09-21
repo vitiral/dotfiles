@@ -94,6 +94,7 @@
 
     " ,<space> clears search history
     nnoremap <leader><space> :noh<cr>
+    nnoremap <leader>/ :noh<cr>
 " }
 
 
