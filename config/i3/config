@@ -156,8 +156,8 @@ bar {
 }
 
 # Function keys {
-    bindsym F5 exec xbacklight -dec 10
-    bindsym F6 exec xbacklight -inc 10
+    bindsym $mod+F5 exec xbacklight -dec 10
+    bindsym $mod+F6 exec xbacklight -inc 10
 # }
 
 # I ALMOST got this to work, but not quite

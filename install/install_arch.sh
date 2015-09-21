@@ -5,10 +5,6 @@ SYS_INSTALL="sudo pacman -S --noconfir --needed --ignore all"
 CREATE_USER=garrett
 NETCONNECT='wireless'
 
-# system settings
-sudo cp $SCRIPTPATH/etc/99-sysctl.confg /etc/sysctl.d/          # very low swappiness
-sudo cp $SCRIPTPATH/etc/50-synaptics.conf /etc/X11/xorg.conf.d  # touchpad
-
 $SYS_INSTALL hdparm
 if sudo hdparm -I /dev/sda | grep "TRIM supported"; then
     # SSD stuff
@@ -55,7 +51,8 @@ fi
 
 # Window Manger and basic functionality
 $SYS_INSTALL xorg-server xorg-xinit xorg-xev i3 i3lock \
-    rxvt-unicode xorg-xrdb urxvt-perls xclip ttf-dejavu \
+    rxvt-unicode xorg-xrdb urxvt-perls xclip \
+    ttf-dejavu ttf-inconsolata bdf-unifont \
     xf86-input-synaptics
 
 if [[ -e ~/.zlogin ]]; then
@@ -87,6 +84,11 @@ $SYS_INSTALL \
     firefox \
     apvlv \
     libreoffice-still
+
+# system settings
+sudo cp $SCRIPTPATH/etc/99-sysctl.conf /etc/sysctl.d/          # very low swappiness
+sudo cp $SCRIPTPATH/etc/50-synaptics.conf /etc/X11/xorg.conf.d  # touchpad
+
 
 echo "You need to set your own passwd with passwd"
 echo $NETWORK_MSG

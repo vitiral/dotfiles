@@ -1,6 +1,6 @@
 " vimrc for vitiral
 " Check out the spf-13 vim configuration for an updated vimrc
-" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:"{"}
+" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldmethod=marker spell:"{"}
 
 " Environment {
 silent function! OSX()
@@ -58,6 +58,7 @@ endif
     set virtualedit=onemore             " Allow for cursor beyond last character
     set history=1000                    " Store a ton of history (default is 20)
     set hidden                          " Allow buffer switching without saving
+    set foldlevelstart=0                " Start buffers folded (don't auto-reset)
     set iskeyword-=.                    " '.' is an end of word designator
     set iskeyword-=#                    " '#' is an end of word designator
     set iskeyword-=-                    " '-' is an end of word designator
@@ -87,7 +88,7 @@ endif
     endif
 " }
 
-0" Vim UI {
+" Vim UI {
 " Ergonomic {
     " commands can start with ;"
     nnoremap ; :

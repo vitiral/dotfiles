@@ -88,6 +88,10 @@
     nnoremap l 3l
     nnoremap h 3h
 
+    " move tabs
+    nnoremap <C-S-H> :tabmove -1<CR>
+    nnoremap <C-S-L> :tabmove +1<CR>
+
     " ,<space> clears search history
     nnoremap <leader><space> :noh<cr>
 " }
@@ -116,8 +120,7 @@
     " v in normal mode goes straight into visual mode (useful after find)
     nnoremap v cv
 
-    " exit c+v mode with q
-    cnoremap q <ESC>
+    " exit v mode with q
     vnoremap q <ESC>
 
     " Press 'F10' to toggle Vimperator
