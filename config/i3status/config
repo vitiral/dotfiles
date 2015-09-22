@@ -12,15 +12,26 @@ general {
         interval = 1
 }
 
-order += "ipv6"
-order += "disk /"
-order += "run_watch DHCP"
-order += "run_watch VPN"
+order += "net_rate"
+order += "whatismyip"
 order += "wireless _first_"
 order += "ethernet _first_"
-order += "battery 0"
 order += "load"
+order += "battery 0"
+order += "whoami"
 order += "tztime local"
+
+
+whatismyip {
+    cache_timeout = 2
+    negative_cache_timeout = 2
+    timeout = 2
+}
+
+net_rate {
+    interfaces = "wlp2s1,enp11s1"
+    hide_if_zero = 1
+}
 
 wireless _first_ {
         format_up = "W: (%quality at %essid) %ip"
@@ -33,26 +44,14 @@ ethernet _first_ {
         format_down = "E: down"
 }
 
-battery 0 {
-        format = "%status %percentage %remaining"
-}
-
-run_watch DHCP {
-        pidfile = "/var/run/dhclient*.pid"
-}
-
-run_watch VPN {
-        pidfile = "/var/run/vpnc/pid"
-}
-
-tztime local {
-        format = "%Y-%m-%d %H:%M:%S"
-}
-
 load {
         format = "%1min"
 }
 
-disk "/" {
-        format = "%avail"
+battery 0 {
+        format = "%status %percentage %remaining"
+}
+
+tztime local {
+        format = "%Y-%m-%d %H:%M:%S"
 }
