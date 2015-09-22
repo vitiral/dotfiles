@@ -1,7 +1,8 @@
 set -e  # errors cause failure
 SCRIPT=$(readlink -f "$0")
 SCRIPTPATH=$(dirname "$SCRIPT")
-SYS_INSTALL="sudo pacman -S --noconfir --needed --ignore all"
+INSTALL_ARGS="-S --noconfir --needed --ignore all"
+SYS_INSTALL="sudo pacman $INSTALL_ARGS"
 CREATE_USER=garrett
 NETCONNECT='wireless'
 
@@ -80,8 +81,6 @@ $SYS_INSTALL \
     cmake \
     python2
 
-# TODO: Install yaourt
-
 ## compression
 $SYS_INSTALL unace unrar zip unzip sharutils uudeview cabextract file-roller
 
@@ -92,9 +91,30 @@ $SYS_INSTALL \
     libreoffice-still
 
 # system settings
-sudo cp $SCRIPTPATH/etc/99-sysctl.conf /etc/sysctl.d/          # very low swappiness
+sudo cp $SCRIPTPATH/etc/99-sysctl.conf /etc/sysctl.d/           # very low swappiness
 sudo cp $SCRIPTPATH/etc/50-synaptics.conf /etc/X11/xorg.conf.d  # touchpad
+sudo cp $SCRIPTPATH/etc/pacman.conf /etc/pacman.conf            # pacman
 
+# yaourt from pacman.conf added repos
+$SYS_INSTALL -y yaourt
+USR_INSTALL=yaourt $INSTALL_ARGS
+
+$USR_INSTALL pithos
+
+if [[ `systemctl is-active dropbox@${CREATE_USER}` != "active" ]]; then
+    $USR_INSTALL dropbox
+    sudo systemctl enable dropbox@${CREATE_USER}
+fi
+
+# manual installation of software
+if [[ ! -e $HOME/software/py3status ]]; then
+    cd $HOME
+    mkdir -p software
+    cd software
+    git clone https://github.com/ultrabug/py3status.git
+    cd py3status.git
+    sudo /usr/bin/python2 setup.py install
+fi
 
 echo "You need to set your own passwd with passwd"
 echo $NETWORK_MSG

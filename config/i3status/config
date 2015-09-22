@@ -1,0 +1,57 @@
+# i3status configuration file.
+# see "man i3status" for documentation.
+
+# It is important that this file is edited as UTF-8.
+# The following line should contain a sharp s:
+# ß
+# If the above line is not correctly displayed, fix your editor first!
+
+general {
+        output_format = "i3bar"
+        colors = true
+        interval = 1
+}
+
+order += "net_rate"
+order += "whatismyip"
+order += "wireless _first_"
+order += "ethernet _first_"
+order += "load"
+order += "battery 0"
+order += "whoami"
+order += "tztime local"
+
+
+whatismyip {
+    cache_timeout = 2
+    negative_cache_timeout = 2
+    timeout = 2
+}
+
+net_rate {
+    interfaces = "wlp2s1,enp11s1"
+    hide_if_zero = 1
+}
+
+wireless _first_ {
+        format_up = "W: (%quality at %essid) %ip"
+        format_down = "W: down"
+}
+
+ethernet _first_ {
+        # if you use %speed, i3status requires root privileges
+        format_up = "E: %ip (%speed)"
+        format_down = "E: down"
+}
+
+load {
+        format = "%1min"
+}
+
+battery 0 {
+        format = "%status %percentage %remaining"
+}
+
+tztime local {
+        format = "%Y-%m-%d %H:%M:%S"
+}
