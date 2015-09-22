@@ -36,7 +36,12 @@ else
     $SYS_INSTALL dhcpcd
     NETWORK_MSG="Must enable network manually"
 fi
-    
+
+$SYS_INSTALL openssh
+if [[ `systemctl is-active sshd.service` != "active" ]]; then
+    sudo cp $SCRIPTPATH/etc/sshd_config /etc/ssh/
+    systemctl enable sshd.service
+fi
 
 if [[ ! -e /home/$CREATE_USER ]]; then
    sudo useradd -m -g users -G wheel -s /usr/bin/zsh $CREATE_USER
@@ -50,10 +55,11 @@ if [[ ! -e /boot/intel-ucode.img ]]; then
 fi
 
 # Window Manger and basic functionality
-$SYS_INSTALL xorg-server xorg-xinit xorg-xev i3 i3lock \
+$SYS_INSTALL xorg-server xorg-xinit xorg-xev i3 i3lock dmenu \
     rxvt-unicode xorg-xrdb urxvt-perls xclip \
     ttf-dejavu ttf-inconsolata bdf-unifont \
-    xf86-input-synaptics
+    xf86-input-synaptics \
+    pulseaudio pulseaudio-alsa alsa-utils 
 
 if [[ -e ~/.zlogin ]]; then
     ln -s $SCRIPTPATH/.zlogin ~/.zlogin

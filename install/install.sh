@@ -23,7 +23,6 @@ echo $OS_STR
 # setup git
 if [[ ! -e $USER_HOME/.ssh/id_rsa.pub ]]; then
     echo ~
-    exit 1
     git config --global user.email "googberg@gmail.com"
     git config --global user.name "Garrett Berg"
     git config --global core.editor "vim"

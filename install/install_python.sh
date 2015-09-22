@@ -43,6 +43,9 @@ if [[ ! -e $py2 ]]; then
 else
     $conda install -n python2 python=2 $conda_packages
 fi
+if [[ ! -e $py2_bin/pip2 ]]; then
+    ln -s $py2_bin/pip $py2_bin/pip2
+fi
 $pip2 install -r $SCRIPTPATH/python.txt
 $py2 setup.py develop
 
@@ -51,6 +54,9 @@ if [[ ! -e $py3 ]]; then
     $conda create -y -n python3 python=3 $conda_packages
 else
     $conda install -n python3 python=3 $conda_packages
+fi
+if [[ ! -e $py3_bin/pip3 ]]; then
+    ln -s $py3_bin/pip $py3_bin/pip3
 fi
 $pip3 install -r $SCRIPTPATH/python.txt
 $py3 setup.py develop
