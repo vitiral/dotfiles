@@ -14,6 +14,7 @@ ln -s .dotfiles/.vimperatorrc .
 mkdir -p .config
 cd .config
 ln -s ~/.dotfiles/config/i3 .
+ln -s ~/.dotfiles/config/i3status .
 
 # python
 cd ~

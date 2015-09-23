@@ -6,6 +6,8 @@ SYS_INSTALL="sudo pacman $INSTALL_ARGS"
 CREATE_USER=garrett
 NETCONNECT='wireless'
 
+$SYS_INSTALL git
+
 $SYS_INSTALL hdparm
 if sudo hdparm -I /dev/sda | grep "TRIM supported"; then
     # SSD stuff
@@ -77,7 +79,7 @@ fi
 ## dev tools
 $SYS_INSTALL \
     zsh tmux vim \
-    git \
+    the_silver_searcher \
     openssh wget rsync \
     cmake \
     python2
@@ -113,8 +115,8 @@ if [[ ! -e $HOME/software/py3status ]]; then
     mkdir -p software
     cd software
     git clone https://github.com/ultrabug/py3status.git
-    cd py3status.git
-    sudo /usr/bin/python2 setup.py install
+    cd py3status
+    sudo /usr/bin/python2.7 setup.py install
 fi
 
 echo "You need to set your own passwd with passwd"

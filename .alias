@@ -34,15 +34,16 @@ export PYTHONSTARTUP="$HOME/.pythonrc.py"
 export PYTHONDONTWRITEBYTECODE=0            # prevents .pyc files
 
 # use the local installation of python first
-python_root="$HOME/software/pyconda/envs"
-py2bin="${python_root}/python2/bin"
-py3bin="${python_root}/python3/bin"
-pathinsert $py3bin
-pathinsert $py2bin
+#python_root="$HOME/software/pyconda/envs"
+#py2bin="${python_root}/python2/bin"
+#py3bin="${python_root}/python3/bin"
+#pathinsert $py3bin
+#pathinsert $py2bin
+pathinsert "$HOME/.local/bin"
 pathinsert "$HOME/bin"
 
 alias py='python3'
-alias pyt="$py3bin/py.test --tb short"
+alias pyt="py.test --tb short"
 alias pytdoc='pyt --doctest-modules'  # don't forget you need to give module path
 alias pytdb='pyt -sx --pdb'
 alias pdb='py -m ipdb'
@@ -54,7 +55,7 @@ alias pypi='py setup.py register -r pypi sdist upload'
 alias pypitest='py setup.py register -r pypitest'
 
 alias py2='python2'
-alias py2t="$py2bin/py.test --tb short"
+alias py2t="py.test --tb short"
 alias py2tdoc='py2t --doctest-modules'
 alias py2tdb='py2t -sx --pdb'
 alias pdb2='py2 -m ipdb'
