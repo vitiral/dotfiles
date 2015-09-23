@@ -153,6 +153,8 @@ ssh_autoauth() {
 
 ##################################################
 # OS specific aliases
+
+alias paclean='sudo pacman -R $(pacman -Qdtq)'
 if [[ `uname` == 'Darwin' ]]; then
     alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
     alias minicom=/opt/minicom/2.2/bin/minicom

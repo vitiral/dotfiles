@@ -17,7 +17,8 @@ set $mod Mod1
 #set $mod Mod4
 
 # set up screen lock
-exec xautolock -time 11 -locker i3lock -c 7A1F00
+exec xautolock -time 11 -locker i3lock -c 000000
+bindsym $mod+Ctrl+l exec i3lock -c 000000
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.

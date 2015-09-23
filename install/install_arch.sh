@@ -56,8 +56,9 @@ if [[ ! -e /boot/intel-ucode.img ]]; then
 fi
 
 # Window Manger and basic functionality
-$SYS_INSTALL xorg-server xorg-xinit xorg-xev i3 i3lock dmenu \
-    rxvt-unicode xorg-xrdb urxvt-perls xclip \
+$SYS_INSTALL xorg-server xorg-xinit xorg-xev \
+    i3 i3lock dmenu xautolock xorg-xrdb \
+    rxvt-unicode urxvt-perls xclip \
     ttf-dejavu ttf-inconsolata bdf-unifont \
     xf86-input-synaptics \
     pulseaudio pulseaudio-alsa alsa-utils 

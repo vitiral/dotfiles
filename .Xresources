@@ -1,4 +1,4 @@
-URxvt.font: xft:inconsolata:size=14,-*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
+URxvt.font: xft:inconsolata:size=13,-*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
 !URxvt.font: xft:inconsolata:size=13,xft:symbola:size=13
 URxvt*loginShell: false
 URxvt.letterSpace: 0
