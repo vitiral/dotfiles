@@ -173,7 +173,7 @@ elif [[ `uname` == 'Linux' ]]; then
     # arrow keys are bound to moving words. Use cntrl to 
     bindkey "^L" forward-word
     bindkey "^H" backward-word
-    setxkbmap -layout us -option ctrl:nocaps
+    setxkbmap -layout us -option ctrl:nocaps >> /dev/null
 elif [[ `uname` == 'Cygwin' ]]; then
     :  # pass, none yet
 fi
