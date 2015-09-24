@@ -40,6 +40,7 @@ bindsym $movemod+a move scratchpad
 
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+t exec urxvt -tr +sb -fg green -bg black -tint white -sh 75 -fade 15 -fadecolor black -pr black -pr2 white
 
 # kill focused window
 bindsym $mod+d kill
