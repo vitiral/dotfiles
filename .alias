@@ -129,15 +129,6 @@ gitio() {
 #alias gvt='git verify-tag'
 
 
-# Mercurial
-alias hs='hg status'
-alias hd='hg diff --color always | less -R'
-alias hp='hg push'
-alias hc='hg commit'
-alias hcam='hg commit -m'
-alias hlog='hg log -G --color always --template "{label(\"custom.rev\", node|short)} - ({label(\"custom.decorate\", branch)}) {desc|strip|firstline} ({label(\"custom.date\", date|age)}) <{label(\"custom.author\" , author)}>" | less -R'
-alias hm='hg merge'
-
 
 ##################################################
 # Networking

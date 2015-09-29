@@ -90,7 +90,7 @@ $SYS_INSTALL unace unrar zip unzip sharutils uudeview cabextract file-roller
 ## usertools
 $SYS_INSTALL \
     firefox \
-    apvlv \
+    apvlv feh \
     libreoffice-still
 
 # system settings
