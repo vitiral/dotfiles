@@ -160,6 +160,14 @@ ssh_autoauth() {
     ssh "$@"
 }
 
+reconnect() {
+    if ip link | grep wlp2s0; then
+        sudo systemctl restart netctl-auto@wlp2s0.service
+    else
+        echo "Umm... What is wlan again>"
+    fi
+}
+
 
 ##################################################
 # OS specific aliases
