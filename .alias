@@ -151,6 +151,14 @@ ssh_autoauth() {
     ssh "$@"
 }
 
+reconnect() {
+    if ip link | grep wlp2s0; then
+        sudo systemctl restart netctl-auto@wlp2s0.service
+    else
+        sudo systemctl restart dhcpcd@enp11s0.service
+    fi
+}
+
 
 ##################################################
 # OS specific aliases
