@@ -89,6 +89,8 @@ com! -nargs=+         UnBundle
     Bundle 'scrooloose/nerdtree'
     let g:EasyGrepRecursive=1
     let g:EasyGrepCommand=1
+    " encryption
+    Bundle "openssl.vim"
 " }
 
 " General {
