@@ -7,23 +7,13 @@
 
 " Firefox Settings {
     set titlestring="Firefox"
-    " Don't show menu bar or url input
-    set gui=none,bookmarks,tabs
+    set gui=navigation
     set tabnumbers
-    " Make Firefox run faster by using JIT
-    set! javascript.options.jit.chrome=true
     " Disable Alt key for menu toggle
     set! ui.key.menuAccessKey=0
     set! ui.key.menuAccessKeyFocuses=false
-    set sh=/usr/bin/zsh
     set! browser.newtab.url=about:blank
-    " Pipelining (download webpages over multiple pipes) (off for now)
-    set! network.http.pipelining=false
-    set! network.http.pipelining.maxrequests=4
-    set! network.http.max-connections=4
-    set! network.http.max-connections-per-server=4
     " no warnings
-    set! security.dialog_enable_delay=0
     set! browser.shell.checkDefaultBrowser=false
     set! browser.tabs.warnOnClose=false
     set! browser.tabs.warnOnCloseOtherTabs=false
@@ -137,24 +127,6 @@
 " Firefox Extensions {
     " LastPass {
         " stupid keys
-        set! extensions.lastpass.defaultffidHkKeyCode=0
-        set! extensions.lastpass.defaultffidHkMods=""
-        set! extensions.lastpass.generateHkKeyCode=0
-        set! extensions.lastpass.generateHkMods=""
-        set! extensions.lastpass.homeHkKeyCode=0
-        set! extensions.lastpass.homeHkMods=""
-        set! extensions.lastpass.nextHkKeyCode=76
-        set! extensions.lastpass.nextHkMods="control shift"
-        set! extensions.lastpass.prevHkKeyCode=0
-        set! extensions.lastpass.prevHkMods=""
-        set! extensions.lastpass.recheckHkKeyCode=0
-        set! extensions.lastpass.recheckHkMods=""
-        set! extensions.lastpass.saveallHkKeyCode=0
-        set! extensions.lastpass.saveallHkMods=""
-        set! extensions.lastpass.searchHkKeyCode=0
-        set! extensions.lastpass.searchHkMods=""
-        set! extensions.lastpass.submitHkKeyCode=0
-        set! extensions.lastpass.submitHkMods=""
         " what to show and hide?
         set! extensions.lastpass.showNotifications=false
         set! extensions.lastpass.showSaveSiteNotifications=true
