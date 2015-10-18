@@ -1,5 +1,14 @@
 ##################################################
-# development commands
+# Environment
+
+export EDITOR='vim'
+alias sudo='sudo '
+
+function cless(){pygmentize -f terminal "$1" | /usr/bin/less -R}
+
+## colorize man
+man() {env LESS_TERMCAP_mb=$'\E[01;31m' LESS_TERMCAP_md=$'\E[01;38;5;74m'  LESS_TERMCAP_me=$'\E[0m'  LESS_TERMCAP_se=$'\E[0m'  LESS_TERMCAP_so=$'\E[38;5;246m'  LESS_TERMCAP_ue=$'\E[0m'  LESS_TERMCAP_us=$'\E[04;38;5;146m'  man "$@"}
+
 pathappend() {
     # properly append path to end of PATH
     if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
@@ -14,18 +23,16 @@ pathinsert() {
     fi
 }
 
+##################################################
+# development commands
+
 function aa_256 () {     local o= i= x=`tput op` cols=`tput cols` y= oo= yy=;    y=`printf %$(($cols-6))s`;    yy=${y// /=};    for i in {0..256};    do        o=00${i};        oo=`echo -en "setaf ${i}\nsetab ${i}\n"|tput -S`;        echo -e "${o:${#o}-3:3} ${oo}${yy}${x}";    done}
 
-alias sudo='sudo '
 alias lic_mit="wget -q https://raw.githubusercontent.com/cloudformdesign/licenses/master/LICENSE.MIT -O LICENSE.txt && echo created license"
 alias prep="grep '' -n -P -C 2 --exclude-dir '.ropeproject'"
 alias pdf="apvlv"
-function cless(){
-    pygmentize -f terminal "$1" | /usr/bin/less -R
-}
+alias litevault="litevault ~/.config/vault -e vim"
 
-## colorize man
-man() {env LESS_TERMCAP_mb=$'\E[01;31m' LESS_TERMCAP_md=$'\E[01;38;5;74m'  LESS_TERMCAP_me=$'\E[0m'  LESS_TERMCAP_se=$'\E[0m'  LESS_TERMCAP_so=$'\E[38;5;246m'  LESS_TERMCAP_ue=$'\E[0m'  LESS_TERMCAP_us=$'\E[04;38;5;146m'  man "$@"}
 
 ##################################################
 # Python
@@ -163,7 +170,19 @@ reconnect() {
 ##################################################
 # OS specific aliases
 
-alias paclean='sudo pacman -R $(pacman -Qdtq)'
+archeck() {
+    echo '############################################################'
+    echo '###' Cleaning Packages: sudo pacman -R $(pacman -Qdtq)
+    sudo pacman -R $(pacman -Qdtq)
+    echo '\n############################################################'
+    echo '###' Checking if systemd services have failed: systemctl --failed
+    systemctl --failed
+    echo '\n############################################################'
+    echo '###' High priority systemd journals: journalctl -p 0..3 -xn
+    journalctl -p 0..3 -xn
+}
+
+
 if [[ `uname` == 'Darwin' ]]; then
     alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
     alias minicom=/opt/minicom/2.2/bin/minicom
