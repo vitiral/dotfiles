@@ -12,14 +12,26 @@
 
 # Mod=Alt
 set $mod Mod1
+set $urxvt_transparent urxvt -tr +sb -fg green -bg black -tint white -sh 75 -fade 15 -fadecolor black -pr black -pr2 white
 
 # Mod=Windows Key
 #set $mod Mod4
+
+# setup workspace
+exec --no-startup-id i3-msg 'workspace 1; exec urxvt'
+exec --no-startup-id i3-msg 'workspace 3; exec /usr/bin/firefox'
+
+exec $urxvt_transparent -name litevault --hold -e litevault ~/.config/vault -e vim
+for_window [title="^litevault"] move to scratchpad
 
 # set up screen lock
 exec xautolock -time 11 -locker "i3lock -c 000000"
 bindsym $mod+Ctrl+l exec i3lock -c 000000
 bindsym $mod+p exec litevault -s &
+
+bindsym $mod+Shift+p [title="^litevault"] scratchpad show
+bindsym $mod+q move scratchpad
+bindsym $mod+a scratchpad show
 
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -35,12 +47,9 @@ mouse_warping output
 popup_during_fullscreen smart
 bindsym $mod+f fullscreen toggle
 
-bindsym $movemod+q scratchpad show
-bindsym $movemod+a move scratchpad
-
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+t exec urxvt -tr +sb -fg green -bg black -tint white -sh 75 -fade 15 -fadecolor black -pr black -pr2 white
+bindsym $mod+t exec $urxvt_transparent
 
 # kill focused window
 bindsym $mod+d kill
