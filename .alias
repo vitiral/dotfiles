@@ -170,11 +170,37 @@ reconnect() {
 ##################################################
 # OS specific aliases
 
+pacman-disowned() { 
+    tmp=${TMPDIR-/tmp}/pacman-disowned-$UID-$$
+    db=$tmp/db
+    fs=$tmp/fs
+    mkdir "$tmp"
+    trap 'rm -rf "$tmp"' EXIT
+    pacman -Qlq | sort -u > "$db"
+    find /etc /opt /usr ! -name lost+found \( -type d -printf '%p/\n' -o -print \) | sort > "$fs"
+    comm -23 "$fs" "$db"
+}
+
+pacman-list() {
+    # List explicitly installed packages
+    echo "### Installed from official repos"
+    pacman -Qen
+    echo "### Installed from non-official repos"
+    pacman -Qem
+}
+
+
 archeck() {
     echo '############################################################'
-    echo '###' Cleaning Packages: sudo pacman -R $(pacman -Qdtq)
-    sudo pacman -R $(pacman -Qdtq)
+    echo '###' Broken symlinks: find . -type l -! -exec test -e {} \; -print
+    find . -type l -! -exec test -e {} \; -print
+    echo '############################################################'
+    echo '###' Cleaning Packages: pacache -r; paccache -ruk0; sudo pacman -R $(pacman -Qdtq);
+    paccache -r                     # clean package cache (except most recent 3 versions)
+    paccache -ruk0                  # clean all uninstalled packages from cache
+    sudo pacman -R $(pacman -Qdtq)  # remove packages with no dependency links
     echo '\n############################################################'
+    echo '###' Major Errors / logs
     echo '###' Checking if systemd services have failed: systemctl --failed
     systemctl --failed
     echo '\n############################################################'
