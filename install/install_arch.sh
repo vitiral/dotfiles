@@ -17,6 +17,9 @@ if sudo hdparm -I /dev/sda | grep "TRIM supported"; then
     fi
 fi
 
+# System tools
+$SYS_INSTALL parted
+
 if [[ ! -e /etc/locale.conf ]]; then
     sudo cp $SCRIPTPATH/etc/locale.gen /etc
     sudo locale-gen
@@ -82,7 +85,7 @@ $SYS_INSTALL \
     the_silver_searcher \
     openssh wget rsync \
     cmake \
-    python2
+    python2 python2-pip python python-pip
 
 ## compression
 $SYS_INSTALL unace unrar zip unzip sharutils uudeview cabextract file-roller
