@@ -40,6 +40,7 @@ import sys
 import os
 import itertools
 import traceback
+import json
 tb = traceback                      # Note: tb.format_tb(exc.__traceback__)
 it = itertools
 from imp import reload
@@ -76,6 +77,11 @@ def rconfig():
     '''Reload the config file for the python interpreter'''
     print("Reloading {}".format(configfile))
     exec(filestr(configfile))
+
+
+def ljson(filepath):
+    with open(filepath) as f:
+        return json.load(f)
 
 
 ##################################################
