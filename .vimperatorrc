@@ -36,7 +36,6 @@
     " other fonts
     hi Normal font-family: inconsolata, unifont; font-size:16px; background: white; color:black;
     hi CmdLine>* font-family: inconsolata, unifont; font-size:16px;
-    set animations=false
 
     " Autocomplete using Firefox Awesomebar subsystem
     set complete=l

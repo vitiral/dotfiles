@@ -136,8 +136,8 @@ com! -nargs=+         UnBundle
 
 " Python {
     let g:syntastic_python_python_exec = 'python2'
-    let g:syntastic_python_flake8_args = '--ignore="E701,E501,E241,E126,E127,E128,W801"'
-    let g:syntastic_python_pylint_args='-d C0103,C0111,R0903,R0904,E501,E1101,E1103,W0141,W0142,W0201,W0232,W0511 -f parseable -r n -i y'
+    let g:syntastic_python_flake8_args = '--ignore="E701,E501,E241,E126,E127,E128,W801,E501"'
+    let g:syntastic_python_pylint_args='-d C0103,C0111,C0301,R0903,R0904,R0913,R0914,E501,E1101,E1103,W0141,W0142,W0201,W0232,W0511 -f parseable -r n -i y'
     if !exists('g:minimal_config')
         " code refactoring
         Bundle 'python-rope/ropevim'
