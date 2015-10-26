@@ -15,6 +15,9 @@ antigen bundle pip
 #bindkey "^H" backward-delete-char
 #bindkey "^U" backward-kill-line
 
+bindkey "^L" forward-word
+bindkey "^H" backward-word
+
 #antigen bundle sharat87/zsh-vim-mode
 #vi-search-fix() {
 #    zle vi-cmd-mode

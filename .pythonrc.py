@@ -26,12 +26,6 @@ pythonrc, localrc, interactiverc = False, False, False
 
 loaded, lp, config = (None,) * 3  # deleted at end
 
-try:
-    __IPYTHON__
-    # Nothing here yet
-except NameError:
-    pass
-
 ##################################################
 # ## basic namespace
 
@@ -41,13 +35,18 @@ import os
 import itertools
 import traceback
 import json
-tb = traceback                      # Note: tb.format_tb(exc.__traceback__)
-it = itertools
-from imp import reload
-
 import re
 import pprint
+from imp import reload
+import math
+
+
 import six
+from yaml import safe_load as yaml_load
+
+tb = traceback                      # Note: tb.format_tb(exc.__traceback__)
+it = itertools
+
 path = os.path
 psplit = path.split
 # better abspath  (expands user automatically)
@@ -55,7 +54,6 @@ abspath = lambda p: path.abspath(path.expanduser(p))
 p = print
 pp = pprint.pprint
 
-from yaml import safe_load as yaml_load
 def yload(fname):
     with open(fname) as f:
         return yaml_load(f)
@@ -95,6 +93,13 @@ if pyversion < 3:
 ##################################################
 # ## basic scientific libraries
 
+# data to play with
+r = range(10)
+l = list(r)
+d = dict((key, key) for key in r)
+s = set(r)
+
+
 tryimp = '''
 try:
     loaded = False
@@ -106,17 +111,13 @@ except ImportError as E:
             type(E), E))
 '''.format
 
+
 exec(tryimp("cloudtb as tb"))
 if loaded:
     from cloudtb.builtin import *
-
-import math
-
-# data to play with
-r = range(10)
-l = list(r)
-d = dict((key, key) for key in r)
-s = set(r)
+    from cloudtb.collections import AttrDict
+    adict = AttrDict
+    ad = adict(d)
 
 # Load optional scientific packages
 exec(tryimp("statistics"))

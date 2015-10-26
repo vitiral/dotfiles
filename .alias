@@ -4,10 +4,6 @@
 export EDITOR='vim'
 alias sudo='sudo '
 
-function cless(){pygmentize -f terminal "$1" | /usr/bin/less -R}
-
-## colorize man
-man() {env LESS_TERMCAP_mb=$'\E[01;31m' LESS_TERMCAP_md=$'\E[01;38;5;74m'  LESS_TERMCAP_me=$'\E[0m'  LESS_TERMCAP_se=$'\E[0m'  LESS_TERMCAP_so=$'\E[38;5;246m'  LESS_TERMCAP_ue=$'\E[0m'  LESS_TERMCAP_us=$'\E[04;38;5;146m'  man "$@"}
 
 pathappend() {
     # properly append path to end of PATH
@@ -26,7 +22,7 @@ pathinsert() {
 ##################################################
 # development commands
 
-function aa_256 () {     local o= i= x=`tput op` cols=`tput cols` y= oo= yy=;    y=`printf %$(($cols-6))s`;    yy=${y// /=};    for i in {0..256};    do        o=00${i};        oo=`echo -en "setaf ${i}\nsetab ${i}\n"|tput -S`;        echo -e "${o:${#o}-3:3} ${oo}${yy}${x}";    done}
+function aa_256 () {     local o= i= x=`tput op` cols=`tput cols` y= oo= yy=;    y=`printf %$(($cols-6))s`;    yy=${y// /=};    for i in {0..256};    do        o=00${i};        oo=`echo -en "setaf ${i}\nsetab ${i}\n"|tput -S`;        echo -e "${o:${#o}-3:3} ${oo}${yy}${x}";    done;}
 
 alias lic_mit="wget -q https://raw.githubusercontent.com/cloudformdesign/licenses/master/LICENSE.MIT -O LICENSE.txt && echo created license"
 alias prep="grep '' -n -P -C 2 --exclude-dir '.ropeproject'"
@@ -214,8 +210,6 @@ if [[ `uname` == 'Darwin' ]]; then
     alias minicom=/opt/minicom/2.2/bin/minicom
 elif [[ `uname` == 'Linux' ]]; then
     # arrow keys are bound to moving words. Use cntrl to 
-    bindkey "^L" forward-word
-    bindkey "^H" backward-word
     setxkbmap -layout us -option ctrl:nocaps >> /dev/null
 elif [[ `uname` == 'Cygwin' ]]; then
     :  # pass, none yet
@@ -224,4 +218,5 @@ fi
 if [[ -e ~/.alias.local ]]; then
     source ~/.alias.local
 fi
+
 
