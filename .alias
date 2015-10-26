@@ -4,7 +4,6 @@
 export EDITOR='vim'
 alias sudo='sudo '
 
-
 pathappend() {
     # properly append path to end of PATH
     if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
@@ -166,6 +165,7 @@ reconnect() {
 ##################################################
 # OS specific aliases
 
+alias arki=wiki-search
 pacman-disowned() { 
     tmp=${TMPDIR-/tmp}/pacman-disowned-$UID-$$
     db=$tmp/db
