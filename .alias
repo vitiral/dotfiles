@@ -4,6 +4,8 @@
 export EDITOR='vim'
 alias sudo='sudo '
 
+info(){vim -c "Vinfo $1" -c 'only'}
+
 pathappend() {
     # properly append path to end of PATH
     if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
