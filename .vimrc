@@ -15,8 +15,7 @@ endfunction
 
 set nocompatible        " Must be first line
 
-"set shell=/bin/sh
-set shell=$SHELL
+set shell=/bin/bash
 
 if WINDOWS()
     set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after

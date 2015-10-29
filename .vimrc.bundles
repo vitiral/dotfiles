@@ -72,6 +72,8 @@ com! -nargs=+         UnBundle
 " let g:minimal_config=true
 
 " Minimal {
+    " reading 'info' pages
+    Bundle 'alx741/vinfo'
     " git support
     Bundle 'tpope/vim-fugitive'
     " shows which lines have been added/removed version control
@@ -89,8 +91,6 @@ com! -nargs=+         UnBundle
     Bundle 'scrooloose/nerdtree'
     let g:EasyGrepRecursive=1
     let g:EasyGrepCommand=1
-    " encryption
-    Bundle "openssl.vim"
 " }
 
 " General {
