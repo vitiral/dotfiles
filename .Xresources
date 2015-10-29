@@ -6,6 +6,10 @@ URxvt*background: black
 URxvt*foreground: grey
 URxvt*color12: pink
 
+# This is one way to remove the ctrl+i == TAB feature, however it has to be integrated
+# with vim (which somehow escapes it)
+# URxvt.keysym.C-i: \033[33~
+
 URxvt.perl-ext-common: default,clipboard,keyboard-select
 
 ! copy paste
