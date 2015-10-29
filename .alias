@@ -46,6 +46,7 @@ export PYTHONDONTWRITEBYTECODE=0            # prevents .pyc files
 pathinsert "$HOME/.local/bin"
 pathinsert "$HOME/bin"
 
+alias pypath='echo $PYTHONPATH'
 alias py='python3'
 alias pyt="py.test --tb short"
 alias pytdoc='pyt --doctest-modules'  # don't forget you need to give module path
