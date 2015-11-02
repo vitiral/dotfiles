@@ -264,6 +264,8 @@ nnoremap <silent> <leader>wp :set paste!<CR>
 nnoremap <silent> <leader>wn :set relativenumber!<cr>:set nonu!<cr>
 " reload files
 nnoremap <leader>wr :checktime<CR>  " reload all buffers
+" search and replace
+nnoremap <leader>wR :%s///gc<left><left><left>
 " leader wc opens rc window for editing
 nnoremap <leader>wc :e $MYVIMRC<CR>  " open ~/.vimrc for editing
 " show current directory/file
