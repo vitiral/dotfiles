@@ -32,6 +32,8 @@ alias prep="grep '' -n -P -C 2 --exclude-dir '.ropeproject'"
 alias pdf="apvlv"
 alias litevault="litevault ~/.config/vault -e vim"
 
+alias js="rhino"
+
 
 ##################################################
 # Python
