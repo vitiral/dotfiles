@@ -5,6 +5,8 @@ export EDITOR='vim'
 alias sudo='sudo '
 
 info(){vim -c "Vinfo $1" -c 'only'}
+# urxvt font setter
+setfont(){printf '\33]50;%s\007' "xft:inconsolata:size=$1"}
 
 pathappend() {
     # properly append path to end of PATH
@@ -213,8 +215,8 @@ if [[ `uname` == 'Darwin' ]]; then
     alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
     alias minicom=/opt/minicom/2.2/bin/minicom
 elif [[ `uname` == 'Linux' ]]; then
-    # arrow keys are bound to moving words. Use cntrl to 
-    setxkbmap -layout us -option ctrl:nocaps >> /dev/null
+    # arrow keys are bound to moving words. Use cntrl to
+    setxkbmap -option "ctrl:nocaps" >> /dev/null
 elif [[ `uname` == 'Cygwin' ]]; then
     :  # pass, none yet
 fi

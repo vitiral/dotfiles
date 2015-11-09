@@ -1,14 +1,18 @@
 URxvt.font: xft:inconsolata:size=13,-*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
-!URxvt.font: xft:inconsolata:size=13,xft:symbola:size=13
+!URxvt.keysym.C-minus: command:\033]710;inconsolata:size=13,-*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
+!URxvt.keysym.C-equal: command:\033]710;inconsolata:size=16,-*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
+URxvt.keysym.C-equal: exec printf '\33]50;%s\007' "xft:inconsolata:size=16"
+
+
 URxvt*loginShell: false
 URxvt.letterSpace: 0
 URxvt*background: black
 URxvt*foreground: grey
 URxvt*color12: pink
 
-# This is one way to remove the ctrl+i == TAB feature, however it has to be integrated
-# with vim (which somehow escapes it)
-# URxvt.keysym.C-i: \033[33~
+! This is one way to remove the ctrl+i == TAB feature, however it has to be integrated
+! with vim (which somehow escapes it)
+! URxvt.keysym.C-i: \033[33~
 
 URxvt.perl-ext-common: default,clipboard,keyboard-select
 

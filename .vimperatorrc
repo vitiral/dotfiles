@@ -70,14 +70,6 @@
     inoremap <C-f> <ESC>
     vnoremap <C-f> <ESC>
     cnoremap <C-f> <ESC>
-    " Hard to reach symbols
-    inoremap <C-u> ()<left>
-    inoremap <C-t> []<left>
-    inoremap <C-b> {}<left>
-    inoremap <C-l> <right>
-    inoremap <C-h> <left>
-    " insert lines
-    inoremap <C-o> <ESC>o
 " }
 
 
