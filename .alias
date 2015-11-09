@@ -2,6 +2,7 @@
 # Environment
 
 export EDITOR='vim'
+alias dif='colordiff -ENwbu'
 alias sudo='sudo '
 
 info(){vim -c "Vinfo $1" -c 'only'}

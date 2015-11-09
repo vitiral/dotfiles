@@ -74,6 +74,8 @@ com! -nargs=+         UnBundle
 " Minimal {
     " reading 'info' pages
     Bundle 'alx741/vinfo'
+    " better vimdiff
+    Bundle 'chrisbra/vim-diff-enhanced'
     " git support
     Bundle 'tpope/vim-fugitive'
     " shows which lines have been added/removed version control
