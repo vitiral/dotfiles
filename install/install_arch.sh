@@ -49,6 +49,11 @@ if [[ `systemctl is-active sshd.service` != "active" ]]; then
     systemctl enable sshd.service
 fi
 
+if [[ `systemctl is-active avahi-daemon` != "active" ]]; then
+    $SYS_INSTALL avahi
+    sudo systemctl enable avahi-daemon
+fi
+
 if [[ ! -e /home/$CREATE_USER ]]; then
    sudo useradd -m -g users -G wheel -s /usr/bin/zsh $CREATE_USER
    USER_MSG="User $CREATE_USER created. Create password with: passwd $CREATE_USER"

@@ -48,8 +48,8 @@ popup_during_fullscreen smart
 bindsym $mod+f fullscreen toggle
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+t exec $urxvt_transparent
+bindsym $mod+t exec i3-sensible-terminal
+bindsym $mod+Shift+t exec $urxvt_transparent
 
 # kill focused window
 bindsym $mod+d kill
