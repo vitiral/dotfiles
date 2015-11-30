@@ -90,6 +90,7 @@ $SYS_INSTALL \
     the_silver_searcher \
     openssh wget rsync \
     cmake \
+    lsof smartmontools lm_sensors \
     python2 python2-pip python python-pip
 
 ## compression

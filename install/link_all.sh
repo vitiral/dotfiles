@@ -3,6 +3,7 @@
 cd ~
 ln -s .dotfiles/.xinitrc .
 ln -s .dotfiles/.Xresources .
+ln -s .dotfiles/.inputrc .
 ln -s .dotfiles/.alias .
 ln -s .dotfiles/.bash_profile .
 ln -s .dotfiles/.bashrc .

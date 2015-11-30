@@ -1,0 +1,20 @@
+# Use vi mode for bash and other programs that use GNU readline (such as irb, python, sqlite3, mysql, etc.)
+set editing-mode vi 
+Control-f: '\e'
+
+# Enable 8bit input
+set meta-flag on
+set input-meta on
+set output-meta on
+
+# Turns off 8th bit stripping
+set convert-meta off
+
+# Keep the 8th bit for display
+set output-meta on
+
+# helpful
+set completion-ignore-case On
+set expand-tilde on
+set show-all-if-ambiguous on
+set visible-stats on
