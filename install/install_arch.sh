@@ -111,7 +111,7 @@ sudo cp $SCRIPTPATH/etc/pacman.conf /etc/pacman.conf            # pacman
 $SYS_INSTALL -y yaourt
 USR_INSTALL=yaourt $INSTALL_ARGS
 
-$USR_INSTALL pithos
+$USR_INSTALL pithos otf-inconsolata-powerline-git
 
 if [[ `systemctl is-active dropbox@${CREATE_USER}` != "active" ]]; then
     $USR_INSTALL dropbox

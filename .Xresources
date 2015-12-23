@@ -1,4 +1,4 @@
-URxvt.font: xft:inconsolata:size=13,-*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
+urxvt*font: xft:inconsolata:size=13,xft:Terminus,xft:Inconsolata\ for\ Powerline,-*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
 
 
 URxvt*loginShell: false
