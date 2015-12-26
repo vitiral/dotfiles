@@ -23,18 +23,20 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     ;; auto-completion
+     auto-completion
      ;; better-defaults
      emacs-lisp
-     ;; git
-     ;; markdown
-     ;; org
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
+     git
+     markdown
+     org
+     (shell :variables
+            shell-default-height 30
+            shell-default-position 'bottom)
      ;; spell-checking
-     ;; syntax-checking
-     ;; version-control
+     syntax-checking
+     version-control
+     python
+     rust
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -79,11 +81,11 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(spacemacs-dark
-                         spacemacs-light
-                         solarized-light
+                         ;; spacemacs-light
+                         ;; solarized-light
                          solarized-dark
-                         leuven
-                         monokai
+                         ;; leuven
+                         ;; monokai
                          zenburn)
    ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -109,7 +111,7 @@ values."
    ;; Emacs commands (M-x).
    ;; By default the command key is `:' so ex-commands are executed like in Vim
    ;; with `:' and Emacs commands are executed with `<leader> :'.
-   dotspacemacs-command-key ":"
+   dotspacemacs-command-key ";"  ;; !!
    ;; If non nil `Y' is remapped to `y$'. (default t)
    dotspacemacs-remap-Y-to-y$ t
    ;; Location where to auto-save files. Possible values are `original' to
@@ -163,7 +165,7 @@ values."
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
    dotspacemacs-inactive-transparency 90
    ;; If non nil unicode symbols are displayed in the mode line. (default t)
-   dotspacemacs-mode-line-unicode-symbols t
+   dotspacemacs-mode-line-unicode-symbols nil
    ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters the
    ;; point when it reaches the top or bottom of the screen. (default t)
@@ -192,12 +194,60 @@ values."
   "Initialization function for user code.
 It is called immediately after `dotspacemacs/init'.  You are free to put any
 user code."
+  ;; general settings
+  (setq vc-follow-symlinks t)
+  (setq large-file-warning-threshold nil)
+  ;; theme changes -- https://github.com/nashamri/spacemacs-theme
+  (setq spacemacs-theme-comment-bg nil)
+  (custom-set-variables '(spacemacs-theme-custom-colors '(
+                          (bg1 . "black")
+                            )))
+  ;; python configs
+  (setq-default dotspacemacs-configuration-layers
+    '((python :variables python-test-runner 'pytest)))
   )
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
  This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
+  ;; some general settings
+  ;; (setq helm-echo-input-in-header-line nil)
+  (setq-default cursor-in-non-selected-windows nil)
+  (evil-leader/set-key "gB" 'magit-blame-quit)
+
+  ;; completely disable the mouse
+  (defun silence ()
+    (interactive))
+  (define-key evil-motion-state-map [down-mouse-1] 'silence)  ;; clicking doesn't move cursor
+  (define-key evil-motion-state-map [mouse-1] 'silence)       ;; silence errors
+  (mouse-wheel-mode -1)
+  (dolist (k '([mouse-1] [down-mouse-1] [drag-mouse-1] [double-mouse-1] [triple-mouse-1]  
+             [mouse-2] [down-mouse-2] [drag-mouse-2] [double-mouse-2] [triple-mouse-2]
+             [mouse-3] [down-mouse-3] [drag-mouse-3] [double-mouse-3] [triple-mouse-3]
+             [mouse-4] [down-mouse-4] [drag-mouse-4] [double-mouse-4] [triple-mouse-4]
+             [mouse-5] [down-mouse-5] [drag-mouse-5] [double-mouse-5] [triple-mouse-5]))
+  (global-unset-key k))
+
+  ;; relative line numbers
+  (global-linum-mode)
+  (with-eval-after-load 'linum
+    (linum-relative-toggle))
+
+  ;; evil settings
+  ;; TODO: get TAB working in org mode
+  (setq evil-want-fine-undo nil)   ;; normal vim undo behavior
+  (setq evil-move-cursor-back nil) ;; don't move one position back after insert
+
+  (setq-default cursor-in-non-selected-windows nil)
+
+  ;; evil escape
+  (global-set-key (kbd "C-f") 'evil-escape)
+  (evil-global-set-key 'normal (kbd "C-f") 'evil-escape)
+  (evil-global-set-key 'visual (kbd "C-f") 'evil-escape)
+  (evil-global-set-key 'insert (kbd "C-f") 'evil-escape)
+  (evil-global-set-key 'replace (kbd "C-f") 'evil-escape)
+  (setq-default evil-escape-key-sequence "qq")  ;; TODO: somehow completely disable this
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
