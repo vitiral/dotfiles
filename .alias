@@ -1,6 +1,10 @@
 ##################################################
 # Environment
 
+if [[ -e ~/.alias.local.before ]]; then
+    source ~/.alias.local.before
+fi
+
 export EDITOR='vim'
 alias dif='colordiff -ENwbu'
 alias sudo='sudo '
@@ -23,6 +27,15 @@ pathinsert() {
     fi
 }
 
+
+# auto connect to ssh-agent
+if ! pgrep -u $USER ssh-agent > /dev/null; then
+    ssh-agent > ~/.ssh-agent-thing
+fi
+if [[ "$SSH_AGENT_PID" == "" ]]; then
+    eval $(<~/.ssh-agent-thing)
+fi
+ssh-add -l > /dev/null || alias ssh='ssh-add -l > /dev/null || ssh-add && unalias ssh; ssh'
 
 ##################################################
 # development commands
