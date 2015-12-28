@@ -1,3 +1,5 @@
+#!/usr/bin/bash
+
 ##################################################
 # Environment
 
@@ -6,6 +8,7 @@ if [[ -e ~/.alias.local.before ]]; then
 fi
 
 export EDITOR='vim'
+alias vem='emacs --no-splash --no-window-system'
 alias dif='colordiff -ENwbu'
 alias sudo='sudo '
 
@@ -27,6 +30,7 @@ pathinsert() {
     fi
 }
 
+pathinsert "$HOME/bin"
 
 # auto connect to ssh-agent
 if ! pgrep -u $USER ssh-agent > /dev/null; then
@@ -53,6 +57,8 @@ alias js="rhino"
 ##################################################
 # Python
 
+pathinsert "$HOME/.local/bin"
+
 export PYTHONSTARTUP="$HOME/.pythonrc.py"
 export PYTHONDONTWRITEBYTECODE=0            # prevents .pyc files
 
@@ -62,8 +68,6 @@ export PYTHONDONTWRITEBYTECODE=0            # prevents .pyc files
 #py3bin="${python_root}/python3/bin"
 #pathinsert $py3bin
 #pathinsert $py2bin
-pathinsert "$HOME/.local/bin"
-pathinsert "$HOME/bin"
 
 alias pypath='echo $PYTHONPATH'
 alias py='python3'
@@ -96,6 +100,10 @@ alias upy='micropython'
 alias upip='~/projects/micropython/tools/pip-micropython'
 # pyboard development
 alias pyb="sudo screen /dev/ttyACM0"
+
+##################################################
+# Rust
+pathappend "$HOME/.cargo/bin"
 
 ##################################################
 # Tmux
