@@ -205,6 +205,13 @@ user code."
   ;; python configs
   (setq-default dotspacemacs-configuration-layers
     '((python :variables python-test-runner 'pytest)))
+
+  ;; work stuff
+  (add-hook 'python-mode-hook '(lambda ()
+                                (semantic-mode 1)
+                                (setq flycheck-checker 'python-pylint
+                                      flycheck-pylintrc "~/.pylintrc"
+                                      flycheck-checker-error-threshold 1000)))
   )
 
 (defun dotspacemacs/user-config ()
@@ -248,7 +255,9 @@ layers configuration. You are free to put any user code."
   (evil-global-set-key 'insert (kbd "C-f") 'evil-escape)
   (evil-global-set-key 'replace (kbd "C-f") 'evil-escape)
   (setq-default evil-escape-key-sequence "qq")  ;; TODO: somehow completely disable this
+
 )
+
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.

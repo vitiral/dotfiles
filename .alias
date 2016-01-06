@@ -103,7 +103,6 @@ alias pyb="sudo screen /dev/ttyACM0"
 
 ##################################################
 # Rust
-pathappend "$HOME/.cargo/bin"
 
 ##################################################
 # Tmux
