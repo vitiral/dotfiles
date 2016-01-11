@@ -215,6 +215,7 @@ layers configuration. You are free to put any user code."
   ;; (setq helm-echo-input-in-header-line nil)
   (setq-default cursor-in-non-selected-windows nil)
   (evil-leader/set-key "gB" 'magit-blame-quit)
+  ;; (evil-leader/set-key "SPC" 'evil-avy-goto-char)
 
   ;; completely disable the mouse
   (defun silence ()
