@@ -44,7 +44,10 @@ values."
    ;; configuration in `dotspacemacs/config'.
    dotspacemacs-additional-packages '()
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages
+   '(
+     smartparens
+    )
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'. (default t)
@@ -205,6 +208,13 @@ user code."
   ;; python configs
   (setq-default dotspacemacs-configuration-layers
     '((python :variables python-test-runner 'pytest)))
+
+  ;; work stuff
+  (add-hook 'python-mode-hook '(lambda ()
+                                (semantic-mode 1)
+                                (setq flycheck-checker 'python-pylint
+                                      flycheck-pylintrc "~/.pylintrc"
+                                      flycheck-checker-error-threshold 1000)))
   )
 
 (defun dotspacemacs/user-config ()
@@ -215,7 +225,7 @@ layers configuration. You are free to put any user code."
   ;; (setq helm-echo-input-in-header-line nil)
   (setq-default cursor-in-non-selected-windows nil)
   (evil-leader/set-key "gB" 'magit-blame-quit)
-  ;; (evil-leader/set-key "SPC" 'evil-avy-goto-char)
+  (evil-leader/set-key "SPC" 'evil-avy-goto-char)
 
   ;; completely disable the mouse
   (defun silence ()
@@ -247,9 +257,12 @@ layers configuration. You are free to put any user code."
   (evil-global-set-key 'normal (kbd "C-f") 'evil-escape)
   (evil-global-set-key 'visual (kbd "C-f") 'evil-escape)
   (evil-global-set-key 'insert (kbd "C-f") 'evil-escape)
-  (evil-global-set-key 'replace (kbd "C-f") 'evil-escape)
+
   (setq-default evil-escape-key-sequence "qq")  ;; TODO: somehow completely disable this
+  (load "/home/garrett/.dotfiles/evil-ediff/evil-ediff.el")
+
 )
+
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
