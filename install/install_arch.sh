@@ -87,6 +87,7 @@ fi
 ## dev tools
 $SYS_INSTALL \
     zsh tmux vim \
+    tree \
     the_silver_searcher \
     openssh wget rsync \
     cmake \
