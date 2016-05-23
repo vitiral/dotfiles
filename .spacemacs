@@ -201,6 +201,7 @@ values."
 It is called immediately after `dotspacemacs/init'.  You are free to put any
 user code."
   ;; general settings
+  (add-to-list 'auto-mode-alist '("\\.rsk\\'" . toml-mode))
   (setq vc-follow-symlinks t)
   (setq large-file-warning-threshold nil)
   ;; theme changes -- https://github.com/nashamri/spacemacs-theme

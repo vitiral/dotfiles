@@ -69,6 +69,13 @@ export PYTHONDONTWRITEBYTECODE=0            # prevents .pyc files
 #pathinsert $py3bin
 #pathinsert $py2bin
 
+PYCONDA="$HOME/software/pyconda"
+alias conda="$PYCONDA/bin/conda"
+alias py2c="$PYCONDA/envs/python2/bin/python"
+alias ipy2c="$PYCONDA/envs/python2/bin/ipython"
+alias pip2c="$PYCONDA/envs/python2/bin/pip"
+
+
 alias pypath='echo $PYTHONPATH'
 alias py='python3'
 alias pyt="py.test3 --tb short"
@@ -180,7 +187,6 @@ ipscan() {
 alias netinfo='echo "## netstat -nr:" && netstat -nr && echo "## ifconfig:" && ifconfig | pcregrep -M "(eth0|wlan0)\s+Link.*\n\s+inet"'
 
 # File System
-alias dd="dcfldd"
 alias untar="tar -zxvf"
 
 # automatically move ssh public credentials into authorized_keys of system connecting with
