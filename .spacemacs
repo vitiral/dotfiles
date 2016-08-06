@@ -23,13 +23,14 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     (auto-completion :variables
-                      auto-completion-enable-snippets-in-popup t
-                      auto-completion-enable-help-tooltip t)
+     ;; (auto-completion :variables
+     ;;                  auto-completion-enable-snippets-in-popup t
+     ;;                  auto-completion-enable-help-tooltip t)
+     auto-completion
 
      ;; better-defaults
      emacs-lisp
-     git
+     ;; git
      markdown
      org
      (shell :variables
@@ -50,6 +51,8 @@ values."
    dotspacemacs-excluded-packages
    '(
      smartparens
+     eldoc
+     flycheck
     )
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
@@ -209,17 +212,16 @@ user code."
   (custom-set-variables '(spacemacs-theme-custom-colors '(
                           (bg1 . "black")
                             )))
-  ;; python configs
-  (setq-default dotspacemacs-configuration-layers
-    '((python :variables python-test-runner 'pytest)))
+  ;; ;; python configs
+  ;; (setq-default dotspacemacs-configuration-layers
+  ;;   '((python :variables python-test-runner 'pytest)))
 
-  ;; work stuff
-  (add-hook 'python-mode-hook '(lambda ()
-                                (semantic-mode 1)
-                                (setq flycheck-checker 'python-pylint
-                                      flycheck-pylintrc "~/.pylintrc"
-                                      flycheck-checker-error-threshold 1000)))
-
+  ;; ;; work stuff
+  ;; (add-hook 'python-mode-hook '(lambda ()
+  ;;                               (semantic-mode 1)
+  ;;                               (setq flycheck-checker 'python-pylint
+  ;;                                     flycheck-pylintrc "~/.pylintrc"
+  ;;                                     flycheck-checker-error-threshold 1000)))
 )
 
 (defun dotspacemacs/user-config ()
@@ -266,7 +268,6 @@ layers configuration. You are free to put any user code."
 
   (setq-default evil-escape-key-sequence "qq")  ;; TODO: somehow completely disable this
   (load "/home/garrett/.dotfiles/evil-ediff/evil-ediff.el")
-
 )
 
 
