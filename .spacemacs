@@ -23,7 +23,11 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
+     ;; (auto-completion :variables
+     ;;                  auto-completion-enable-snippets-in-popup t
+     ;;                  auto-completion-enable-help-tooltip t)
      auto-completion
+
      ;; better-defaults
      emacs-lisp
      ;; git
@@ -42,7 +46,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(rustfmt)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages
    '(
@@ -200,6 +204,7 @@ values."
 It is called immediately after `dotspacemacs/init'.  You are free to put any
 user code."
   ;; general settings
+  (add-to-list 'auto-mode-alist '("\\.rsk\\'" . toml-mode))
   (setq vc-follow-symlinks t)
   (setq large-file-warning-threshold nil)
   ;; theme changes -- https://github.com/nashamri/spacemacs-theme
@@ -207,7 +212,6 @@ user code."
   (custom-set-variables '(spacemacs-theme-custom-colors '(
                           (bg1 . "black")
                             )))
-  (setq python-check-command "python2 flake8")
   ;; ;; python configs
   ;; (setq-default dotspacemacs-configuration-layers
   ;;   '((python :variables python-test-runner 'pytest)))
@@ -218,7 +222,7 @@ user code."
   ;;                               (setq flycheck-checker 'python-pylint
   ;;                                     flycheck-pylintrc "~/.pylintrc"
   ;;                                     flycheck-checker-error-threshold 1000)))
-  )
+)
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
@@ -226,6 +230,7 @@ user code."
 layers configuration. You are free to put any user code."
   ;; some general settings
   ;; (setq helm-echo-input-in-header-line nil)
+  (rustfmt-enable-on-save)
   (setq-default cursor-in-non-selected-windows nil)
   (evil-leader/set-key "gB" 'magit-blame-quit)
   (evil-leader/set-key "SPC" 'evil-avy-goto-char)
@@ -263,7 +268,6 @@ layers configuration. You are free to put any user code."
 
   (setq-default evil-escape-key-sequence "qq")  ;; TODO: somehow completely disable this
   (load "/home/garrett/.dotfiles/evil-ediff/evil-ediff.el")
-
 )
 
 

@@ -84,6 +84,13 @@ export PYTHONDONTWRITEBYTECODE=0            # prevents .pyc files
 #pathinsert $py3bin
 #pathinsert $py2bin
 
+PYCONDA="$HOME/software/pyconda"
+alias conda="$PYCONDA/bin/conda"
+alias py2c="$PYCONDA/envs/python2/bin/python"
+alias ipy2c="$PYCONDA/envs/python2/bin/ipython"
+alias pip2c="$PYCONDA/envs/python2/bin/pip"
+
+
 alias pypath='echo $PYTHONPATH'
 alias py='python3'
 alias pyt="py.test3 --tb short"
@@ -120,7 +127,15 @@ alias pyb="sudo screen /dev/ttyACM0"
 # Rust
 pathappend $HOME/.cargo/bin
 export RUST_SRC_PATH=$HOME/software/rust/src
+rustr() {
+    built=/tmp/built_rust
+    rm -f $built; rustc $1 -go $built && $built
+}
 
+rustt() {
+    built=/tmp/built_rust
+    rm -f $built; rustc $1 -go $built --test && $built
+}
 ##################################################
 # Tmux
 alias tls="tmux list-sessions"
