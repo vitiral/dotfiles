@@ -81,6 +81,9 @@ def ljson(filepath):
     with open(filepath) as f:
         return json.load(f)
 
+def djson(filepath, data):
+    with open(filepath) as f:
+        return json.dump(data, f)
 
 ##################################################
 # ## python2 compatibility (more to be added)

@@ -53,6 +53,21 @@ alias litevault="litevault ~/.config/vault -e vim"
 
 alias js="rhino"
 
+alias gd="git diff"
+alias gs="git status"
+alias gcam="git commit -am"
+
+corrupt() {
+    let i=`ls -al $1 | awk '{print $5}'`
+    let i=`shuf -i 0-$i -n 1`
+    # let b=`dd if=$1 bs=1 count=1 seek=$i`
+    # let b=$(expr ($b + 1) % 256)
+    # let b=$(printf "\x$(printf %x $b)")
+    # echo "corrupting byte at $i with: " $(printf "%d" $b)
+    # echo b | dd of=$1 bs=1 count=1 seek=$i
+    echo "corrupting byte at $i"
+    dd if=/dev/urandom of=$1 bs=1 count=1 seek=$i conv=notrunc &> /dev/null
+}
 
 ##################################################
 # Python
@@ -83,9 +98,9 @@ alias pypi='py setup.py register -r pypi sdist upload'
 alias pypitest='py setup.py register -r pypitest'
 
 alias py2='python2'
-alias py2t="py.test2 --tb short"
+alias py2t="py.test2 --tb short -m \"not slow\""
 alias py2tdoc='py2t --doctest-modules'
-alias py2tdb='py2t -sx --pdb'
+alias py2tdb='py2t -vvsx --pdb'
 alias pdb2='py2 -m ipdb'
 alias dbe2='py2 -m cloudtb.dbe'
 alias py2dev='py2 setup.py develop'
@@ -115,43 +130,7 @@ alias trm="tmux kill-session -t"
 alias tmv="tmux rename-session -t"  # target-session new-name
 alias tkill="tmux kill-server"
 alias town="tmux detach -a"  # detach all other sessions from tmux, getting it to correct size
-
-##################################################
-# Git
-alias gpyignore="wget -q https://raw.githubusercontent.com/github/gitignore/master/Python.gitignore -O .gitignore && echo created python .gitignore file"
-alias g='git'
-alias gs='git status'
-alias gst='git status'
-alias gss='git status -s'
-alias gd='git diff --color-words'
-alias gdc='gd --cached'
-alias gdn='gd --name-only'
-alias gp='git push'
-alias gpo='git push origin'
-alias gc='git commit'
-alias gca='git commit -va'
-alias gcam='git commit -vam'
-alias gc!='git commit -v --amend'
-alias gco='git checkout'
-alias gcm='git checkout master'
-alias gcb='git checkout -b'
-alias gr='git remote'
-alias grls='git remote -v'
-alias grmv='git remote rename'
-alias grrm='git remote remove'
-alias gb='git branch'
-alias gbd='git branch -d'
-alias gconfig='git config --list'
-alias glog='git log --oneline --decorate --color --graph'
-alias ga='git add'
-#alias gap='git add --patch'
-#alias gaa='git add --all'
-alias gm='git merge'
-alias ghash='git rev-parse HEAD'
-
-gitio() {
-    curl -i http://git.io -F "url=$1"
-}
+alias tsave="tmux capture-pane -S -100000 ; tmux save-buffer"
 
 ## Sign and verify commits with GPG
 #alias gcs='git commit -S'
@@ -172,8 +151,10 @@ ipscan() {
 alias netinfo='echo "## netstat -nr:" && netstat -nr && echo "## ifconfig:" && ifconfig | pcregrep -M "(eth0|wlan0)\s+Link.*\n\s+inet"'
 
 # File System
-alias dd="dcfldd"
 alias untar="tar -zxvf"
+dotar() {
+    tar -zcvf $1.tar.gz $1
+}
 
 # automatically move ssh public credentials into authorized_keys of system connecting with
 ssh_autoauth() {
@@ -197,7 +178,7 @@ reconnect() {
 # OS specific aliases
 
 alias arki=wiki-search
-pacman-disowned() { 
+pacman-disowned() {
     tmp=${TMPDIR-/tmp}/pacman-disowned-$UID-$$
     db=$tmp/db
     fs=$tmp/fs
@@ -241,7 +222,11 @@ if [[ `uname` == 'Darwin' ]]; then
     alias minicom=/opt/minicom/2.2/bin/minicom
 elif [[ `uname` == 'Linux' ]]; then
     # arrow keys are bound to moving words. Use cntrl to
-    setxkbmap -option "ctrl:nocaps" >> /dev/null
+    # setxkbmap -option "ctrl:nocaps" >> /dev/null
+    # http://efod.se/writings/linuxbook/html/caps-lock-to-ctrl.html
+	xmodmap -e 'keycode 66 = Control_L'
+	xmodmap -e 'clear Lock'
+	xmodmap -e 'add Control = Control_L'
 elif [[ `uname` == 'Cygwin' ]]; then
     :  # pass, none yet
 fi

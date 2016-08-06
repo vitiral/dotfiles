@@ -26,7 +26,7 @@ values."
      auto-completion
      ;; better-defaults
      emacs-lisp
-     git
+     ;; git
      markdown
      org
      (shell :variables
@@ -47,6 +47,8 @@ values."
    dotspacemacs-excluded-packages
    '(
      smartparens
+     eldoc
+     flycheck
     )
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
@@ -205,16 +207,17 @@ user code."
   (custom-set-variables '(spacemacs-theme-custom-colors '(
                           (bg1 . "black")
                             )))
-  ;; python configs
-  (setq-default dotspacemacs-configuration-layers
-    '((python :variables python-test-runner 'pytest)))
+  (setq python-check-command "python2 flake8")
+  ;; ;; python configs
+  ;; (setq-default dotspacemacs-configuration-layers
+  ;;   '((python :variables python-test-runner 'pytest)))
 
-  ;; work stuff
-  (add-hook 'python-mode-hook '(lambda ()
-                                (semantic-mode 1)
-                                (setq flycheck-checker 'python-pylint
-                                      flycheck-pylintrc "~/.pylintrc"
-                                      flycheck-checker-error-threshold 1000)))
+  ;; ;; work stuff
+  ;; (add-hook 'python-mode-hook '(lambda ()
+  ;;                               (semantic-mode 1)
+  ;;                               (setq flycheck-checker 'python-pylint
+  ;;                                     flycheck-pylintrc "~/.pylintrc"
+  ;;                                     flycheck-checker-error-threshold 1000)))
   )
 
 (defun dotspacemacs/user-config ()
