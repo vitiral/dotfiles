@@ -24,6 +24,8 @@ if [[ ! -e /etc/locale.conf ]]; then
     sudo cp $SCRIPTPATH/etc/locale.gen /etc
     sudo locale-gen
     sudo cp $SCRIPTPATH/etc/locale.conf /etc
+    $SYS_INSTALL ntp
+    sudo systemctl enable ntpd.service
 fi
 
 if [[ ! -e /etc/localtime ]]; then
@@ -71,7 +73,7 @@ $SYS_INSTALL xorg-server xorg-xinit xorg-xev \
     rxvt-unicode urxvt-perls xclip \
     ttf-dejavu ttf-inconsolata bdf-unifont \
     xf86-input-synaptics \
-    pulseaudio pulseaudio-alsa alsa-utils 
+    pulseaudio pulseaudio-alsa alsa-utils
 
 if [[ -e ~/.zlogin ]]; then
     ln -s $SCRIPTPATH/.zlogin ~/.zlogin
@@ -99,8 +101,8 @@ $SYS_INSTALL unace unrar zip unzip sharutils uudeview cabextract file-roller
 
 ## usertools
 $SYS_INSTALL \
-    firefox \
-    apvlv feh \
+    firefox chromium \
+    apvlv feh vlc \
     libreoffice-still
 
 # system settings
@@ -114,10 +116,10 @@ USR_INSTALL=yaourt $INSTALL_ARGS
 
 $USR_INSTALL pithos otf-inconsolata-powerline-git
 
-if [[ `systemctl is-active dropbox@${CREATE_USER}` != "active" ]]; then
-    $USR_INSTALL dropbox
-    sudo systemctl enable dropbox@${CREATE_USER}
-fi
+#if [[ `systemctl is-active dropbox@${CREATE_USER}` != "active" ]]; then
+#    $USR_INSTALL dropbox
+#    sudo systemctl enable dropbox@${CREATE_USER}
+#fi
 
 # manual installation of software
 if [[ ! -e $HOME/software/py3status ]]; then

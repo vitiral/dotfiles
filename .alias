@@ -49,6 +49,7 @@ function aa_256 () {     local o= i= x=`tput op` cols=`tput cols` y= oo= yy=;   
 alias lic_mit="wget -q https://raw.githubusercontent.com/cloudformdesign/licenses/master/LICENSE.MIT -O LICENSE.txt && echo created license"
 alias prep="grep '' -n -P -C 2 --exclude-dir '.ropeproject'"
 alias pdf="apvlv"
+# note: combine pdfs with pdfunite, requires poppler
 alias litevault="litevault ~/.config/vault -e vim"
 
 alias js="rhino"
@@ -111,7 +112,10 @@ alias pyb="sudo screen /dev/ttyACM0"
 ##################################################
 # Rust
 pathappend $HOME/.cargo/bin
+pathappend $HOME/projects/rsk/target/release
+# racer configs
 export RUST_SRC_PATH=$HOME/software/rust/src
+export CARGO_HOME=$HOME/.cargo
 rustr() {
     built=/tmp/built_rust
     rm -f $built; rustc $1 -go $built && $built
@@ -130,6 +134,7 @@ alias trm="tmux kill-session -t"
 alias tmv="tmux rename-session -t"  # target-session new-name
 alias tkill="tmux kill-server"
 alias town="tmux detach -a"  # detach all other sessions from tmux, getting it to correct size
+alias tclear="clear; tmux clear-history"
 
 ##################################################
 # Git
@@ -237,8 +242,8 @@ archeck() {
     find . -type l -! -exec test -e {} \; -print
     echo '############################################################'
     echo '###' Cleaning Packages: pacache -r; paccache -ruk0; sudo pacman -R $(pacman -Qdtq);
-    paccache -r                     # clean package cache (except most recent 3 versions)
-    paccache -ruk0                  # clean all uninstalled packages from cache
+    sudo paccache -r                     # clean package cache (except most recent 3 versions)
+    sudo paccache -ruk0                  # clean all uninstalled packages from cache
     sudo pacman -R $(pacman -Qdtq)  # remove packages with no dependency links
     echo '\n############################################################'
     echo '###' Major Errors / logs
