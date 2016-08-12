@@ -127,19 +127,14 @@ alias pyb="sudo screen /dev/ttyACM0"
 ##################################################
 # Rust
 pathappend $HOME/.cargo/bin
-pathappend $HOME/projects/rsk/target/release
-# racer configs
+pathappend $HOME/projects/rst/target/release
+
+export RUST_BACKTRACE=1
 export RUST_SRC_PATH=$HOME/software/rust/src
 export CARGO_HOME=$HOME/.cargo
-rustr() {
-    built=/tmp/built_rust
-    rm -f $built; rustc $1 -go $built && $built
-}
 
-rustt() {
-    built=/tmp/built_rust
-    rm -f $built; rustc $1 -go $built --test && $built
-}
+alias rust_release="rustup default stable; cargo build --release --target=x86_64-unknown-linux-musl; rustup default nightly"
+
 ##################################################
 # Tmux
 alias tls="tmux list-sessions"
