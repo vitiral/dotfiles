@@ -49,6 +49,7 @@ function aa_256 () {     local o= i= x=`tput op` cols=`tput cols` y= oo= yy=;   
 alias lic_mit="wget -q https://raw.githubusercontent.com/cloudformdesign/licenses/master/LICENSE.MIT -O LICENSE.txt && echo created license"
 alias prep="grep '' -n -P -C 2 --exclude-dir '.ropeproject'"
 alias pdf="apvlv"
+# note: combine pdfs with pdfunite, requires poppler
 alias litevault="litevault ~/.config/vault -e vim"
 
 alias js="rhino"
@@ -126,16 +127,14 @@ alias pyb="sudo screen /dev/ttyACM0"
 ##################################################
 # Rust
 pathappend $HOME/.cargo/bin
-export RUST_SRC_PATH=$HOME/software/rust/src
-rustr() {
-    built=/tmp/built_rust
-    rm -f $built; rustc $1 -go $built && $built
-}
+pathappend $HOME/projects/rst/target/release
 
-rustt() {
-    built=/tmp/built_rust
-    rm -f $built; rustc $1 -go $built --test && $built
-}
+export RUST_BACKTRACE=1
+export RUST_SRC_PATH=$HOME/software/rust/src
+export CARGO_HOME=$HOME/.cargo
+
+alias rust_release="rustup default stable; cargo build --release --target=x86_64-unknown-linux-musl; rustup default nightly"
+
 ##################################################
 # Tmux
 alias tls="tmux list-sessions"
@@ -145,6 +144,45 @@ alias trm="tmux kill-session -t"
 alias tmv="tmux rename-session -t"  # target-session new-name
 alias tkill="tmux kill-server"
 alias town="tmux detach -a"  # detach all other sessions from tmux, getting it to correct size
+alias tclear="clear; tmux clear-history"
+
+##################################################
+# Git
+alias gpyignore="wget -q https://raw.githubusercontent.com/github/gitignore/master/Python.gitignore -O .gitignore && echo created python .gitignore file"
+alias g='git'
+alias gs='git status'
+alias gst='git status'
+alias gss='git status -s'
+alias gd='git diff --color-words'
+alias gdc='gd --cached'
+alias gdn='gd --name-only'
+alias gp='git push'
+alias gpo='git push origin'
+alias gc='git commit'
+alias gca='git commit -va'
+alias gcam='git commit -vam'
+alias gc!='git commit -v --amend'
+alias gco='git checkout'
+alias gcm='git checkout master'
+alias gcb='git checkout -b'
+alias gr='git remote'
+alias grls='git remote -v'
+alias grmv='git remote rename'
+alias grrm='git remote remove'
+alias gb='git branch'
+alias gbd='git branch -d'
+alias gconfig='git config --list'
+alias glog='git log --oneline --decorate --color --graph'
+alias ga='git add'
+#alias gap='git add --patch'
+#alias gaa='git add --all'
+alias gm='git merge'
+alias ghash='git rev-parse HEAD'
+
+gitio() {
+    curl -i http://git.io -F "url=$1"
+}
+
 alias tsave="tmux capture-pane -S -100000 ; tmux save-buffer"
 
 ## Sign and verify commits with GPG
@@ -219,8 +257,8 @@ archeck() {
     find . -type l -! -exec test -e {} \; -print
     echo '############################################################'
     echo '###' Cleaning Packages: pacache -r; paccache -ruk0; sudo pacman -R $(pacman -Qdtq);
-    paccache -r                     # clean package cache (except most recent 3 versions)
-    paccache -ruk0                  # clean all uninstalled packages from cache
+    sudo paccache -r                     # clean package cache (except most recent 3 versions)
+    sudo paccache -ruk0                  # clean all uninstalled packages from cache
     sudo pacman -R $(pacman -Qdtq)  # remove packages with no dependency links
     echo '\n############################################################'
     echo '###' Major Errors / logs
