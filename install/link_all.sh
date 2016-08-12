@@ -10,6 +10,8 @@ ln -s .dotfiles/.bashrc .
 ln -s .dotfiles/.tmux.conf .
 ln -s .dotfiles/.zshrc .
 ln -s .dotfiles/.vimperatorrc .
+ln -s ~/.dotfiles/.gitconfig .
+ln -s ~/.dotfiles/.gitmodules .
 
 # .config
 mkdir -p .config

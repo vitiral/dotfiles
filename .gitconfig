@@ -16,7 +16,12 @@
   hist = log --pretty=format:"%h%x20%an%x09%ad%x7C%d%s" --graph --date=short
   type = cat-file -t
   dump = cat-file -p
+	d = difftool
 
 
 [push]
 	default = simple
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
