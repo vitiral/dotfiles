@@ -88,12 +88,12 @@ endif
 " }
 
 " Vim UI {
-" Ergonomic {
+" Ergonomic Spacemacs {
     " commands can start with ;"
     nnoremap ; :
 
-    " Leader is , instead of \
-    let mapleader = ','
+    " Leader is SPACE instead of \
+    let mapleader = ' '
 
     " Notes: os wide Cntrl i=tab, n=enter
     " vim specific: t=indents code (from where?)
@@ -102,20 +102,23 @@ endif
     inoremap <C-f> <ESC>
     vnoremap <C-f> <ESC>
     cnoremap <C-f> <ESC>
-    " Hard to reach symbols
-    inoremap <C-u> ()<left>
-    inoremap <C-t> []<left>
-    inoremap <C-b> {}<left>
-    inoremap <C-l> <right>
-    lnoremap <C-h> <left>
-    " insert lines
-    inoremap <C-o> <esc>o
     
-    " Easier moving in tabs and windows
-    map <C-J> <C-W>j
-    map <C-K> <C-W>k
-    map <C-L> <C-W>l
-    map <C-H> <C-W>h
+    " movement
+    nnoremap <leader>wj <C-W>j
+    nnoremap <leader>wk <C-W>k
+    nnoremap <leader>wl <C-W>l
+    nnoremap <leader>wh <C-W>h
+
+    " window management
+    map <leader>wS <C-w>s<C-w>j<C-w>=
+    map <leader>wV <C-w>v<C-w>l<C-w>=
+    nnoremap <leader>wc :q<CR>
+
+    " open and find files
+    nnoremap <leader>ff :e<SPACE>
+
+    " clears search history
+    nnoremap <leader>sc :noh<cr>
 " }
 
 if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
@@ -216,7 +219,7 @@ autocmd BufNewFile,BufRead *.coffee set filetype=coffee
 
     " Map <Leader>ff to display all lines with keyword under cursor
     " and ask which one to jump to
-    nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+    " nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 
     nnoremap <leader>b :ls<CR>:b<space>
 
@@ -254,10 +257,7 @@ autocmd BufNewFile,BufRead *.coffee set filetype=coffee
 " Window Management {
 " ,wX does various things to windows 
 " wgX is reserved for 'window goto' for tools like youcompleteme
-nnoremap <leader>wf <C-w>= " fix windows
 " horizontal+verticl splits
-nnoremap <leader>ww <C-w>v<C-w>l<C-w>=
-nnoremap <leader>wv <C-w>s<C-w>j<C-w>=
 " toggle paste
 nnoremap <silent> <leader>wp :set paste!<CR>
 " toggle line numbers
@@ -266,8 +266,6 @@ nnoremap <silent> <leader>wn :set relativenumber!<cr>:set nonu!<cr>
 nnoremap <leader>wr :checktime<CR>  " reload all buffers
 " search and replace
 nnoremap <leader>wR :%s///gc<left><left><left>
-" leader wc opens rc window for editing
-nnoremap <leader>wc :e $MYVIMRC<CR>  " open ~/.vimrc for editing
 " show current directory/file
 nnoremap <leader>wd :echo expand('%:p:h')<CR>
 nnoremap <leader>wp :echo expand('%:p')<CR>
