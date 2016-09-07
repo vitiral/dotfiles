@@ -94,7 +94,8 @@ $SYS_INSTALL \
     openssh wget rsync \
     cmake \
     lsof smartmontools lm_sensors \
-    python2 python2-pip python python-pip
+    python2 python2-pip python python-pip \
+    npm
 
 ## compression
 $SYS_INSTALL unace unrar zip unzip sharutils uudeview cabextract file-roller
@@ -129,6 +130,15 @@ if [[ ! -e $HOME/software/py3status ]]; then
     git clone https://github.com/ultrabug/py3status.git
     cd py3status
     sudo /usr/bin/python2.7 setup.py install
+fi
+
+if [[ ! -e $HOME/software/hipchat ]]; then
+    cd $HOME
+    mkdir -p software
+    sudo npm install nativefier -g
+    sudo nativefier 'https://solidfire.hipchat.com/chat'
+    mv sign-in-hip-chat-linux-x64 software/hipchat
+    ln -s software/hipchat/sign-in-hip-chat bin/hipchat
 fi
 
 echo "You need to set your own passwd with passwd"
