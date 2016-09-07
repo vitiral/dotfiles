@@ -27,7 +27,7 @@ values."
      ;; better-defaults
      emacs-lisp
      ;; git
-     ;; markdown
+     markdown
      ;; org
      ;; (shell :variables
      ;;        shell-default-height 30
@@ -44,9 +44,7 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(rustfmt)
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '(
-                                    smartparens
-                                    )
+   dotspacemacs-excluded-packages '(smartparens-mode)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'. (default t)
@@ -252,7 +250,11 @@ before packages are loaded. If you are unsure, you should try in setting them in
       `((".*" . ,temporary-file-directory)))
   (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
-  (setq undo-tree-auto-save-history t)
+  (setq undo-tree-auto-save-history t
+         undo-tree-history-directory-alist
+         `(("." . ,(concat spacemacs-cache-directory "undo"))))
+   (unless (file-exists-p (concat spacemacs-cache-directory "undo"))
+(make-directory (concat spacemacs-cache-directory "undo")))
 
   ;;; handle files correctly
   (setq vc-follow-symlinks t)
@@ -262,7 +264,6 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (custom-set-variables '(spacemacs-theme-custom-colors '(
                                                           (bg1 . "black")
                                                           )))
-
   )
 
 (defun dotspacemacs/user-config ()
@@ -292,6 +293,7 @@ you should place your code here."
   (define-key evil-visual-state-map (kbd "C-f") 'evil-escape)
 
 
+  (spacemacs/toggle-smartparens-globally-off)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
