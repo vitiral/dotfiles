@@ -12,6 +12,7 @@ ln -s .dotfiles/.zshrc .
 ln -s .dotfiles/.vimperatorrc .
 ln -s ~/.dotfiles/.gitconfig .
 ln -s ~/.dotfiles/.gitmodules .
+ln -s ~/.dotfiles/.pydistutils.cfg .
 
 # .config
 mkdir -p .config
