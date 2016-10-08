@@ -1,4 +1,46 @@
-set -e  # errors cause failure
+# ----- traceback code -----
+set -eu
+
+trap _exit_trap EXIT
+trap _err_trap ERR
+_showed_traceback=f
+
+function _exit_trap
+{
+  local _ec="$?"
+  if [[ $_ec != 0 && "${_showed_traceback}" != t ]]; then
+    traceback 1
+  fi
+}
+
+function _err_trap
+{
+  local _ec="$?"
+  local _cmd="${BASH_COMMAND:-unknown}"
+  traceback 1
+  _showed_traceback=t
+  echo "The command ${_cmd} exited with exit code ${_ec}." 1>&2
+}
+
+function traceback
+{
+  # Hide the traceback() call.
+  local -i start=$(( ${1:-0} + 1 ))
+  local -i end=${#BASH_SOURCE[@]}
+  local -i i=0
+  local -i j=0
+
+  echo "Traceback (last called is first):" 1>&2
+  for ((i=${start}; i < ${end}; i++)); do
+    j=$(( $i - 1 ))
+    local function="${FUNCNAME[$i]}"
+    local file="${BASH_SOURCE[$i]}"
+    local line="${BASH_LINENO[$j]}"
+    echo "     ${function}() in ${file}:${line}" 1>&2
+  done
+}
+# -----
+
 SCRIPT=$(readlink -f "$0")
 SCRIPTPATH=$(dirname "$SCRIPT")
 INSTALL_ARGS="-S --noconfir --needed --ignore all"
@@ -8,6 +50,7 @@ NETCONNECT='wireless'
 
 $SYS_INSTALL git
 
+echo "Setting up Hard Drives"
 $SYS_INSTALL hdparm
 if sudo hdparm -I /dev/sda | grep "TRIM supported"; then
     # SSD stuff
@@ -18,9 +61,11 @@ if sudo hdparm -I /dev/sda | grep "TRIM supported"; then
 fi
 
 # System tools
+echo "Setting up system tools"
 $SYS_INSTALL parted
 
 if [[ ! -e /etc/locale.conf ]]; then
+    echo "Setting up locale"
     sudo cp $SCRIPTPATH/etc/locale.gen /etc
     sudo locale-gen
     sudo cp $SCRIPTPATH/etc/locale.conf /etc
@@ -34,6 +79,7 @@ if [[ ! -e /etc/localtime ]]; then
 fi
 
 # wireless (wifi-menu and autoconnect)
+echo "Setting up network services"
 if [[ $NETCONNECT -eq "wireless" ]]; then
     netctl_service="netctl-auto@wlp2s0.service"
     if [[ `systemctl is-active $netctl_service` != "active" ]]; then
@@ -47,16 +93,20 @@ fi
 
 $SYS_INSTALL openssh
 if [[ `systemctl is-active sshd.service` != "active" ]]; then
+    echo "Setting up ssh"
     sudo cp $SCRIPTPATH/etc/sshd_config /etc/ssh/
     systemctl enable sshd.service
 fi
 
 if [[ `systemctl is-active avahi-daemon` != "active" ]]; then
+    echo "Setting up avahi"
     $SYS_INSTALL avahi
     sudo systemctl enable avahi-daemon
 fi
 
+echo "Setting up user services"
 if [[ ! -e /home/$CREATE_USER ]]; then
+    echo "creating user"
    sudo useradd -m -g users -G wheel -s /usr/bin/zsh $CREATE_USER
    USER_MSG="User $CREATE_USER created. Create password with: passwd $CREATE_USER"
 fi
@@ -67,6 +117,7 @@ if [[ ! -e /boot/intel-ucode.img ]]; then
     $SYS_INSTALL intel-ucode
 fi
 
+echo "Installing user utilities"
 # Window Manger and basic functionality
 $SYS_INSTALL xorg-server xorg-xinit xorg-xev xorg-xmodmap \
     i3 i3lock dmenu xautolock xorg-xrdb \
@@ -75,18 +126,20 @@ $SYS_INSTALL xorg-server xorg-xinit xorg-xev xorg-xmodmap \
     xf86-input-synaptics \
     pulseaudio pulseaudio-alsa alsa-utils
 
-if [[ -e ~/.zlogin ]]; then
+if [[ ! -e ~/.zlogin ]]; then
     ln -s $SCRIPTPATH/.zlogin ~/.zlogin
 fi
 
 ## Use i3lock to lock the screen on lid close (i3 config handles timeout situation)
 if [[ `systemctl is-active i3lock.service` != "active" ]]; then
+    echo "seting up i3lock"
     sudo cp $SCRIPTPATH/etc/i3lock.service /etc/systemd/system/i3lock.service
     sudo systemctl enable i3lock.service
 fi
 
 # Software
 ## dev tools
+echo "installing dev tools"
 $SYS_INSTALL \
     zsh tmux vim \
     tree \
@@ -101,19 +154,21 @@ $SYS_INSTALL \
 $SYS_INSTALL unace unrar zip unzip sharutils uudeview cabextract file-roller
 
 ## usertools
+echo "installing user tools"
 $SYS_INSTALL \
     firefox chromium \
     apvlv feh vlc \
     libreoffice-still
 
 # system settings
+echo "setting up system"
 sudo cp $SCRIPTPATH/etc/99-sysctl.conf /etc/sysctl.d/           # very low swappiness
 sudo cp $SCRIPTPATH/etc/50-synaptics.conf /etc/X11/xorg.conf.d  # touchpad
 sudo cp $SCRIPTPATH/etc/pacman.conf /etc/pacman.conf            # pacman
 
 # yaourt from pacman.conf added repos
 $SYS_INSTALL -y yaourt
-USR_INSTALL=yaourt $INSTALL_ARGS
+USR_INSTALL="yaourt $INSTALL_ARGS"
 
 $USR_INSTALL pithos otf-inconsolata-powerline-git
 
@@ -124,6 +179,7 @@ $USR_INSTALL pithos otf-inconsolata-powerline-git
 
 # manual installation of software
 if [[ ! -e $HOME/software/py3status ]]; then
+    echo "installing py3status"
     cd $HOME
     mkdir -p software
     cd software
@@ -132,7 +188,8 @@ if [[ ! -e $HOME/software/py3status ]]; then
     sudo /usr/bin/python2.7 setup.py install
 fi
 
-if [[ ! -e $HOME/software/hipchat ]]; then
+if [ ! -d $HOME/software/hipchat ]; then
+    echo "installing hipchat"
     cd $HOME
     mkdir -p software
     sudo npm install nativefier -g

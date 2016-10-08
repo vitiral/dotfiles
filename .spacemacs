@@ -37,6 +37,7 @@ values."
      ;; version-control
      python
      rust
+     typescript
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -298,3 +299,19 @@ you should place your code here."
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (yapfify uuidgen toc-org tide typescript-mode flycheck request py-isort spinner org-plus-contrib org-bullets live-py-mode link-hint parent-mode epl flx eyebrowse evil-visual-mark-mode evil-unimpaired evil-ediff undo-tree highlight dumb-jump column-enforce-mode cargo bind-map packed pythonic tss yaxception log4e json-mode json-snatcher json-reformat ws-butler window-numbering toml-mode spaceline racer rust-mode py-yapf pip-requirements persp-mode open-junk-file neotree macrostep leuven-theme indent-guide hl-todo help-fns+ helm-themes helm-pydoc helm-projectile helm-make projectile helm-descbinds helm-c-yasnippet helm-ag google-translate exec-path-from-shell evil-surround evil-search-highlight-persist evil-mc evil-matchit evil-iedit-state iedit evil-exchange company-quickhelp company-anaconda auto-yasnippet anaconda-mode ace-window ace-link ace-jump-helm-line avy auto-complete anzu smartparens company helm helm-core markdown-mode hydra f dash s quelpa package-build use-package which-key evil spacemacs-theme yasnippet volatile-highlights vi-tilde-fringe smooth-scrolling rustfmt restart-emacs rainbow-delimiters pyvenv pytest pyenv-mode powerline pos-tip popwin popup pkg-info pcre2el paradox page-break-lines move-text mmm-mode markdown-toc lorem-ipsum linum-relative info+ ido-vertical-mode hy-mode hungry-delete highlight-parentheses highlight-numbers highlight-indentation helm-swoop helm-mode-manager helm-flx helm-company goto-chg golden-ratio gh-md flx-ido fill-column-indicator fancy-battery expand-region evil-visualstar evil-tutor evil-numbers evil-nerd-commenter evil-lisp-state evil-indent-plus evil-escape evil-args evil-anzu eval-sexp-fu elisp-slime-nav diminish define-word cython-mode company-statistics company-racer clean-aindent-mode buffer-move bracketed-paste bind-key auto-highlight-symbol auto-compile async aggressive-indent adaptive-wrap ac-ispell)))
+ '(spacemacs-theme-custom-colors (quote ((bg1 . "black")))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
+ '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))

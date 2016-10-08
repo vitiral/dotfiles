@@ -137,6 +137,7 @@ export RUST_SRC_PATH=$HOME/.multirust/toolchains/nightly-x86_64-unknown-linux-gn
 export CARGO_HOME=$HOME/.cargo
 
 alias rust_release="rustup default stable; cargo build --release --target=x86_64-unknown-linux-musl; rustup default nightly"
+alias rust_upgrade="rustup update && cargo install clippy -f && cargo install rustfmt -f"
 
 ##################################################
 # Tmux
