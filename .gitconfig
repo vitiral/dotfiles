@@ -1,6 +1,6 @@
 [user]
 	name = Garrett Berg
-	email = gberg@neutral.io
+	email = vitiral@gmail.com
 [core]
 	editor = vim
 [merge]
@@ -17,8 +17,6 @@
   type = cat-file -t
   dump = cat-file -p
 	d = difftool
-
-
 [push]
 	default = simple
 [diff]
