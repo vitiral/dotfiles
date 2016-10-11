@@ -244,7 +244,7 @@ executes.
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
   ;; https://github.com/syl20bnr/spacemacs/issues/6622
-  (setq python-shell-interpreter-args "--simple-prompt")
+  ;; (setq python-shell-interpreter-args "--simple-prompt")
 
   ;;; autosave
   (setq backup-directory-alist
@@ -292,7 +292,6 @@ you should place your code here."
   (define-key minibuffer-local-isearch-map (kbd "C-f") 'evil-escape)
   ;;; evil escape: copied and edited from layers/+distribution/packages.el
   (define-key evil-visual-state-map (kbd "C-f") 'evil-escape)
-
 
   (spacemacs/toggle-smartparens-globally-off)
   )
