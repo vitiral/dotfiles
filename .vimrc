@@ -103,7 +103,7 @@ endif
     vnoremap <C-f> <ESC>
     cnoremap <C-f> <ESC>
     
-    " movement
+    " w: movement
     nnoremap <leader>wj <C-W>j
     nnoremap <leader>wk <C-W>k
     nnoremap <leader>wl <C-W>l
@@ -114,11 +114,24 @@ endif
     map <leader>wV <C-w>v<C-w>l<C-w>=
     nnoremap <leader>wc :q<CR>
 
-    " open and find files
-    nnoremap <leader>ff :e<SPACE>
+    " b: buffers
+    nnoremap <leader>bb :b<SPACE>
+    " reload all buffers
+    nnoremap <leader>br :checktime<CR>
+    nnoremap <silent> <leader>bn :set relativenumber!<cr>:set nonu!<cr>
+
+    " s: search
+    nnoremap <leader>sr :%s///gc<left><left><left>
+
+    " open and find files in current buffer
+    nnoremap <leader>ff :e <C-R>=expand('%:h').'/'<cr>
 
     " clears search history
     nnoremap <leader>sc :noh<cr>
+
+    " module remappings, TODO: make these only load for certain files
+    nnoremap <leader>mb Oimport ipdb; ipdb.set_trace()<ESC>
+
 " }
 
 if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
@@ -226,10 +239,6 @@ autocmd BufNewFile,BufRead *.coffee set filetype=coffee
     " Easier formatting
     nnoremap <silent> <leader>q gwip
 
-    " python remappings
-    nnoremap <leader>sb oimport ipdb; ipdb.set_trace()<ESC>
-    nnoremap <leader>sB Oimport ipdb; ipdb.set_trace()<ESC>
-
     "Get rid of help key
     inoremap <F1> <ESC>
     nnoremap <F1> <ESC>
@@ -261,11 +270,8 @@ autocmd BufNewFile,BufRead *.coffee set filetype=coffee
 " toggle paste
 nnoremap <silent> <leader>wp :set paste!<CR>
 " toggle line numbers
-nnoremap <silent> <leader>wn :set relativenumber!<cr>:set nonu!<cr>
 " reload files
-nnoremap <leader>wr :checktime<CR>  " reload all buffers
 " search and replace
-nnoremap <leader>wR :%s///gc<left><left><left>
 " show current directory/file
 nnoremap <leader>wd :echo expand('%:p:h')<CR>
 nnoremap <leader>wp :echo expand('%:p')<CR>
@@ -282,10 +288,6 @@ nnoremap <leader>wt :execute ":NERDTree " . expand('%:ph')<CR>
 
     " Some helpers to edit mode (auto expands directory)
     cnoremap %% <C-R>=expand('%:h').'/'<cr>
-    map <leader>ew :e %%
-    map <leader>es :sp %%
-    map <leader>ev :vsp %%
-    map <leader>et :tabe %%
 
     command! ClearHistory !rm -rf $HOME/.viminfo $HOME/.vimswap $HOME/.vimundo $HOME/.vimviews/ $HOME/.vimbackup
 " }
