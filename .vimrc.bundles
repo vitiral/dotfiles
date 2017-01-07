@@ -36,6 +36,7 @@
     filetype off
     set rtp+=~/.vim/bundle/vundle
     call vundle#rc()
+    call vundle#begin()
 " }
 
 " Add an UnBundle command {
@@ -53,6 +54,8 @@ com! -nargs=+         UnBundle
 " Bundles {
 
 " Dependencies {
+    Bundle 'Shougo/vimproc.vim'
+    Bundle 'vim-airline/vim-airline-themes'
     Bundle 'gmarik/vundle'
     Bundle 'MarcWeber/vim-addon-mw-utils'
     Bundle 'tomtom/tlib_vim'
@@ -153,8 +156,17 @@ com! -nargs=+         UnBundle
     Bundle 'tmhedberg/SimpylFold'
 " }
 
+" Rust {
+    Bundle 'rust-lang/rust.vim'
+    Bundle 'cespare/vim-toml'
+" }
+
 " Golang {
     Bundle 'fatih/vim-go'
+" }
+
+" Elm {
+    Bundle 'ElmCast/elm-vim'
 " }
 
 " Javascript {
@@ -164,7 +176,11 @@ com! -nargs=+         UnBundle
     Bundle 'groenewege/vim-less'
     Bundle 'pangloss/vim-javascript'
     Bundle 'briancollins/vim-jst'
-    Bundle 'kchmck/vim-coffee-script'
+    " ts syntax highlighting
+    Bundle 'leafgarland/typescript-vim'
+    " ts auto-completion
+    Bundle 'Quramy/tsuquyomi'
+
 " }
 
 " HTML {
@@ -180,3 +196,4 @@ com! -nargs=+         UnBundle
     Bundle 'tpope/vim-markdown'
 " }
 
+call vundle#end()

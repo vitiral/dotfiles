@@ -95,13 +95,14 @@ endif
     " Leader is SPACE instead of \
     let mapleader = ' '
 
-    " Notes: os wide Cntrl i=tab, n=enter
-    " vim specific: t=indents code (from where?)
-    " Easier to escape
+    " Notes: disable C-f (for now) as I used to use it to ESC
     nnoremap <C-f> <nop>
-    inoremap <C-f> <ESC>
-    vnoremap <C-f> <ESC>
-    cnoremap <C-f> <ESC>
+    inoremap <C-f> <nop>
+    vnoremap <C-f> <nop>
+    cnoremap <C-f> <nop>
+    "inoremap <C-f> <ESC>
+    "vnoremap <C-f> <ESC>
+    "cnoremap <C-f> <ESC>
     
     " w: movement
     nnoremap <leader>wj <C-W>j
@@ -214,11 +215,13 @@ set splitbelow                  " Puts new split windows to the bottom of the cu
 set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
 
 " Filetype specific
+"autocmd BufNewFile,BufRead *.rs set filetype=rust
+autocmd BufNewFile,BufRead justfile set filetype=make
 autocmd FileType c,cpp,java,go,php,javascript,python,twig,xml,yml,perl,markdown autocmd BufWritePre <buffer> call StripTrailingWhitespace()
 autocmd FileType make set noexpandtab   " make files use Tabs (not spaces)
+autocmd FileType typescript,javascript,elm,html,css setlocal sw=2 sts=2 et
 "autocmd FileType markdown set wrap linebreak nolist textwidth=0 wrapmargin=0
 "autocmd FileType go autocmd BufWritePre <buffer> Fmt
-autocmd BufNewFile,BufRead *.coffee set filetype=coffee
 " }
 
 " Key (re)Mappings {
@@ -261,6 +264,9 @@ autocmd BufNewFile,BufRead *.coffee set filetype=coffee
         " Find merge conflict markers
         map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
     " }}}}
+
+    " Shift+Tab always inserts a Tab
+    :inoremap <S-Tab> <C-V><Tab>
 " }
 
 " Window Management {
