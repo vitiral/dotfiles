@@ -2,7 +2,7 @@
 ############################  SETUP PARAMETERS
 app_name='dotfiles'
 app_dir="$HOME/.dotfiles"
-[ -z "$git_uri" ] && git_uri='https://github.com/cloudformdesign/dotfiles.git'
+[ -z "$git_uri" ] && git_uri='https://github.com/vitiral/dotfiles.git'
 git_branch='master'
 debug_mode='0'
 fork_maintainer='0'
