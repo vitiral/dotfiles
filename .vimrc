@@ -41,8 +41,6 @@ endif
     syntax on                   " Syntax highlighting
     scriptencoding utf-8
 
-    :inoremap <S-Tab> <C-V><Tab>
-
     if $TMUX==''
         if has('clipboard')
             if has('unnamedplus')  " When possible use + register for copy-paste
