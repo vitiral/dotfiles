@@ -41,6 +41,8 @@ endif
     syntax on                   " Syntax highlighting
     scriptencoding utf-8
 
+    :inoremap <S-Tab> <C-V><Tab>
+
     if $TMUX==''
         if has('clipboard')
             if has('unnamedplus')  " When possible use + register for copy-paste
@@ -157,8 +159,6 @@ set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
 set scrolljump=5                " Lines to scroll when cursor leaves screen
 set scrolloff=3                 " Minimum lines to keep above and below cursor
 set foldenable                  " Auto fold code
-set list
-set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 
 " Wrapped lines goes down/up to next row, rather than next line in file.
 noremap j gj
@@ -571,3 +571,11 @@ hi clear SpellCap " Remove highlight of non capitalized words as first char
 hi SpellBad cterm=underline
 " }
 
+" bad white space characters show up as a character but don't
+" have special highlighting
+set list
+set listchars=tab:▶\ ,trail:·,extends:#,nbsp:.
+highlight Specialkey ctermbg=black
+
+" example: tab and trailing white space
+	   
