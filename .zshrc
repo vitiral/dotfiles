@@ -9,7 +9,7 @@ antigen bundle tarruda/zsh-autosuggestions
 antigen bundle history-substring-search
 antigen apply
 
-bindkey "^F" vi-cmd-mode
+#bindkey "^F" vi-cmd-mode
 bindkey "^O" history-substring-search-up
 
 source "$HOME/.alias"
@@ -17,3 +17,6 @@ source "$HOME/.alias"
 if [ -e ~/.shell.local ]; then
     source ~/.shell.local
 fi
+
+# added by travis gem
+[ -f /home/garrett/.travis/travis.sh ] && source /home/garrett/.travis/travis.sh

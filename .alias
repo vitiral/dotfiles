@@ -11,6 +11,7 @@ export EDITOR='vim'
 alias vem='emacs --no-splash --no-window-system'
 alias dif='colordiff -ENwbu'
 alias sudo='sudo '
+alias suspend='sudo systemctl suspend'
 
 alias hdmion="xrandr --output HDMI1 --auto --right-of eDP1"
 alias hdmioff="xrandr --output HDMI1 --off"
@@ -46,6 +47,8 @@ ssh-add -l > /dev/null || alias ssh='ssh-add -l > /dev/null || ssh-add && unalia
 
 ##################################################
 # development commands
+pathappend "$HOME/.gem/ruby/2.2.0/bin"
+pathappend "$HOME/.gem/ruby/2.3.0/bin"
 
 function aa_256 () {     local o= i= x=`tput op` cols=`tput cols` y= oo= yy=;    y=`printf %$(($cols-6))s`;    yy=${y// /=};    for i in {0..256};    do        o=00${i};        oo=`echo -en "setaf ${i}\nsetab ${i}\n"|tput -S`;        echo -e "${o:${#o}-3:3} ${oo}${yy}${x}";    done;}
 
@@ -278,12 +281,16 @@ if [[ `uname` == 'Darwin' ]]; then
     alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
     alias minicom=/opt/minicom/2.2/bin/minicom
 elif [[ `uname` == 'Linux' ]]; then
-    # arrow keys are bound to moving words. Use cntrl to
     # setxkbmap -option "ctrl:nocaps" >> /dev/null
+    # capslock= cntrl + esc: 
+    # http://www.economyofeffort.com/2014/08/11/beyond-ctrl-remap-make-that-caps-lock-key-useful/
+    setxkbmap -option 'caps:ctrl_modifier'
+    xcape -e 'Caps_Lock=Escape'
+
     # http://efod.se/writings/linuxbook/html/caps-lock-to-ctrl.html
-	xmodmap -e 'keycode 66 = Control_L'
-	xmodmap -e 'clear Lock'
-	xmodmap -e 'add Control = Control_L'
+	#xmodmap -e 'keycode 66 = Control_L'
+	#xmodmap -e 'clear Lock'
+	#xmodmap -e 'add Control = Control_L'
 elif [[ `uname` == 'Cygwin' ]]; then
     :  # pass, none yet
 fi
