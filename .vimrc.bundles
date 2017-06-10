@@ -63,7 +63,11 @@ com! -nargs=+         UnBundle
     " Command to automatically do search for regexp at same time as Ack
     command! -nargs=1 Ack2 execute "Ack " . <q-args> | execute "/".<q-args>
     nnoremap <leader>sp :Ack2<space>
-    if executable('ag')
+    if executable('rg')
+        let g:ackprg = 'rg --vimgrep --no-heading'
+        set grepprg=rg\ --vimgrep\ --no-heading
+        set grepformat=%f:%l:%c:%m,%f:%l:%m
+    elseif executable('ag')
         let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
         set grepprg=ag\ --nogroup\ --nocolor
     elseif executable('ack-grep')
@@ -81,6 +85,7 @@ com! -nargs=+         UnBundle
     Bundle 'chrisbra/vim-diff-enhanced'
     " git support
     Bundle 'tpope/vim-fugitive'
+    set diffopt+=vertical
     " shows which lines have been added/removed version control
     Bundle 'mhinz/vim-signify'
     " better colors
@@ -159,6 +164,7 @@ com! -nargs=+         UnBundle
 " Rust {
     Bundle 'rust-lang/rust.vim'
     Bundle 'cespare/vim-toml'
+    "let g:rustfmt_autosave = 1
 " }
 
 " Golang {
@@ -184,9 +190,9 @@ com! -nargs=+         UnBundle
 " }
 
 " HTML {
-    Bundle 'amirh/HTML-AutoCloseTag'
-        au FileType xhtml,xml ru ftplugin/html/autoclosetag.vim
-    nmap <Leader>ac <Plug>ToggleAutoCloseMappings
+    "Bundle 'amirh/HTML-AutoCloseTag'
+        "au FileType xhtml,xml ru ftplugin/html/autoclosetag.vim
+    "nmap <Leader>ac <Plug>ToggleAutoCloseMappings
     Bundle 'hail2u/vim-css3-syntax'
     Bundle 'gorodinskiy/vim-coloresque'
     Bundle 'tpope/vim-haml'
