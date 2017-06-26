@@ -106,7 +106,7 @@ endif
     "inoremap <C-f> <ESC>
     "vnoremap <C-f> <ESC>
     "cnoremap <C-f> <ESC>
-    
+
     " w: movement
     nnoremap <leader>wj <C-W>j
     nnoremap <leader>wk <C-W>k
@@ -126,6 +126,10 @@ endif
 
     " s: search
     nnoremap <leader>sr :%s///gc<left><left><left>
+    " -find-project
+    nnoremap <leader>sp :Ack<space>
+    " -project-findfile
+    nnoremap <leader>pf :CtrlP<cr>
 
     " open and find files in current buffer
     nnoremap <leader>ff :e <C-R>=expand('%:h').'/'<cr>
@@ -219,8 +223,9 @@ set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
 "autocmd BufNewFile,BufRead *.rs set filetype=rust
 autocmd BufNewFile,BufRead justfile set filetype=make
 autocmd FileType c,cpp,java,go,php,javascript,python,twig,xml,yml,perl,markdown autocmd BufWritePre <buffer> call StripTrailingWhitespace()
-autocmd FileType make set noexpandtab   " make files use Tabs (not spaces)
-autocmd FileType typescript,javascript,elm,html,css setlocal sw=2 sts=2 et
+autocmd FileType markdown set textwidth=80
+autocmd FileType make set noexpandtab   " Make files use Tabs (not spaces)
+autocmd FileType typescript,javascript,html,css setlocal sw=2 sts=2 et
 "autocmd FileType markdown set wrap linebreak nolist textwidth=0 wrapmargin=0
 "autocmd FileType go autocmd BufWritePre <buffer> Fmt
 " }
@@ -271,7 +276,7 @@ autocmd FileType typescript,javascript,elm,html,css setlocal sw=2 sts=2 et
 " }
 
 " Window Management {
-" ,wX does various things to windows 
+" ,wX does various things to windows
 " wgX is reserved for 'window goto' for tools like youcompleteme
 " horizontal+verticl splits
 " toggle paste
@@ -570,7 +575,7 @@ endif
 " { Extra things that have to go at the end for some reason
 " Change spelling checker to underline
 set spell                           " Spell checking on
-hi clear SpellBad 
+hi clear SpellBad
 hi clear SpellCap " Remove highlight of non capitalized words as first char
 hi SpellBad cterm=underline
 " }

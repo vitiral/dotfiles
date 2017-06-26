@@ -3,12 +3,14 @@
 ##################################################
 # Environment
 
+alias NOCAPS="python -c 'from ctypes import *; X11 = cdll.LoadLibrary(\"libX11.so.6\"); display = X11.XOpenDisplay(None); X11.XkbLockModifiers(display, c_uint(0x0100), c_uint(2), c_uint(0)); X11.XCloseDisplay(display)'"
+
 if [[ -e ~/.alias.local.before ]]; then
     source ~/.alias.local.before
 fi
 
 export EDITOR='vim'
-alias vem='emacs --no-splash --no-window-system'
+alias vem='emacs --no-splash --no-window-system --insecure'
 alias dif='colordiff -ENwbu'
 alias sudo='sudo '
 alias suspend='sudo systemctl suspend'
@@ -49,6 +51,33 @@ ssh-add -l > /dev/null || alias ssh='ssh-add -l > /dev/null || ssh-add && unalia
 # development commands
 pathappend "$HOME/.gem/ruby/2.2.0/bin"
 pathappend "$HOME/.gem/ruby/2.3.0/bin"
+pathappend node_modules/.bin # items in node's bin are in PATH
+
+# replace $2 with $3 in directory $1 using sed
+replace() {
+    echo "running..."
+    name=""
+    while getopts ":n:" opt; do
+        case $opt in 
+            n)
+                #echo "n was triggred with $OPTARG" >&2
+                printf -v name "%q" "$OPTARG"
+                name=" -n \"$name\""
+                ;;
+            \?)
+                echo "Invalid option: -$OPTARG" >&2
+                ;;
+            :)
+                echo "Option -$OPTARG requires an argument." >&2
+                return 1
+                ;;
+        esac
+    done
+    shift $((OPTIND-1))
+    cmd="find "$1" -type f$name -exec sed -i -e \"s/$2/$3/g\" {} \;"
+    echo "running: $cmd"
+    `$cmd`
+}
 
 function aa_256 () {     local o= i= x=`tput op` cols=`tput cols` y= oo= yy=;    y=`printf %$(($cols-6))s`;    yy=${y// /=};    for i in {0..256};    do        o=00${i};        oo=`echo -en "setaf ${i}\nsetab ${i}\n"|tput -S`;        echo -e "${o:${#o}-3:3} ${oo}${yy}${x}";    done;}
 
@@ -59,6 +88,7 @@ alias pdf="apvlv"
 alias litevault="litevault ~/.config/vault -e vim"
 
 alias js="rhino"
+alias tj="tclear && just"
 
 alias gfm="git fetch origin master:master"  # fetch origin/master and pull to master
 alias gd="git diff"
@@ -125,16 +155,12 @@ alias pdb2='py2 -m ipdb'
 alias dbe2='py2 -m cloudtb.dbe'
 alias py2dev='py2 setup.py develop'
 
-alias py2analyze="pyreverse sf_platform/core/rtfi/ -p dependencies && xdot classes_dependencies.dot &&"
 alias pyclean="rm -r ./**/*.pyc"
-#alias py2graph="sfood sf_platform/core/rtfi | sfood-graph > graph.dot && xdot graph.dot"
-
-##################################################
-# Micro Python
-alias upy='micropython'
-alias upip='~/projects/micropython/tools/pip-micropython'
-# pyboard development
-alias pyb="sudo screen /dev/ttyACM0"
+pyfix() {
+    set -e
+    autopep8 $1 -r --in-place
+    docformatter $1 -r --in-place
+}
 
 ##################################################
 # Rust
@@ -147,6 +173,8 @@ export CARGO_HOME=$HOME/.cargo
 
 alias rust_release="rustup default stable; cargo build --release --target=x86_64-unknown-linux-musl; rustup default nightly"
 alias rust_upgrade="rustup update && cargo install clippy -f && cargo install rustfmt -f"
+# use: cargo test |& rust_filter
+alias rust_filter='rg "((error|warning)\[\w+\])|(^\s+--> \w+/\w+)" -N --color never'
 
 ##################################################
 # Tmux
@@ -291,7 +319,10 @@ elif [[ `uname` == 'Linux' ]]; then
     # capslock= cntrl + esc: 
     # http://www.economyofeffort.com/2014/08/11/beyond-ctrl-remap-make-that-caps-lock-key-useful/
     setxkbmap -option 'caps:ctrl_modifier'
-    xcape -e 'Caps_Lock=Escape'
+    if ps -ef | grep -v grep | grep xcape > /dev/null; then
+    else
+        xcape -e 'Caps_Lock=Escape'
+    fi
 
     # http://efod.se/writings/linuxbook/html/caps-lock-to-ctrl.html
 	#xmodmap -e 'keycode 66 = Control_L'
@@ -305,4 +336,12 @@ if [[ -e ~/.alias.local ]]; then
     source ~/.alias.local
 fi
 
+## Fun
 
+downloadmp3() {
+    # use: download song from youtube
+    # args: URL SONG_NAME
+    pytube -e mp4 -r 360p $1 -f "/tmp/$2" || return $?
+    ffmpeg -i "/tmp/$2.mp4" -acodec libmp3lame -ab 160k -ar 44100 -ac 2 $2.mp3 || return $?
+    rm -f "/tmp/$2.mp4"
+}
