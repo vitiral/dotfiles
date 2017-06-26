@@ -60,6 +60,7 @@ alias litevault="litevault ~/.config/vault -e vim"
 
 alias js="rhino"
 
+alias gfm="git fetch origin master:master"  # fetch origin/master and pull to master
 alias gd="git diff"
 alias gs="git status"
 alias gcam="git commit -am"
@@ -90,6 +91,11 @@ export PYTHONDONTWRITEBYTECODE=0            # prevents .pyc files
 #py3bin="${python_root}/python3/bin"
 #pathinsert $py3bin
 #pathinsert $py2bin
+
+pyfmt() {
+	autopep8 $1 --max-line-length 105 -r --in-place
+	docformatter $1  --wrap-descriptions 105 --wrap-summaries 105 -r --in-place --no-blank
+}
 
 PYCONDA="$HOME/software/pyconda"
 alias conda="$PYCONDA/bin/conda"

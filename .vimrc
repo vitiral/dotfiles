@@ -89,6 +89,9 @@ endif
 
 " Vim UI {
 " Ergonomic Spacemacs {
+    " TODO: remove this
+    nnoremap <leader>mdb Oimport ipdb; ipdb.set_trace()<ESC>
+
     " commands can start with ;"
     nnoremap ; :
 
@@ -273,9 +276,6 @@ autocmd FileType typescript,javascript,elm,html,css setlocal sw=2 sts=2 et
 " horizontal+verticl splits
 " toggle paste
 nnoremap <silent> <leader>wp :set paste!<CR>
-" toggle line numbers
-" reload files
-" search and replace
 " show current directory/file
 nnoremap <leader>wd :echo expand('%:p:h')<CR>
 nnoremap <leader>wp :echo expand('%:p')<CR>
