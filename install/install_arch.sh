@@ -198,6 +198,19 @@ if [ ! -d $HOME/software/hipchat ]; then
     ln -s software/hipchat/sign-in-hip-chat bin/hipchat
 fi
 
+if [ ! -d $HOME/software/emacs-master ]; then
+    echo "installing emacs from master"
+    cd $HOME
+    mkdir -p software
+    git clone https://github.com/emacs-mirror/emacs.git emacs-master
+    cd emacs-master
+    ./autogen.sh
+    ./autogen.sh git
+    ./configure
+    make
+    ln -s $HOME/software/emacs-master/ bin/emacs
+fi
+
 echo "You need to set your own passwd with passwd"
 echo $NETWORK_MSG
 echo $UCODE_MSG

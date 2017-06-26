@@ -10,7 +10,7 @@ if [[ -e ~/.alias.local.before ]]; then
 fi
 
 export EDITOR='vim'
-alias vem='emacs --no-splash --no-window-system'
+alias vem='emacs --no-splash --no-window-system --insecure'
 alias dif='colordiff -ENwbu'
 alias sudo='sudo '
 alias suspend='sudo systemctl suspend'
@@ -88,6 +88,7 @@ alias pdf="apvlv"
 alias litevault="litevault ~/.config/vault -e vim"
 
 alias js="rhino"
+alias tj="tclear && just"
 
 alias gd="git diff"
 alias gs="git status"
@@ -148,16 +149,12 @@ alias pdb2='py2 -m ipdb'
 alias dbe2='py2 -m cloudtb.dbe'
 alias py2dev='py2 setup.py develop'
 
-alias py2analyze="pyreverse sf_platform/core/rtfi/ -p dependencies && xdot classes_dependencies.dot &&"
 alias pyclean="rm -r ./**/*.pyc"
-#alias py2graph="sfood sf_platform/core/rtfi | sfood-graph > graph.dot && xdot graph.dot"
-
-##################################################
-# Micro Python
-alias upy='micropython'
-alias upip='~/projects/micropython/tools/pip-micropython'
-# pyboard development
-alias pyb="sudo screen /dev/ttyACM0"
+pyfix() {
+    set -e
+    autopep8 $1 -r --in-place
+    docformatter $1 -r --in-place
+}
 
 ##################################################
 # Rust
@@ -170,6 +167,8 @@ export CARGO_HOME=$HOME/.cargo
 
 alias rust_release="rustup default stable; cargo build --release --target=x86_64-unknown-linux-musl; rustup default nightly"
 alias rust_upgrade="rustup update && cargo install clippy -f && cargo install rustfmt -f"
+# use: cargo test |& rust_filter
+alias rust_filter='rg "((error|warning)\[\w+\])|(^\s+--> \w+/\w+)" -N --color never'
 
 ##################################################
 # Tmux
@@ -331,4 +330,12 @@ if [[ -e ~/.alias.local ]]; then
     source ~/.alias.local
 fi
 
+## Fun
 
+downloadmp3() {
+    # use: download song from youtube
+    # args: URL SONG_NAME
+    pytube -e mp4 -r 360p $1 -f "/tmp/$2" || return $?
+    ffmpeg -i "/tmp/$2.mp4" -acodec libmp3lame -ab 160k -ar 44100 -ac 2 $2.mp3 || return $?
+    rm -f "/tmp/$2.mp4"
+}

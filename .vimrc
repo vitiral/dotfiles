@@ -224,7 +224,7 @@ autocmd BufNewFile,BufRead justfile set filetype=make
 autocmd FileType c,cpp,java,go,php,javascript,python,twig,xml,yml,perl,markdown autocmd BufWritePre <buffer> call StripTrailingWhitespace()
 autocmd FileType markdown set textwidth=80
 autocmd FileType make set noexpandtab   " Make files use Tabs (not spaces)
-autocmd FileType typescript,javascript,elm,html,css setlocal sw=2 sts=2 et
+autocmd FileType typescript,javascript,html,css setlocal sw=2 sts=2 et
 "autocmd FileType markdown set wrap linebreak nolist textwidth=0 wrapmargin=0
 "autocmd FileType go autocmd BufWritePre <buffer> Fmt
 " }
