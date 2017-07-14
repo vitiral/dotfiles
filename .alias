@@ -94,6 +94,10 @@ alias gfm="git fetch origin master:master"  # fetch origin/master and pull to ma
 alias gd="git diff"
 alias gs="git status"
 alias gcam="git commit -am"
+ds() {
+    # find what is taking up space on disk
+    sudo du -h $1 | grep '[0-9\.]\+G' | sort -nr
+}
 
 corrupt() {
     let i=`ls -al $1 | awk '{print $5}'`
