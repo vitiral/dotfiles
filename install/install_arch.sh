@@ -183,6 +183,10 @@ if [[ ! -e $HOME/software/py3status ]]; then
     sudo /usr/bin/python2.7 setup.py install
 fi
 
+if [ ! -d $HOME/.SpaceVim ]; then
+    curl -sLf https://spacevim.org/install.sh | bash
+fi
+
 if [ ! -d $HOME/software/hipchat ]; then
     echo "installing hipchat"
     cd $HOME
