@@ -52,6 +52,14 @@ pathappend "$HOME/.gem/ruby/2.2.0/bin"
 pathappend "$HOME/.gem/ruby/2.3.0/bin"
 pathappend node_modules/.bin # items in node's bin are in PATH
 
+# move EVERYTHING in the current directory into an "old" directory in the current directory
+allold() {
+    tmpmove='../__tmpmove__'
+    mkdir $tmpmove || return $?
+    mv * $tmpmove || return $?
+    mv $tmpmove old || return $?
+}
+
 # replace $2 with $3 in directory $1 using sed
 replace() {
     echo "running..."
@@ -126,8 +134,8 @@ export PYTHONDONTWRITEBYTECODE=0            # prevents .pyc files
 #pathinsert $py2bin
 
 pyfmt() {
-	autopep8 $1 --max-line-length 105 -r --in-place
-	docformatter $1  --wrap-descriptions 105 --wrap-summaries 105 -r --in-place --no-blank
+    autopep8 $1 --max-line-length 105 -r --in-place
+    docformatter $1  --wrap-descriptions 105 --wrap-summaries 105 -r --in-place --no-blank
 }
 
 PYCONDA="$HOME/software/pyconda"
@@ -160,9 +168,8 @@ alias py2dev='py2 setup.py develop'
 
 alias pyclean="rm -r ./**/*.pyc"
 pyfix() {
-    set -e
-    autopep8 $1 -r --in-place
-    docformatter $1 -r --in-place
+    autopep8 $1 -r --in-place || return $?
+    docformatter $1 -r --in-place --no-blank || return $?
 }
 
 ##################################################
