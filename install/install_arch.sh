@@ -141,7 +141,7 @@ fi
 ## dev tools
 echo "installing dev tools"
 $SYS_INSTALL \
-    zsh tmux vim \
+    zsh tmux neovim \
     tree \
     the_silver_searcher \
     openssh wget rsync \
@@ -172,11 +172,6 @@ USR_INSTALL="yaourt $INSTALL_ARGS"
 
 $USR_INSTALL pithos otf-inconsolata-powerline-git xcape
 
-#if [[ `systemctl is-active dropbox@${CREATE_USER}` != "active" ]]; then
-#    $USR_INSTALL dropbox
-#    sudo systemctl enable dropbox@${CREATE_USER}
-#fi
-
 # manual installation of software
 if [[ ! -e $HOME/software/py3status ]]; then
     echo "installing py3status"
@@ -196,19 +191,6 @@ if [ ! -d $HOME/software/hipchat ]; then
     sudo nativefier 'https://solidfire.hipchat.com/chat'
     mv sign-in-hip-chat-linux-x64 software/hipchat
     ln -s software/hipchat/sign-in-hip-chat bin/hipchat
-fi
-
-if [ ! -d $HOME/software/emacs-master ]; then
-    echo "installing emacs from master"
-    cd $HOME
-    mkdir -p software
-    git clone https://github.com/emacs-mirror/emacs.git emacs-master
-    cd emacs-master
-    ./autogen.sh
-    ./autogen.sh git
-    ./configure
-    make
-    ln -s $HOME/software/emacs-master/ bin/emacs
 fi
 
 echo "You need to set your own passwd with passwd"

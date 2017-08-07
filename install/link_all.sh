@@ -9,10 +9,10 @@ ln -s .dotfiles/.bash_profile .
 ln -s .dotfiles/.bashrc .
 ln -s .dotfiles/.tmux.conf .
 ln -s .dotfiles/.zshrc .
-ln -s .dotfiles/.vimperatorrc .
-ln -s ~/.dotfiles/.gitconfig .
-ln -s ~/.dotfiles/.gitmodules .
-ln -s ~/.dotfiles/.pydistutils.cfg .
+ln -s .dotfiles/SpaceVim.d .SpaceVim.d
+ln -s .dotfiles/.gitconfig .
+ln -s .dotfiles/.gitmodules .
+ln -s .dotfiles/.pydistutils.cfg .
 
 # .config
 mkdir -p .config

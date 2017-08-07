@@ -1,7 +1,4 @@
-# Cloudform Design’s dotfiles
-
-This was originally based off of spf13-vim, a fantastic vim distribution. It
-grew to the point where it could not longer be called spf13 though.
+# vitiral's dotfiles
 
 # Install
 ```bash

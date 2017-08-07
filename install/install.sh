@@ -37,7 +37,7 @@ if [[ ! -e $USER_HOME/.ssh/id_rsa.pub ]]; then
     ssh git@github.com  # should confirm that everything worked
     cd ~/.dotfiles
     git remote rm origin
-    git remote add origin git@github.com:cloudformdesign/dotfiles.git
+    git remote add origin git@github.com:vitiral/dotfiles.git
     
     cd ~
     git clone git@github.com:cloudformdesign/notes.git
@@ -70,8 +70,7 @@ if [[ ! -e ~/.antigen ]]; then
     sudo chsh -s /usr/bin/zsh $CREATE_USER
 fi
 
-# install default dot files
-bash $SCRIPTPATH/dotfiles.sh
+# put in links to config files
 bash $SCRIPTPATH/link_all.sh
 
 # extra software, etc

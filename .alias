@@ -10,7 +10,6 @@ if [[ -e ~/.alias.local.before ]]; then
 fi
 
 export EDITOR='vim'
-alias vem='emacs --no-splash --no-window-system --insecure'
 alias dif='colordiff -ENwbu'
 alias sudo='sudo '
 alias suspend='sudo systemctl suspend'
