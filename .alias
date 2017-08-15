@@ -358,7 +358,7 @@ mp4_show() {
     pytube -s $1
 }
 
-downloadmp3() {
+mp3_dl() {
     # use: download song from youtube
     # args: URL SONG_NAME
     pytube -e mp4 -r 360p $1 -f "/tmp/$2" || return $?
