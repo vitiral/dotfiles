@@ -1,46 +1,3 @@
-# ----- traceback code -----
-set -eu
-
-trap _exit_trap EXIT
-trap _err_trap ERR
-_showed_traceback=f
-
-function _exit_trap
-{
-  local _ec="$?"
-  if [[ $_ec != 0 && "${_showed_traceback}" != t ]]; then
-    traceback 1
-  fi
-}
-
-function _err_trap
-{
-  local _ec="$?"
-  local _cmd="${BASH_COMMAND:-unknown}"
-  traceback 1
-  _showed_traceback=t
-  echo "The command ${_cmd} exited with exit code ${_ec}." 1>&2
-}
-
-function traceback
-{
-  # Hide the traceback() call.
-  local -i start=$(( ${1:-0} + 1 ))
-  local -i end=${#BASH_SOURCE[@]}
-  local -i i=0
-  local -i j=0
-
-  echo "Traceback (last called is first):" 1>&2
-  for ((i=${start}; i < ${end}; i++)); do
-    j=$(( $i - 1 ))
-    local function="${FUNCNAME[$i]}"
-    local file="${BASH_SOURCE[$i]}"
-    local line="${BASH_LINENO[$j]}"
-    echo "     ${function}() in ${file}:${line}" 1>&2
-  done
-}
-# -----
-
 SCRIPT=$(readlink -f "$0")
 SCRIPTPATH=$(dirname "$SCRIPT")
 INSTALL_ARGS="-S --noconfir --needed --ignore all"
@@ -78,19 +35,6 @@ if [[ ! -e /etc/localtime ]]; then
     sudo hwclock --systohc --utc
 fi
 
-# wireless (wifi-menu and autoconnect)
-echo "Setting up network services"
-if [[ $NETCONNECT -eq "wireless" ]]; then
-    netctl_service="netctl-auto@wlp2s0.service"
-    if [[ `systemctl is-active $netctl_service` != "active" ]]; then
-        $SYS_INSTALL iw wpa_supplicant dialog wpa_actiond
-        sudo systemctl enable $netctl_service
-    fi
-else
-    $SYS_INSTALL dhcpcd
-    NETWORK_MSG="Must enable network manually"
-fi
-
 $SYS_INSTALL openssh
 if [[ `systemctl is-active sshd.service` != "active" ]]; then
     echo "Setting up ssh"
@@ -111,24 +55,14 @@ if [[ ! -e /home/$CREATE_USER ]]; then
    USER_MSG="User $CREATE_USER created. Create password with: passwd $CREATE_USER"
 fi
 
-if [[ ! -e /boot/intel-ucode.img ]]; then
-    echo "installing ucode"
-    UCODE_MSG="See https://wiki.archlinux.org/index.php/Microcode for setting up microcode"
-    $SYS_INSTALL intel-ucode
-fi
-
 echo "Installing user utilities"
 # Window Manger and basic functionality
 $SYS_INSTALL xorg-server xorg-xinit xorg-xev xorg-xmodmap \
     i3 i3lock dmenu xautolock xorg-xrdb \
     rxvt-unicode urxvt-perls xclip \
-    ttf-dejavu ttf-inconsolata bdf-unifont \
     xf86-input-synaptics \
-    pulseaudio pulseaudio-alsa alsa-utils
-
-if [[ ! -e ~/.zlogin ]]; then
-    ln -s $SCRIPTPATH/.zlogin ~/.zlogin
-fi
+    xcape \
+    pulseaudio pulseaudio-alsa alsa-utils mesa
 
 ## Use i3lock to lock the screen on lid close (i3 config handles timeout situation)
 if [[ `systemctl is-active i3lock.service` != "active" ]]; then
@@ -141,14 +75,14 @@ fi
 ## dev tools
 echo "installing dev tools"
 $SYS_INSTALL \
-    zsh tmux neovim \
+    zsh tmux vim neovim \
     tree \
-    the_silver_searcher \
     openssh wget rsync \
     cmake \
     lsof smartmontools lm_sensors \
     python2 python2-pip python python-pip \
-    npm
+    npm \
+    gcc
 
 ## compression
 $SYS_INSTALL unace unrar zip unzip sharutils uudeview cabextract file-roller
@@ -170,8 +104,6 @@ sudo cp $SCRIPTPATH/etc/pacman.conf /etc/pacman.conf            # pacman
 $SYS_INSTALL -y yaourt
 USR_INSTALL="yaourt $INSTALL_ARGS"
 
-$USR_INSTALL pithos otf-inconsolata-powerline-git xcape
-
 # manual installation of software
 if [[ ! -e $HOME/software/py3status ]]; then
     echo "installing py3status"
@@ -187,14 +119,10 @@ if [ ! -d $HOME/.SpaceVim ]; then
     curl -sLf https://spacevim.org/install.sh | bash
 fi
 
-if [ ! -d $HOME/software/hipchat ]; then
-    echo "installing hipchat"
-    cd $HOME
-    mkdir -p software
-    sudo npm install nativefier -g
-    sudo nativefier 'https://solidfire.hipchat.com/chat'
-    mv sign-in-hip-chat-linux-x64 software/hipchat
-    ln -s software/hipchat/sign-in-hip-chat bin/hipchat
+if [[ ! -e $HOME/.cargo ]]; then
+    curl https://sh.rustup.rs -sSf | sh
+    cargo install cargo-edit
+    cargo install cargo-script
 fi
 
 echo "You need to set your own passwd with passwd"

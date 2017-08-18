@@ -20,6 +20,15 @@ fi
 OS_STR=`uname -a`
 echo $OS_STR
 
+# install zsh settings and change default shell to zsh
+if [[ ! -e ~/.antigen ]]; then
+    mkdir ~/.antigen
+    cd ~/.antigen
+    git clone https://github.com/zsh-users/antigen.git
+    sudo chsh -s /usr/bin/zsh
+    sudo chsh -s /usr/bin/zsh $CREATE_USER
+fi
+
 # setup git
 if [[ ! -e $USER_HOME/.ssh/id_rsa.pub ]]; then
     echo ~
@@ -40,7 +49,7 @@ if [[ ! -e $USER_HOME/.ssh/id_rsa.pub ]]; then
     git remote add origin git@github.com:vitiral/dotfiles.git
     
     cd ~
-    git clone git@github.com:cloudformdesign/notes.git
+    git clone git@github.com:vitiral/notes.git
 fi
 
 
@@ -59,15 +68,6 @@ elif [[ `uname` == "Linux" ]]; then
     fi
 elif [[ `uname` == 'Cygwin' ]]; then
     :  # pass, none yet
-fi
-
-# install zsh settings and change default shell to zsh
-if [[ ! -e ~/.antigen ]]; then
-    mkdir ~/.antigen
-    cd ~/.antigen
-    git clone https://github.com/zsh-users/antigen.git
-    sudo chsh -s /usr/bin/zsh
-    sudo chsh -s /usr/bin/zsh $CREATE_USER
 fi
 
 # put in links to config files

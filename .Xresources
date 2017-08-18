@@ -1,4 +1,6 @@
-urxvt*font: xft:inconsolata:size=13,xft:Terminus,xft:Inconsolata\ for\ Powerline,-*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
+! NOTE: play with fonts using something like urxvt -fn "xft:Inconsolata\ Nerd\ Font:style=Medium"
+! urxvt*font: xft:inconsolata:size=13,xft:Terminus,xft:Inconsolata\ for\ Powerline,-*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
+urxvt*font: xft:Inconsolata\ Nerd\ Font:style=Medium:size=13
 
 
 URxvt*loginShell: false
