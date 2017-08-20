@@ -11,7 +11,6 @@ fi
 
 export EDITOR='vim'
 alias dif='colordiff -ENwbu'
-alias vim='nvim'
 alias sudo='sudo '
 alias suspend='sudo systemctl suspend'
 
@@ -357,7 +356,7 @@ mp4_show() {
     pytube -s $1
 }
 
-mp3_dl() {
+mp3dl() {
     # use: download song from youtube
     # args: URL SONG_NAME
     pytube -e mp4 -r 360p $1 -f "/tmp/$2" || return $?

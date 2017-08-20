@@ -35,7 +35,7 @@ if [[ ! -e /etc/localtime ]]; then
     sudo hwclock --systohc --utc
 fi
 
-$SYS_INSTALL openssh
+$SYS_INSTALL openssh ntp wget rsync pkg-config \
 if [[ `systemctl is-active sshd.service` != "active" ]]; then
     echo "Setting up ssh"
     sudo cp $SCRIPTPATH/etc/sshd_config /etc/ssh/
@@ -75,30 +75,36 @@ fi
 ## dev tools
 echo "installing dev tools"
 $SYS_INSTALL \
-    zsh tmux vim neovim \
+    base-devel cmake make gcc \
     tree \
-    openssh wget rsync \
-    cmake \
     lsof smartmontools lm_sensors \
     python2 python2-pip python python-pip \
     npm \
-    gcc
-
-## compression
-$SYS_INSTALL unace unrar zip unzip sharutils uudeview cabextract file-roller
+    libgit2
 
 ## usertools
 echo "installing user tools"
 $SYS_INSTALL \
+    zsh tmux vim neovim \
     firefox chromium \
-    apvlv feh vlc \
+    transmission-qt \
+    apvlv feh vlc cmus \
     libreoffice-still
+
+## compression
+$SYS_INSTALL unace unrar zip unzip sharutils uudeview cabextract file-roller
 
 # system settings
 echo "setting up system"
 sudo cp $SCRIPTPATH/etc/99-sysctl.conf /etc/sysctl.d/           # very low swappiness
 sudo cp $SCRIPTPATH/etc/50-synaptics.conf /etc/X11/xorg.conf.d  # touchpad
 sudo cp $SCRIPTPATH/etc/pacman.conf /etc/pacman.conf            # pacman
+
+# virtualization
+$SYS_INSTALL \
+    qemu libvirt ebtables \
+    virt-install virt-viewer \
+    dnsmasq
 
 # yaourt from pacman.conf added repos
 $SYS_INSTALL -y yaourt
@@ -124,6 +130,8 @@ if [[ ! -e $HOME/.cargo ]]; then
     cargo install cargo-edit
     cargo install cargo-script
 fi
+
+sudo pip3 install virtualenv
 
 echo "You need to set your own passwd with passwd"
 echo $NETWORK_MSG
