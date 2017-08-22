@@ -19,7 +19,12 @@ fi
 
 # System tools
 echo "Setting up system tools"
-$SYS_INSTALL parted
+$SYS_INSTALL fdisk netctl dialog wpa_actiond
+
+if [[! -e ]]; then
+    systemctl start netctl-auto@wlp2s0.service
+    systemctl enable netctl-auto@wlp2s0.service
+fi
 
 if [[ ! -e /etc/locale.conf ]]; then
     echo "Setting up locale"
