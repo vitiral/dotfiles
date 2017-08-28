@@ -16,6 +16,7 @@ alias suspend='sudo systemctl suspend'
 
 alias hdmion="xrandr --output HDMI1 --auto --right-of eDP1"
 alias hdmioff="xrandr --output HDMI1 --off"
+alias touchreset="sudo modprobe -r psmouse && sudo modprobe psmouse"
 
 # urxvt font setter
 setfont(){printf '\33]50;%s\007' "xft:inconsolata:size=$1"}
@@ -362,4 +363,5 @@ mp3dl() {
     pytube -e mp4 -r 360p $1 -f "/tmp/$2" || return $?
     ffmpeg -i "/tmp/$2.mp4" -acodec libmp3lame -ab 160k -ar 44100 -ac 2 $2.mp3 || return $?
     rm -f "/tmp/$2.mp4"
+    echo "- [$2]($1)\n" >> Contents.md
 }

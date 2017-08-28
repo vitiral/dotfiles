@@ -12,6 +12,7 @@ let g:spacevim_unite_leader = 'U'
 " disable all linting (it is annoying)
 let g:spacevim_lint_on_save = 0
 let g:spacevim_lint_on_the_fly = 0
+let g:spacevim_disabled_plugins = ['delimitMate', 'neopairs']
 
 call SpaceVim#layers#load('incsearch')
 " call SpaceVim#layers#load('lang#c')
@@ -31,7 +32,6 @@ call SpaceVim#layers#load('lang#xml')
 call SpaceVim#layers#load('shell')   
 call SpaceVim#layers#load('tools#screensaver')
 
-let g:spacevim_disabled_plugins = ['delimitMate', 'neopairs']
 let g:spacevim_custom_plugins = [
 \ ['ElmCast/elm-vim'],
 \ ]

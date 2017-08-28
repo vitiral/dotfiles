@@ -40,7 +40,7 @@ if [[ ! -e /etc/localtime ]]; then
     sudo hwclock --systohc --utc
 fi
 
-$SYS_INSTALL openssh ntp wget rsync pkg-config \
+$SYS_INSTALL openssh mosh ntp wget rsync pkg-config \
 if [[ `systemctl is-active sshd.service` != "active" ]]; then
     echo "Setting up ssh"
     sudo cp $SCRIPTPATH/etc/sshd_config /etc/ssh/
@@ -63,7 +63,7 @@ fi
 echo "Installing user utilities"
 # Window Manger and basic functionality
 $SYS_INSTALL xorg-server xorg-xinit xorg-xev xorg-xmodmap \
-    i3 i3lock dmenu xautolock xorg-xrdb \
+    i3 i3lock dmenu xautolock xorg-xrdb scrot \
     rxvt-unicode urxvt-perls xclip \
     xf86-input-synaptics \
     xcape \
