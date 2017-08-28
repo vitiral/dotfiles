@@ -168,8 +168,8 @@ alias py2dev='py2 setup.py develop'
 
 alias pyclean="rm -r ./**/*.pyc"
 pyfix() {
-    autopep8 $1 -r --in-place || return $?
-    docformatter $1 -r --in-place --no-blank || return $?
+    autopep8 $1 -r --in-place --max-line-length 105 || return $?
+    docformatter $1 -r --in-place --no-blank --wrap-descriptions 105 || return $?
 }
 
 ##################################################
