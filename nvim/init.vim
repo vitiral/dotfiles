@@ -4,7 +4,8 @@ call plug#begin('~/.local/share/nvim/plugged')
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" Misc
 Plug 'tpope/vim-sensible'
-Plug 'vim-scripts/Solarized'
+Plug 'rafi/awesome-vim-colorschemes'
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" Autocompletion
@@ -44,11 +45,8 @@ endif
 Plug 'plasticboy/vim-markdown'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" PLUGIN END
 call plug#end()
-
-set background=dark
-colorscheme solarized
+"" PLUGIN END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Spacemacs like ergonomics
@@ -59,8 +57,10 @@ colorscheme solarized
     let mapleader = ' '
 
     " w: movement
-    nnoremap <leader>wj <C-W>j
     nnoremap <leader>wh <C-W>h
+    nnoremap <leader>wj <C-W>j
+    nnoremap <leader>wk <C-W>k
+    nnoremap <leader>wl <C-W>l
 
     " window management
     map <leader>wS <C-w>s<C-w>j<C-w>=
@@ -88,3 +88,8 @@ colorscheme solarized
 
     " module remappings, TODO: make these only load for certain files
     nnoremap <leader>mb Oimport ipdb; ipdb.set_trace()<ESC>
+
+" colorscheme wombat256mod
+colorscheme molokai
+set background=dark
+highlight Normal ctermfg=lightgrey ctermbg=black
