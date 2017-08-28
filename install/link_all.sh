@@ -17,8 +17,9 @@ ln -s .dotfiles/.pydistutils.cfg .
 # .config
 mkdir -p .config
 cd .config
-ln -s ~/.dotfiles/config/i3 .
-ln -s ~/.dotfiles/config/i3status .
+ln -s $HOME/.dotfiles/config/i3 .
+ln -s $HOME/.dotfiles/config/i3status .
+ln -s $HOME/.dotfiles/config/nvim .
 
 # python
 cd ~

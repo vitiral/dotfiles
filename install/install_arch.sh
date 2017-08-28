@@ -126,6 +126,11 @@ if [[ ! -e $HOME/software/py3status ]]; then
     sudo /usr/bin/python2.7 setup.py install
 fi
 
+if [[ ! -e $HOME/.local/share/nvim/site/autoload/plug.vim ]]; then
+    curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+fi
+
 if [ ! -d $HOME/.SpaceVim ]; then
     curl -sLf https://spacevim.org/install.sh | bash
 fi
@@ -136,7 +141,7 @@ if [[ ! -e $HOME/.cargo ]]; then
     cargo install cargo-script
 fi
 
-sudo pip3 install virtualenv
+sudo pip3 install virtualenv neovim
 
 echo "You need to set your own passwd with passwd"
 echo $NETWORK_MSG

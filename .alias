@@ -178,7 +178,7 @@ pathappend $HOME/.cargo/bin
 pathappend $HOME/projects/rst/target/release
 
 export RUST_BACKTRACE=1
-export RUST_SRC_PATH=$HOME/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src
+export RUST_SRC_PATH=$HOME/.multirust/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src
 export CARGO_HOME=$HOME/.cargo
 
 alias rust_release="rustup default stable; cargo build --release --target=x86_64-unknown-linux-musl; rustup default nightly"

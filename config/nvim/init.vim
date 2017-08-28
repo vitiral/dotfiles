@@ -5,7 +5,8 @@ call plug#begin('~/.local/share/nvim/plugged')
 "" Misc
 Plug 'tpope/vim-sensible'
 Plug 'rafi/awesome-vim-colorschemes'
-
+Plug 'vim-airline/vim-airline'
+Plug 'Shougo/denite.nvim'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" Autocompletion
@@ -15,10 +16,10 @@ Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
-" close when complete
+" " close when complete
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
-" Tab completion
+" " Tab completion
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
@@ -41,8 +42,22 @@ if executable('pyls')
 endif
 
 "----------
+"- Rust
+
+Plug 'rust-lang/rust.vim'
+
+if executable('rls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'rls',
+        \ 'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
+        \ 'whitelist': ['rust'],
+        \ })
+endif
+
+"----------
 "- Misc Markdown
 Plug 'plasticboy/vim-markdown'
+Plug 'chrisbra/csv.vim'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#end()
@@ -68,7 +83,9 @@ call plug#end()
     nnoremap <leader>wd :q<CR>
 
     " b: buffers
-    nnoremap <leader>bb :b<SPACE>
+    " nnoremap <leader>bb :b<SPACE>
+    nnoremap <leader>bb :Denite buffer<CR>
+
     " reload all buffers
     nnoremap <leader>br :checktime<CR>
     nnoremap <silent> <leader>bn :set relativenumber!<cr>:set nonu!<cr>
@@ -78,7 +95,8 @@ call plug#end()
     " -find-project
     nnoremap <leader>sp :Ack<space>
     " -project-findfile
-    nnoremap <leader>pf :CtrlP<cr>
+    " nnoremap <leader>pf :CtrlP<cr>
+    nnoremap <leader>pf :DeniteProjectDir<CR>
 
     " open and find files in current buffer
     nnoremap <leader>ff :e <C-R>=expand('%:h').'/'<cr>
@@ -89,7 +107,10 @@ call plug#end()
     " module remappings, TODO: make these only load for certain files
     nnoremap <leader>mb Oimport ipdb; ipdb.set_trace()<ESC>
 
-" colorscheme wombat256mod
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Misc Settings
+let g:airline_powerline_fonts = 1
+
 colorscheme molokai
 set background=dark
 highlight Normal ctermfg=lightgrey ctermbg=black
