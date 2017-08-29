@@ -21,7 +21,7 @@ fi
 echo "Setting up system tools"
 $SYS_INSTALL fdisk netctl dialog wpa_actiond
 
-if [[! -e ]]; then
+if [[ ! -e /usr/lib/systemd/system/netctl-auto@.service ]]; then
     systemctl start netctl-auto@wlp2s0.service
     systemctl enable netctl-auto@wlp2s0.service
 fi
@@ -41,10 +41,11 @@ if [[ ! -e /etc/localtime ]]; then
 fi
 
 $SYS_INSTALL openssh mosh ntp wget rsync pkg-config \
-if [[ `systemctl is-active sshd.service` != "active" ]]; then
+systemctl_is_active="$(systemctl is-active sshd.service)"
+if [[ "$systemctl_is_active" != "active" ]]; then
     echo "Setting up ssh"
     sudo cp $SCRIPTDIR/etc/sshd_config /etc/ssh/
-    systemctl enable sshd.service
+    sudo systemctl enable sshd.service
 fi
 
 if [[ `systemctl is-active avahi-daemon` != "active" ]]; then
@@ -141,7 +142,7 @@ if [[ ! -e $HOME/.cargo ]]; then
     cargo install cargo-script
 fi
 
-sudo pip3 install virtualenv neovim
+sudo pip3 install virtualenv
 
 echo "You need to set your own passwd with passwd"
 echo $NETWORK_MSG
