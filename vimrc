@@ -166,7 +166,10 @@ set number
 set relativenumber
 set nopaste
 set undofile                    " Save undo's after file closes
-set undodir=$HOME/.vim/undo     " where to save undo histories
+set undodir=~/.vim/data/undo//            " where to save undo histories
+set directory=~/.vim/data/swap//     " where to save swap files
+set backupdir=~/.vim/data/backup//        " where to save backup files
+set viminfo+='1000,n~/.vim/data/viminfo
 set undolevels=1000             " How many undos
 set undoreload=10000            " number of lines to save for undo
 set expandtab                   " Tabs are spaces, not tabs

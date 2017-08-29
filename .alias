@@ -20,7 +20,16 @@ alias hdmioff="xrandr --output HDMI1 --off"
 alias mousefix="sudo modprobe -r psmouse && sudo modprobe psmouse"
 
 # urxvt font setter
-setfont(){printf '\33]50;%s\007' "xft:inconsolata:size=$1"}
+setfont(){
+    fonts="\
+xft:Inconsolata\ Nerd\ Font:style=Medium:size=$1\
+,ttf: Noto Mono:style=Regular:size=$1\
+,ttf: Noto Emoji:style=Regular:size=$1\
+,ttf: Noto Sans Symbols:style=Regular:size=$1"
+
+    printf '\33]50;%s\007' "$fonts"
+}
+setfont 13
 
 pathappend() {
     # properly append path to end of PATH
