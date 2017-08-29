@@ -66,6 +66,7 @@ echo "Installing user utilities"
 $SYS_INSTALL xorg-server xorg-xinit xorg-xev xorg-xmodmap \
     i3 i3lock dmenu xautolock xorg-xrdb scrot \
     rxvt-unicode urxvt-perls xclip \
+    noto-fonts noto-fonts-emoji \
     xf86-input-synaptics \
     xcape \
     pulseaudio pulseaudio-alsa alsa-utils mesa
@@ -92,7 +93,6 @@ $SYS_INSTALL \
 echo "installing user tools"
 $SYS_INSTALL \
     zsh tmux vim \
-    noto-fonts noto-fonts-emoji \
     firefox chromium \
     transmission-qt \
     apvlv feh vlc cmus \

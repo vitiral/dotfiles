@@ -29,7 +29,12 @@ xft:Inconsolata\ Nerd\ Font:style=Medium:size=$1\
 
     printf '\33]50;%s\007' "$fonts"
 }
-setfont 13
+if [ -z ${TMUX+x} ]; then
+    echo "starting urxvt window... setting font"
+    setfont 13
+else
+    echo "starting tmux window...";
+fi
 
 pathappend() {
     # properly append path to end of PATH
@@ -375,3 +380,4 @@ mp3dl() {
     rm -f "/tmp/$2.mp4"
     echo "- [$2]($1)\n" >> Contents.md
 }
+
