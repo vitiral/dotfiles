@@ -90,7 +90,7 @@ $SYS_INSTALL \
 ## usertools
 echo "installing user tools"
 $SYS_INSTALL \
-    zsh tmux vim neovim \
+    zsh tmux vim \
     firefox chromium \
     transmission-qt \
     apvlv feh vlc cmus \
@@ -126,14 +126,9 @@ if [[ ! -e $HOME/software/py3status ]]; then
     sudo /usr/bin/python2.7 setup.py install
 fi
 
-if [[ ! -e $HOME/.local/share/nvim/site/autoload/plug.vim ]]; then
-    curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+if [[ ! -e $HOME/.vim/autoload/plug.vim ]]; then
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    mkdir -p $HOME/.vim/undo
-fi
-
-if [ ! -d $HOME/.SpaceVim ]; then
-    curl -sLf https://spacevim.org/install.sh | bash
 fi
 
 if [[ ! -e $HOME/.cargo ]]; then

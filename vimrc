@@ -1,3 +1,7 @@
+" Vitiral's vimrc
+" This is really custom stuff, but the commands are mostly based on spacemacs
+" https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org
+
 " Leader is SPACE instead of \
 let mapleader = ' '
 
@@ -72,7 +76,18 @@ call plug#begin('~/.local/share/nvim/plugged')
 "" PLUGIN END
 
 call plug#end()
-
+function TogglePaste()
+    if !exists("b:is_paste_buffer")
+        tabnew %
+        set paste
+        set norelativenumber
+        set nonumber
+        let b:is_paste_buffer=1
+    else
+        unlet b:is_paste_buffer
+        quit
+    endif
+endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Additional plugin settings
@@ -113,16 +128,14 @@ call plug#end()
     map <leader>wV <C-w>v<C-w>l<C-w>=
     nnoremap <leader>wd :q<CR>
 
-    " toggle paste
-    nnoremap <silent> <leader>wp :set paste!<CR>
-
     " b: buffers
     " nnoremap <leader>bb :b<SPACE>
     nnoremap <leader>bb :Denite buffer<CR>
 
     " reload all buffers
     nnoremap <leader>br :checktime<CR>
-    nnoremap <silent> <leader>bp :set relativenumber!<cr>:set number!<cr>:set paste!<cr>
+    " toggle true paste mode
+    nnoremap <silent> <leader>bp :call TogglePaste()<cr>
 
     " s: search
     nnoremap <leader>sr :%s///gc<left><left><left>

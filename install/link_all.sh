@@ -12,7 +12,7 @@ ln -s .dotfiles/.zshrc .
 ln -s .dotfiles/.gitconfig .
 ln -s .dotfiles/.gitmodules .
 ln -s .dotfiles/.pydistutils.cfg .
-ln -s .dotfiles/.vimrc .
+ln -s .dotfiles/vimrc .vimrc
 
 # .config
 mkdir -p .config
