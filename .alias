@@ -30,10 +30,10 @@ xft:Inconsolata\ Nerd\ Font:style=Medium:size=$1\
     printf '\33]50;%s\007' "$fonts"
 }
 if [ -z ${TMUX+x} ]; then
-    echo "starting urxvt window... setting font"
+    echo "Starting urxvt window... setting font"
     setfont 13
 else
-    echo "starting tmux window...";
+    echo "Starting tmux window...";
 fi
 
 pathappend() {
