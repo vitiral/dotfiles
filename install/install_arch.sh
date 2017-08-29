@@ -63,13 +63,14 @@ fi
 
 echo "Installing user utilities"
 # Window Manger and basic functionality
-$SYS_INSTALL xorg-server xorg-xinit xorg-xev xorg-xmodmap \
+$SYS_INSTALL \
+    xorg-server xorg-xinit xorg-xev xorg-xmodmap xorg-xbacklight \
     i3 i3lock dmenu xautolock xorg-xrdb scrot \
     rxvt-unicode urxvt-perls xclip \
     noto-fonts noto-fonts-emoji \
     xf86-input-synaptics \
     xcape \
-    pulseaudio pulseaudio-alsa alsa-utils mesa
+    pamixer pulseaudio pulseaudio-alsa alsa-utils mesa
 
 ## Use i3lock to lock the screen on lid close (i3 config handles timeout situation)
 if [[ `systemctl is-active i3lock.service` != "active" ]]; then
