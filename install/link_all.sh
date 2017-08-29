@@ -9,17 +9,16 @@ ln -s .dotfiles/.bash_profile .
 ln -s .dotfiles/.bashrc .
 ln -s .dotfiles/.tmux.conf .
 ln -s .dotfiles/.zshrc .
-ln -s .dotfiles/SpaceVim.d .SpaceVim.d
 ln -s .dotfiles/.gitconfig .
 ln -s .dotfiles/.gitmodules .
 ln -s .dotfiles/.pydistutils.cfg .
+ln -s .dotfiles/.vimrc .
 
 # .config
 mkdir -p .config
 cd .config
 ln -s $HOME/.dotfiles/config/i3 .
 ln -s $HOME/.dotfiles/config/i3status .
-ln -s $HOME/.dotfiles/config/nvim .
 
 # python
 cd ~
