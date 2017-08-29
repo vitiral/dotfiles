@@ -586,5 +586,5 @@ set list
 set listchars=tab:▶\ ,trail:·,extends:#,nbsp:.
 highlight Specialkey ctermbg=black
 
-" example: tab and trailing white space
+" example: tab and trailing white space   
 	   

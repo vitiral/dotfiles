@@ -17,7 +17,7 @@ alias suspend='sudo systemctl suspend'
 
 alias hdmion="xrandr --output HDMI1 --auto --right-of eDP1"
 alias hdmioff="xrandr --output HDMI1 --off"
-alias touchreset="sudo modprobe -r psmouse && sudo modprobe psmouse"
+alias mousefix="sudo modprobe -r psmouse && sudo modprobe psmouse"
 
 # urxvt font setter
 setfont(){printf '\33]50;%s\007' "xft:inconsolata:size=$1"}
