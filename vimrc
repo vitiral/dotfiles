@@ -151,6 +151,8 @@ endfunction
     " clears search history
     nnoremap <leader>sc :noh<cr>
 
+    nmap <leader>cc <Plug>CommentaryLine
+
     " module remappings, TODO: make these only load for certain files
     nnoremap <leader>mb Oimport ipdb; ipdb.set_trace()<ESC>
 
