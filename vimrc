@@ -1,4 +1,4 @@
-" Vitiral's vimrc
+"iles FindRootDirectory() Vitiral's vimrc
 " This is really custom stuff, but the commands are mostly based on spacemacs
 " https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org
 
@@ -14,6 +14,9 @@
     set directory=~/.vim/data/swap//        " where to save swap files
     set backupdir=~/.vim/data/backup//      " where to save backup files
     set viminfo+='1000,n~/.vim/data/viminfo " where to save .viminfo
+    set viewdir=~/.vim/data/view//          " where to save and load view info
+    autocmd BufWinLeave * mkview
+    autocmd BufWinEnter * silent loadview
 
     set expandtab                   " Tabs are spaces, not tabs
     set shiftwidth=4
@@ -21,17 +24,18 @@
     set softtabstop=4               " Let backspace delete indent
     autocmd BufNewFile,BufRead justfile set filetype=make
     autocmd FileType make set noexpandtab   " Make files use Tabs (not spaces)
+    autocmd FileType toml
+        \ autocmd BufEnter <buffer> syntax sync fromstart
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" PLUGIN START
-call plug#begin('~/.local/share/nvim/plugged')
+call plug#begin('~/.vim/data/plug')
     " Basic Interface
     Plug 'tpope/vim-sensible'           " sensible defaults
     Plug 'tpope/vim-repeat'             " repeat plugin commands with `.`
     Plug 'tpope/vim-commentary'         " easy comment out lines
-    " Plug 'airblade/vim-rooter'          " all files use project-root as cwd
-    " let g:rooter_silent_chdir = 1
-    " let g:rooter_change_directory_for_non_project_files = 'current'
+    Plug 'airblade/vim-rooter'          " gets FindRootDirectory()
+    let g:rooter_manual_only = 1
     Plug 'easymotion/vim-easymotion'    " move around with Cntrl-<motion>
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
@@ -40,6 +44,9 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'rafi/awesome-vim-colorschemes'
     Plug 'ntpeters/vim-better-whitespace'
     Plug 'vim-airline/vim-airline'
+    let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#tabline#left_sep = ' '
+    let g:airline#extensions#tabline#left_alt_sep = '|'
 
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     "" Autocompletion
@@ -87,6 +94,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     "----------
     "- Misc Markdown
     Plug 'plasticboy/vim-markdown'
+    Plug 'plasticboy/vim-markdown'
+    Plug 'cespare/vim-toml'
     Plug 'chrisbra/csv.vim'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -120,6 +129,7 @@ call plug#end()
     set background=dark
     highlight Normal ctermfg=lightgrey ctermbg=NONE
     highlight Search cterm=NONE ctermfg=white ctermbg=241
+    highlight Comment cterm=NONE ctermfg=76
     highlight ExtraWhitespace ctermbg=236
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -137,8 +147,16 @@ call plug#end()
         endif
     endfunction
 
+    function SearchDir(dir)
+        call fzf#vim#grep(
+             \ 'grep -vnITr --color=always --exclude-dir=".svn" --exclude-dir=".git" --exclude=tags --exclude=*\.pyc --exclude=*\.exe --exclude=*\.dll --exclude=*\.zip --exclude=*\.gz "^$" ' . a:dir,
+             \ 0,
+             \ {'options': '--reverse --prompt "Search> "'})
+    endfunction
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Spacemacs like ergonomics and key (re)mappings
+" https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org
     let mapleader = ' '
 
     "Get rid of help key
@@ -152,7 +170,8 @@ call plug#end()
     " commands can start with ;"
     nnoremap ; :
 
-    " window management
+    """""""""""
+    " w: window
     nnoremap <leader>wh <C-W>h
     nnoremap <leader>wj <C-W>j
     nnoremap <leader>wk <C-W>k
@@ -163,26 +182,43 @@ call plug#end()
     " toggle true paste mode
     nnoremap <silent> <leader>wp :call TogglePaste()<cr>
 
+    """""""""""
     " b: buffers
     nnoremap <leader>bb :Buffers<cr>
     " reload all buffers
     nnoremap <leader>br :checktime<cr>
 
-    " s: search
-    nnoremap <leader>sr :%s//gc<left><left><left>
-    nnoremap <leader>sp :Ag<cr>
-    " -project-findfile
-    nnoremap <leader>pf :Files<cr>
-
+    """""""""""
+    " f: file management
     " open and find files in current buffer
-    nnoremap <leader>ff :e <C-R>=expand('%:h').'/'<cr>
+    " nnoremap <leader>ff :e <C-R>=expand('%:h').'/'<cr>
+    nnoremap <leader>ff :Files %:p:h<cr>
 
-    " clears search history
+    """""""""""
+    " s: search
+    " search and replace current buffer
+    nnoremap <leader>sr :%s//gc<left><left><left>
+    " search project
+    nnoremap <leader>sp :call SearchDir(FindRootDirectory())<cr>
+    " search cwd
+    nnoremap <leader>ss :call SearchDir(".")<cr>
+    " search file directory
+    nnoremap <leader>sf :call SearchDir(expand('%:p:h'))<cr>
+    " clear search history
     nnoremap <leader>sc :noh<cr>
 
+    """""""""""
+    " p: project
+    " open file in project
+    nnoremap <leader>pf :call fzf#vim#files(FindRootDirectory())<cr>
+    " open file in cwd
+    nnoremap <leader>pc :call Files<cr>
+    " open file in home
+    nnoremap <leader>ph :call fzf#vim#files("~")<cr>
+
+    """""""""""
+    " c: comments
     nmap <leader>cc <Plug>CommentaryLine
 
     " module remappings, TODO: make these only load for certain files
     nnoremap <leader>mb Oimport ipdb; ipdb.set_trace()<ESC>
-
-
