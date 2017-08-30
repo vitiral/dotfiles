@@ -29,11 +29,12 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'tpope/vim-sensible'           " sensible defaults
     Plug 'tpope/vim-repeat'             " repeat plugin commands with `.`
     Plug 'tpope/vim-commentary'         " easy comment out lines
-    Plug 'Shougo/denite.nvim'           " single interface for commands
-    Plug 'airblade/vim-rooter'          " all files use project-root as cwd
-    let g:rooter_silent_chdir = 1
-    let g:rooter_change_directory_for_non_project_files = 'current'
+    " Plug 'airblade/vim-rooter'          " all files use project-root as cwd
+    " let g:rooter_silent_chdir = 1
+    " let g:rooter_change_directory_for_non_project_files = 'current'
     Plug 'easymotion/vim-easymotion'    " move around with Cntrl-<motion>
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+    Plug 'junegunn/fzf.vim'
 
     " Look & Feel
     Plug 'rafi/awesome-vim-colorschemes'
@@ -159,21 +160,19 @@ call plug#end()
     map <leader>wS <C-w>s<C-w>j<C-w>=
     map <leader>wV <C-w>v<C-w>l<C-w>=
     nnoremap <leader>wd :q<cr>
+    " toggle true paste mode
+    nnoremap <silent> <leader>wp :call TogglePaste()<cr>
 
     " b: buffers
-    nnoremap <leader>bb :Denite buffer<cr>
+    nnoremap <leader>bb :Buffers<cr>
     " reload all buffers
     nnoremap <leader>br :checktime<cr>
-    " toggle true paste mode
-    nnoremap <silent> <leader>bp :call TogglePaste()<cr>
 
     " s: search
     nnoremap <leader>sr :%s//gc<left><left><left>
-    " -find-project
-    nnoremap <leader>sp :Ack<space>
+    nnoremap <leader>sp :Ag<cr>
     " -project-findfile
-    " nnoremap <leader>pf :CtrlP<cr>
-    nnoremap <leader>pf :DeniteProjectDir<cr>
+    nnoremap <leader>pf :Files<cr>
 
     " open and find files in current buffer
     nnoremap <leader>ff :e <C-R>=expand('%:h').'/'<cr>

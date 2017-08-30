@@ -10,8 +10,12 @@
 #
 # Use 
 
-# Mod=Alt
-set $mod Mod1
+# ALT key
+# set $mod Mod1
+
+# WIN Key
+set $mod Mod4
+
 set $urxvt_transparent urxvt -tr +sb -fg green -bg black -tint white -sh 75 -fade 15 -fadecolor black -pr black -pr2 white
 
 # Mod=Windows Key

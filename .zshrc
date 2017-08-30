@@ -20,3 +20,5 @@ fi
 
 # added by travis gem
 [ -f /home/garrett/.travis/travis.sh ] && source /home/garrett/.travis/travis.sh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
