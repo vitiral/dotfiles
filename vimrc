@@ -2,25 +2,43 @@
 " This is really custom stuff, but the commands are mostly based on spacemacs
 " https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org
 
-" Leader is SPACE instead of \
-let mapleader = ' '
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" General Settings
+    set number
+    set relativenumber
+    set nopaste
+    set undofile                            " Save undo's after file closes
+    set undolevels=1000                     " How many undos
+    set undoreload=10000                    " number of lines to save for undo
+    set undodir=~/.vim/data/undo//          " where to save undo histories
+    set directory=~/.vim/data/swap//        " where to save swap files
+    set backupdir=~/.vim/data/backup//      " where to save backup files
+    set viminfo+='1000,n~/.vim/data/viminfo " where to save .viminfo
+
+    set expandtab                   " Tabs are spaces, not tabs
+    set shiftwidth=4
+    set tabstop=4                   " An indentation every four columns
+    set softtabstop=4               " Let backspace delete indent
+    autocmd BufNewFile,BufRead justfile set filetype=make
+    autocmd FileType make set noexpandtab   " Make files use Tabs (not spaces)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" PLUGIN START
-
 call plug#begin('~/.local/share/nvim/plugged')
-    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    "" Misc
-    Plug 'tpope/vim-sensible'
-    Plug 'tpope/vim-repeat'
-    Plug 'tpope/vim-commentary'
-    Plug 'Shougo/denite.nvim'
+    " Basic Interface
+    Plug 'tpope/vim-sensible'           " sensible defaults
+    Plug 'tpope/vim-repeat'             " repeat plugin commands with `.`
+    Plug 'tpope/vim-commentary'         " easy comment out lines
+    Plug 'Shougo/denite.nvim'           " single interface for commands
+    Plug 'airblade/vim-rooter'          " all files use project-root as cwd
+    let g:rooter_silent_chdir = 1
+    let g:rooter_change_directory_for_non_project_files = 'current'
+    Plug 'easymotion/vim-easymotion'    " move around with Cntrl-<motion>
 
+    " Look & Feel
     Plug 'rafi/awesome-vim-colorschemes'
     Plug 'ntpeters/vim-better-whitespace'
     Plug 'vim-airline/vim-airline'
-
-    Plug 'easymotion/vim-easymotion'
 
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     "" Autocompletion
@@ -42,12 +60,11 @@ call plug#begin('~/.local/share/nvim/plugged')
 
     "----------
     "- Python
-
     Plug 'hdima/python-syntax'
 
     if executable('pyls')
         " pip install python-language-server
-        au User lsp_setup call lsp#register_server({
+        autocmd User lsp_setup call lsp#register_server({
             \ 'name': 'pyls',
             \ 'cmd': {server_info->['pyls']},
             \ 'whitelist': ['python'],
@@ -56,11 +73,10 @@ call plug#begin('~/.local/share/nvim/plugged')
 
     "----------
     "- Rust
-
     Plug 'rust-lang/rust.vim'
 
     if executable('rls')
-        au User lsp_setup call lsp#register_server({
+        autocmd User lsp_setup call lsp#register_server({
             \ 'name': 'rls',
             \ 'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
             \ 'whitelist': ['rust'],
@@ -74,23 +90,11 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" PLUGIN END
-
 call plug#end()
-function TogglePaste()
-    if !exists("b:is_paste_buffer")
-        tabnew %
-        set paste
-        set norelativenumber
-        set nonumber
-        let b:is_paste_buffer=1
-    else
-        unlet b:is_paste_buffer
-        quit
-    endif
-endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Additional plugin settings
+
     " Commentary settings
     xmap gc  <Plug>Commentary
     nmap gc  <Plug>Commentary
@@ -103,47 +107,73 @@ endfunction
         \ autocmd BufEnter <buffer> EnableStripWhitespaceOnSave
 
     " Easymotion Settings
-    map  <C-f> <Plug>(easymotion-bd-f)
-    nmap <C-f> <Plug>(easymotion-overwin-f)
-    map  <C-t> <Plug>(easymotion-t)
-    nmap <C-t> <Plug>(easymotion-t)
+    map  <C-F> <Plug>(easymotion-bd-f)
+    nmap <C-F> <Plug>(easymotion-overwin-f)
+    map  <C-T> <Plug>(easymotion-t)
+    nmap <C-T> <Plug>(easymotion-t)
     map  <C-L> <Plug>(easymotion-bd-jk)
     nmap <C-L> <Plug>(easymotion-overwin-line)
 
+    " term colors: http://misc.flogisoft.com/bash/tip_colors_and_formatting
+    colorscheme molokai
+    set background=dark
+    highlight Normal ctermfg=lightgrey ctermbg=NONE
+    highlight Search cterm=NONE ctermfg=white ctermbg=241
+    highlight ExtraWhitespace ctermbg=236
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Spacemacs like ergonomics
+"" Custom Functions
+    function TogglePaste()
+        if !exists("b:is_paste_buffer")
+            tabnew %
+            set paste
+            set norelativenumber
+            set nonumber
+            let b:is_paste_buffer=1
+        else
+            unlet b:is_paste_buffer
+            quit
+        endif
+    endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Spacemacs like ergonomics and key (re)mappings
+    let mapleader = ' '
+
+    "Get rid of help key
+    inoremap <F1> <ESC>
+    nnoremap <F1> <ESC>
+    vnoremap <F1> <ESC>
+
+    " Shift+Tab always inserts a Tab in insert mode
+    :inoremap <S-Tab> <C-V><Tab>
+
     " commands can start with ;"
     nnoremap ; :
 
-
-    " w: movement
+    " window management
     nnoremap <leader>wh <C-W>h
     nnoremap <leader>wj <C-W>j
     nnoremap <leader>wk <C-W>k
     nnoremap <leader>wl <C-W>l
-
-    " window management
     map <leader>wS <C-w>s<C-w>j<C-w>=
     map <leader>wV <C-w>v<C-w>l<C-w>=
-    nnoremap <leader>wd :q<CR>
+    nnoremap <leader>wd :q<cr>
 
     " b: buffers
-    " nnoremap <leader>bb :b<SPACE>
-    nnoremap <leader>bb :Denite buffer<CR>
-
+    nnoremap <leader>bb :Denite buffer<cr>
     " reload all buffers
-    nnoremap <leader>br :checktime<CR>
+    nnoremap <leader>br :checktime<cr>
     " toggle true paste mode
     nnoremap <silent> <leader>bp :call TogglePaste()<cr>
 
     " s: search
-    nnoremap <leader>sr :%s///gc<left><left><left>
+    nnoremap <leader>sr :%s//gc<left><left><left>
     " -find-project
     nnoremap <leader>sp :Ack<space>
     " -project-findfile
     " nnoremap <leader>pf :CtrlP<cr>
-    nnoremap <leader>pf :DeniteProjectDir<CR>
+    nnoremap <leader>pf :DeniteProjectDir<cr>
 
     " open and find files in current buffer
     nnoremap <leader>ff :e <C-R>=expand('%:h').'/'<cr>
@@ -156,38 +186,4 @@ endfunction
     " module remappings, TODO: make these only load for certain files
     nnoremap <leader>mb Oimport ipdb; ipdb.set_trace()<ESC>
 
-" term colors: http://misc.flogisoft.com/bash/tip_colors_and_formatting
-colorscheme molokai
-set background=dark
-highlight Normal ctermfg=lightgrey ctermbg=NONE
-highlight Search cterm=NONE ctermfg=white ctermbg=241
-highlight ExtraWhitespace ctermbg=236
-
-" Formatting Settings
-set number
-set relativenumber
-set nopaste
-set undofile                    " Save undo's after file closes
-set undodir=~/.vim/data/undo//            " where to save undo histories
-set directory=~/.vim/data/swap//     " where to save swap files
-set backupdir=~/.vim/data/backup//        " where to save backup files
-set viminfo+='1000,n~/.vim/data/viminfo
-set undolevels=1000             " How many undos
-set undoreload=10000            " number of lines to save for undo
-set expandtab                   " Tabs are spaces, not tabs
-set shiftwidth=4
-set tabstop=4                   " An indentation every four columns
-set softtabstop=4               " Let backspace delete indent
-autocmd BufNewFile,BufRead justfile set filetype=make
-autocmd FileType make set noexpandtab   " Make files use Tabs (not spaces)
-
-""""""""""""""""""
-" Key (re)Mappings
-    "Get rid of help key
-    inoremap <F1> <ESC>
-    nnoremap <F1> <ESC>
-    vnoremap <F1> <ESC>
-
-    " Shift+Tab always inserts a Tab
-    :inoremap <S-Tab> <C-V><Tab>
 
