@@ -1,0 +1,59 @@
+#!/usr/bin/python2
+"""Set brightness of screen.
+
+Pass single argument:
+ - +: increment by max/10
+ - -: decrement by max/10
+ - ++: increase to max
+ - --: decrease to min
+ - (+/-num): modify num amount
+"""
+
+from __future__ import print_function
+import sys
+
+max_path = '/sys/class/backlight/intel_backlight/max_brightness'
+current_path = '/sys/class/backlight/intel_backlight/brightness'
+
+def read_current():
+    with open(current_path) as f:
+        return int(f.read())
+
+with open(max_path) as f:
+    maximum = int(f.read())
+
+current = read_current()
+
+mod = sys.argv[1]
+std_mod = (maximum // 10) or 1
+if mod == '++':
+    mod = maximum
+elif mod == '--':
+    mod = -maximum
+
+if mod == '+':
+    mod = std_mod
+elif mod == '-':
+    mod = -std_mod
+else:
+    mod = int(mod)
+
+new = current + mod
+if new > maximum:
+    new = maximum
+elif new < std_mod:
+    new = std_mod
+
+with open(current_path, 'a') as f:
+    f.write(str(new))
+
+final = read_current()
+print(
+    'max:', maximum,
+    'current:', current,
+    'mod:', mod,
+    'new:', new,
+    'final:', final,
+)
+
+assert final == new, 'final {} != new {}'.format(final, new)

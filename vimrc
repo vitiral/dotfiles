@@ -24,8 +24,6 @@
     set softtabstop=4               " Let backspace delete indent
     autocmd BufNewFile,BufRead justfile set filetype=make
     autocmd FileType make set noexpandtab   " Make files use Tabs (not spaces)
-    autocmd FileType toml
-        \ autocmd BufEnter <buffer> syntax sync fromstart
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" PLUGIN START
@@ -50,9 +48,9 @@ call plug#begin('~/.vim/data/plug')
 
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     "" Autocompletion
-    Plug 'prabirshrestha/asyncomplete.vim'
     Plug 'prabirshrestha/async.vim'
     Plug 'prabirshrestha/vim-lsp'
+    Plug 'prabirshrestha/asyncomplete.vim'
     Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
     " " close when complete
@@ -65,6 +63,18 @@ call plug#begin('~/.vim/data/plug')
 
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     "" Languages
+
+	"----------
+	"- Omni/Misc
+    Plug 'plasticboy/vim-markdown'
+    Plug 'plasticboy/vim-markdown'
+    Plug 'cespare/vim-toml'
+	Plug 'maralla/vim-toml-enhance'
+    autocmd FileType toml
+        \ autocmd Syntax <buffer> syntax sync minlines=2000
+    Plug 'chrisbra/csv.vim'
+
+    Plug 'yami-beta/asyncomplete-omni.vim'
 
     "----------
     "- Python
@@ -91,12 +101,6 @@ call plug#begin('~/.vim/data/plug')
             \ })
     endif
 
-    "----------
-    "- Misc Markdown
-    Plug 'plasticboy/vim-markdown'
-    Plug 'plasticboy/vim-markdown'
-    Plug 'cespare/vim-toml'
-    Plug 'chrisbra/csv.vim'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" PLUGIN END
@@ -104,6 +108,12 @@ call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Additional plugin settings
+
+	call asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
+		\ 'name': 'omni',
+		\ 'whitelist': ['*'],
+		\ 'completor': function('asyncomplete#sources#omni#completor')
+		\  }))
 
     " Commentary settings
     xmap gc  <Plug>Commentary
