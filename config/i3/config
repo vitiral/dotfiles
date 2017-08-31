@@ -10,11 +10,18 @@
 #
 # Use 
 
-# ALT key
+# Mod is ALT key
 # set $mod Mod1
 
-# WIN Key
+# Mod is WIN Key
 set $mod Mod4
+
+# OR "Menu" key
+exec --no-startup-id xmodmap -e 'keycode 135 = Super_R' && xset -r 135
+
+# Remap caps-lock to cntrl+escape
+exec --no-startup-id setxkbmap -option 'caps:ctrl_modifier'
+exec --no-startup-id xcape -e 'Caps_Lock=Escape'
 
 set $urxvt_transparent urxvt -tr +sb -fg green -bg black -tint white -sh 75 -fade 15 -fadecolor black -pr black -pr2 white
 
