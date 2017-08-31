@@ -54,6 +54,16 @@ if [[ `systemctl is-active avahi-daemon` != "active" ]]; then
     sudo systemctl enable avahi-daemon
 fi
 
+modbright_path="/usr/local/bin/modbrightness"
+if [[ ! -e "$modbright_path" ]]; then
+    sudo cp $SCRIPTDIR/modbrightness $modbright_path
+    sudo chown root $modbright_path
+    sudo chmod 700 $modbright_path
+    sudo chown root $modbright_path
+    sudo chmod 755 $modbright_path
+    echo "ALL    ALL = (root) NOPASSWD: $modbright_path" | sudo tee /dev/null >> /etc/sudoers
+fi
+
 echo "Setting up user services"
 if [[ ! -e /home/$CREATE_USER ]]; then
     echo "creating user"

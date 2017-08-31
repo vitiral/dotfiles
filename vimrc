@@ -169,6 +169,9 @@ call plug#end()
 " https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org
     let mapleader = ' '
 
+    " Yank from the cursor to the end of the line, to be consistent with C and D.
+    nnoremap Y y$
+
     "Get rid of help key
     inoremap <F1> <ESC>
     nnoremap <F1> <ESC>
