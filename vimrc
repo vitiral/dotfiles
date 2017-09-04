@@ -4,6 +4,10 @@
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General Settings
+    set expandtab                   		" Tabs are spaces, not tabs
+    set shiftwidth=4
+    set tabstop=4                   		" An indentation every four columns
+    set softtabstop=4               		" Let backspace delete indent
     set number
     set relativenumber
     set nopaste
@@ -18,10 +22,6 @@
     autocmd BufWinLeave * mkview
     autocmd BufWinEnter * silent loadview
 
-    set expandtab                   " Tabs are spaces, not tabs
-    set shiftwidth=4
-    set tabstop=4                   " An indentation every four columns
-    set softtabstop=4               " Let backspace delete indent
     autocmd BufNewFile,BufRead justfile set filetype=make
     autocmd FileType make set noexpandtab   " Make files use Tabs (not spaces)
 
@@ -53,13 +53,16 @@ call plug#begin('~/.vim/data/plug')
     Plug 'prabirshrestha/asyncomplete.vim'
     Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
-    " " close when complete
+    " close when complete
     autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
-    " " Tab completion
+    " Tab completion
     inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
     inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
     inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+
+    " Force refresh completion
+    imap <C-space> <Plug>(asyncomplete_force_refresh)
 
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     "" Languages
@@ -235,3 +238,8 @@ call plug#end()
 
     " module remappings, TODO: make these only load for certain files
     nnoremap <leader>mb Oimport ipdb; ipdb.set_trace()<ESC>
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Stupid plugins... these have to be last
+set nofoldenable						" No more folding

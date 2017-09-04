@@ -10,6 +10,10 @@ if [[ -e ~/.alias.local.before ]]; then
     source ~/.alias.local.before
 fi
 
+if [ -e /home/garrett/.nix-profile/etc/profile.d/nix.sh ]; then
+    . /home/garrett/.nix-profile/etc/profile.d/nix.sh;
+fi
+
 export EDITOR='vim'
 alias vim-update='vim +PlugInstall +UpdateRemotePlugins +qa'
 alias vim-reset='rm -f ~/.vim/data/viminfo && rm -f ~/.viminfo'
@@ -32,10 +36,7 @@ xft:Inconsolata\ Nerd\ Font:style=Medium:size=$1\
     printf '\33]50;%s\007' "$fonts"
 }
 if [ -z ${TMUX+x} ]; then
-    echo "Starting urxvt window... setting font"
     setfont 13
-else
-    echo "Starting tmux window...";
 fi
 
 pathappend() {
