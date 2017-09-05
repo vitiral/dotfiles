@@ -69,8 +69,7 @@ call plug#begin('~/.vim/data/plug')
 
 	"----------
 	"- Omni/Misc
-    Plug 'plasticboy/vim-markdown'
-    Plug 'plasticboy/vim-markdown'
+	Plug 'LnL7/vim-nix'
     Plug 'cespare/vim-toml'
 	Plug 'maralla/vim-toml-enhance'
     autocmd FileType toml
@@ -78,6 +77,7 @@ call plug#begin('~/.vim/data/plug')
     Plug 'chrisbra/csv.vim'
 
     Plug 'yami-beta/asyncomplete-omni.vim'
+	let g:markdown_fenced_languages = ['sh', 'bash=sh', 'python']
 
     "----------
     "- Python

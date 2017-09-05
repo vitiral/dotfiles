@@ -104,6 +104,7 @@ $SYS_INSTALL \
 echo "installing user tools"
 $SYS_INSTALL \
     zsh tmux vim ripgrep \
+    qt4 \
     firefox chromium \
     transmission-qt \
     apvlv feh vlc cmus \
