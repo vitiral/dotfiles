@@ -261,4 +261,3 @@ call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Stupid plugins... these have to be last
 set nofoldenable    " No more folding
-" highlight Specialkey ctermbg=black
