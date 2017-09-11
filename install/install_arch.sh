@@ -94,7 +94,7 @@ fi
 echo "installing dev tools"
 $SYS_INSTALL \
     base-devel cmake make gcc \
-    tree \
+    tree jq \
     lsof smartmontools lm_sensors \
     python2 python2-pip python python-pip \
     npm \

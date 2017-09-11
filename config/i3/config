@@ -8,7 +8,7 @@
 # To get a config file with the same key positions, but for your current
 # layout, use the i3-config-wizard
 #
-# Use 
+# Use
 
 # Mod is ALT key
 # set $mod Mod1
@@ -38,7 +38,7 @@ for_window [title="^litevault"] move to scratchpad
 # set up screen lock
 exec xautolock -time 11 -locker "i3lock -c 000000"
 bindsym $mod+Ctrl+l exec i3lock -c 000000
-bindsym $mod+p exec litevault -s &
+bindsym $mod+p exec killall -SIGUSR1 -u $USER novault
 
 bindsym $mod+Shift+p [title="^litevault"] scratchpad show
 bindsym $mod+q move scratchpad

@@ -16,7 +16,7 @@ fi
 
 export EDITOR='vim'
 alias vim-update='vim +PlugInstall +UpdateRemotePlugins +qa'
-alias vim-reset='rm -f ~/.vim/data/viminfo && rm -f ~/.viminfo'
+alias vim-reset='rm -rf ~/.vim/data/viminfo ~/.vim/data/view ~/.viminfo'
 alias dif='colordiff -ENwbu'
 alias sudo='sudo '
 alias suspend='sudo systemctl suspend'
@@ -24,6 +24,8 @@ alias suspend='sudo systemctl suspend'
 alias hdmion="xrandr --output HDMI1 --auto --right-of eDP1"
 alias hdmioff="xrandr --output HDMI1 --off"
 alias mousefix="sudo modprobe -r psmouse && sudo modprobe psmouse"
+
+alias vpnkill='sudo killall openconnect'
 
 # urxvt font setter
 setfont(){

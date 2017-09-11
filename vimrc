@@ -4,10 +4,13 @@
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General Settings
-    set expandtab                   		" Tabs are spaces, not tabs
+    set expandtab                           " Tabs are spaces, not tabs
     set shiftwidth=4
-    set tabstop=4                   		" An indentation every four columns
-    set softtabstop=4               		" Let backspace delete indent
+    set tabstop=4                           " An indentation every four columns
+    set softtabstop=4                       " Let backspace delete indent
+    " Make tabs visible: Example tabs < 		>
+    set list
+    set listchars=tab:▶\ ,trail:·,extends:#,nbsp:.
     set number
     set relativenumber
     set nopaste
@@ -67,17 +70,17 @@ call plug#begin('~/.vim/data/plug')
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     "" Languages
 
-	"----------
-	"- Omni/Misc
-	Plug 'LnL7/vim-nix'
+    "----------
+    "- Omni/Misc
+    Plug 'LnL7/vim-nix'
     Plug 'cespare/vim-toml'
-	Plug 'maralla/vim-toml-enhance'
+    Plug 'maralla/vim-toml-enhance'
     autocmd FileType toml
         \ autocmd Syntax <buffer> syntax sync minlines=2000
     Plug 'chrisbra/csv.vim'
 
     Plug 'yami-beta/asyncomplete-omni.vim'
-	let g:markdown_fenced_languages = ['sh', 'bash=sh', 'python']
+    let g:markdown_fenced_languages = ['sh', 'bash=sh', 'python']
 
     "----------
     "- Python
@@ -96,13 +99,27 @@ call plug#begin('~/.vim/data/plug')
     "- Rust
     Plug 'rust-lang/rust.vim'
 
-    if executable('rls')
-        autocmd User lsp_setup call lsp#register_server({
-            \ 'name': 'rls',
-            \ 'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
-            \ 'whitelist': ['rust'],
-            \ })
-    endif
+    " if executable('rls')
+    "     autocmd User lsp_setup call lsp#register_server({
+    "         \ 'name': 'rls',
+    "         \ 'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
+    "         \ 'whitelist': ['rust'],
+    "         \ })
+    " endif
+
+    "----------
+    "- Elm
+    Plug 'ElmCast/elm-vim'
+    " disable everything, just want syntax really...
+    let g:elm_jump_to_error = 0
+    let g:elm_make_output_file = ""
+    let g:elm_make_show_warnings = 0
+    let g:elm_syntastic_show_warnings = 0
+    let g:elm_browser_command = ""
+    let g:elm_detailed_complete = 0
+    let g:elm_format_autosave = 0
+    let g:elm_format_fail_silently = 0
+    let g:elm_setup_keybindings = 0
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -112,11 +129,11 @@ call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Additional plugin settings
 
-	call asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
-		\ 'name': 'omni',
-		\ 'whitelist': ['*'],
-		\ 'completor': function('asyncomplete#sources#omni#completor')
-		\  }))
+    call asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
+        \ 'name': 'omni',
+        \ 'whitelist': ['*'],
+        \ 'completor': function('asyncomplete#sources#omni#completor')
+        \  }))
 
     " Commentary settings
     xmap gc  <Plug>Commentary
@@ -156,6 +173,7 @@ call plug#end()
             let b:is_paste_buffer=1
         else
             unlet b:is_paste_buffer
+            set nopaste
             quit
         endif
     endfunction
@@ -242,4 +260,5 @@ call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Stupid plugins... these have to be last
-set nofoldenable						" No more folding
+set nofoldenable    " No more folding
+" highlight Specialkey ctermbg=black
