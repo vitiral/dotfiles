@@ -85,7 +85,7 @@ replace() {
     echo "running..."
     name=""
     while getopts ":n:" opt; do
-        case $opt in 
+        case $opt in
             n)
                 #echo "n was triggred with $OPTARG" >&2
                 printf -v name "%q" "$OPTARG"
@@ -201,10 +201,9 @@ export RUST_BACKTRACE=1
 export RUST_SRC_PATH="$(rustup run nightly rustc --print sysroot)/lib/rustlib/src/rust/src"
 export CARGO_HOME=$HOME/.cargo
 
-alias rust_release="rustup default stable; cargo build --release --target=x86_64-unknown-linux-musl; rustup default nightly"
-alias rust_upgrade="rustup update && cargo install clippy -f && cargo install rustfmt -f"
 # use: cargo test |& rust_filter
 alias rust_filter='rg "((error|warning)\[\w+\])|(^\s+--> \w+/\w+)" -N --color never'
+alias rdoc='cargo doc --open -p'
 
 ##################################################
 # Tmux
@@ -346,7 +345,7 @@ if [[ `uname` == 'Darwin' ]]; then
     alias minicom=/opt/minicom/2.2/bin/minicom
 elif [[ `uname` == 'Linux' ]]; then
     ## setxkbmap -option "ctrl:nocaps" >> /dev/null
-    ## capslock= cntrl + esc: 
+    ## capslock= cntrl + esc:
     ## http://www.economyofeffort.com/2014/08/11/beyond-ctrl-remap-make-that-caps-lock-key-useful/
     # setxkbmap -option 'caps:ctrl_modifier'
     # if ps -ef | grep -v grep | grep xcape > /dev/null; then

@@ -24,3 +24,4 @@ fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 [ -f ~/.config/zsh.local ] && source ~/.config/zsh.local
+[ -d ~/.zsh ] && fpath=(~/.zsh $fpath)

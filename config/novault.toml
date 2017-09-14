@@ -6,6 +6,5 @@ threads = 2
 [sites."vitiral@reddit.com"]
 "!! fmt !!" = "{p:.20}"
 "!! pin !!" = false
-"!! rev !!" = 0
 "!! salt !!" = "vitiral@reddit.com0vitiral@reddit.com0vitiral@reddit.com0vitiral@reddit.com0"
 notes = ""
