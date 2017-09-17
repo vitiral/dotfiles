@@ -19,6 +19,7 @@ mkdir -p .config
 cd .config
 ln -s $HOME/.dotfiles/config/i3 .
 ln -s $HOME/.dotfiles/config/i3status .
+ln -s $HOME/.dotfiles/config/novault.sites .
 
 # python
 cd ~

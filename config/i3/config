@@ -38,7 +38,7 @@ for_window [title="^litevault"] move to scratchpad
 # set up screen lock
 exec xautolock -time 11 -locker "i3lock -c 000000"
 bindsym $mod+Ctrl+l exec i3lock -c 000000
-bindsym $mod+p exec killall -SIGUSR1 -u $USER novault
+bindsym $mod+p exec echo "ok" >> "/home/garrett/.local/novault.lock"
 
 bindsym $mod+Shift+p [title="^litevault"] scratchpad show
 bindsym $mod+q move scratchpad

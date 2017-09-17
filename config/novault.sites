@@ -1,0 +1,29 @@
+[github]
+"!! fmt !!" = "{p:.32}"
+"!! pin !!" = false
+"!! salt !!" = "github0"
+notes = ""
+
+[hackernews]
+"!! fmt !!" = "{p:.32}"
+"!! pin !!" = false
+"!! salt !!" = "hackernews0"
+notes = ""
+
+[mint]
+"!! fmt !!" = "{p:.32}"
+"!! pin !!" = false
+"!! salt !!" = "mint0"
+notes = ""
+
+[reddit]
+"!! fmt !!" = "{p:.32}"
+"!! pin !!" = false
+"!! salt !!" = "reddit0"
+notes = ""
+
+["vitiral@gmail"]
+"!! fmt !!" = "{p:.32}"
+"!! pin !!" = false
+"!! salt !!" = "vitiral@gmail0"
+notes = ""
