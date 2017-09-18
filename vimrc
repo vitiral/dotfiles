@@ -86,14 +86,14 @@ call plug#begin('~/.vim/data/plug')
     "- Python
     Plug 'hdima/python-syntax'
 
-    if executable('pyls')
-        " pip install python-language-server
-        autocmd User lsp_setup call lsp#register_server({
-            \ 'name': 'pyls',
-            \ 'cmd': {server_info->['pyls']},
-            \ 'whitelist': ['python'],
-            \ })
-    endif
+    " if executable('pyls')
+    "     " pip install python-language-server
+    "     autocmd User lsp_setup call lsp#register_server({
+    "         \ 'name': 'pyls',
+    "         \ 'cmd': {server_info->['pyls']},
+    "         \ 'whitelist': ['python'],
+    "         \ })
+    " endif
 
     "----------
     "- Rust
