@@ -10,6 +10,12 @@ notes = ""
 "!! salt !!" = "hackernews0"
 notes = ""
 
+[hipchat]
+"!! fmt !!" = "{p:.32}"
+"!! pin !!" = false
+"!! salt !!" = "hipchat0"
+notes = "solidfire hipchat"
+
 [mint]
 "!! fmt !!" = "{p:.32}"
 "!! pin !!" = false
