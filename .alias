@@ -144,7 +144,7 @@ corrupt() {
 pathinsert "$HOME/.local/bin"
 
 export PYTHONSTARTUP="$HOME/.pythonrc.py"
-export PYTHONDONTWRITEBYTECODE=0            # prevents .pyc files
+export PYTHONDONTWRITEBYTECODE=1            # prevents .pyc files
 
 # use the local installation of python first
 #python_root="$HOME/software/pyconda/envs"
