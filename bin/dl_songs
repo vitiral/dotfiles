@@ -1,0 +1,32 @@
+#!/usr/bin/python2
+
+from __future__ import print_function
+
+import os
+import sys
+import json
+import subprocess
+
+with open(sys.argv[1]) as f:
+    songs = json.load(f)
+
+for (name, value) in songs.items():
+    if isinstance(value, (str, unicode)):
+        url = value
+        start = None
+    else:
+        url = value['url']
+        start, end = value['start'], value.get('end')
+
+    if os.path.exists(name + '.mp3'):
+        print("##", '"{}"'.format(name), "already exists, skipping")
+    else:
+        print("## Downloading", name, "from", url)
+        cmd = '~/bin/mp3dl "{}" "{}"'.format(url, name)
+        if start:
+            cmd += ' "{}"'.format(start)
+            if end:
+                cmd += ' "{}"'.format(end)
+        print("Running:", cmd)
+        subprocess.check_call(cmd, shell=True)
+

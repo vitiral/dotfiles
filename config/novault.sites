@@ -1,3 +1,9 @@
+["garrett@transamerica"]
+"!! fmt !!" = "{p:.10}"
+"!! pin !!" = false
+"!! salt !!" = "garrett@transamerica0"
+notes = ""
+
 [github]
 "!! fmt !!" = "{p:.32}"
 "!! pin !!" = false
