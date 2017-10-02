@@ -4,7 +4,11 @@
     "Groove Addicts - Aurora (Ethos)(Full Tilt)": "https://www.youtube.com/watch?v=qybjUO5K_6Y",
     "Two Steps From Hell - Blackheart (Thomas Bergersen - Epic Dark Melancholic Dramatic)": "https://www.youtube.com/watch?v=EOrE2Qr1FMU",
     "the xx- intro": "https://www.youtube.com/watch?v=H4UtBYUMVJk",
-    "Final Fantasy VII: Aeris's Theme (Violin & Piano Cover Duet) Taylor Davis & Lara de Wit": "https://www.youtube.com/watch?v=LI7Wcl5y5Qs",
+    "Final Fantasy VII: Aeris's Theme (Violin & Piano Cover Duet) Taylor Davis & Lara de Wit": {
+        "url": "https://www.youtube.com/watch?v=LI7Wcl5y5Qs",
+        "start": "00:00",
+        "end": "03:32"
+    },
     "Kingdom Hearts (Disc 2) - End of the World - Yoko Shimomura": "https://www.youtube.com/watch?v=LOxOojC2SxQ",
     "Blackmill - Spirit of Life (Full Version)": "https://www.youtube.com/watch?v=YeaGUfZM5hs",
     "Joe hisaishi Live - One Summer's Day (from Spirited Away)": "https://www.youtube.com/watch?v=d1ni1sVCgEk",
@@ -35,7 +39,11 @@
     "300 Violin Orchestra - Jorge Quintero (High Quality)": "https://www.youtube.com/watch?v=fCebJodm0lY",
     "03 Melody of Aqua": "https://www.youtube.com/watch?v=5pd7miEj7sI",
     "Patrick O'Hearn - Panning The Sands": "https://www.youtube.com/watch?v=fhgAVKc62Oo",
-    "Song of Time and Song of Storms (Zelda OoT) Violin Cover - Taylor Davis": "https://www.youtube.com/watch?v=CIXCL5VR9Ho",
+    "Song of Time and Song of Storms (Zelda OoT) Violin Cover - Taylor Davis": {
+        "url": "https://www.youtube.com/watch?v=CIXCL5VR9Ho",
+        "start": "00:00",
+        "end": "02:45"
+    },
     "Assassin's Creed III - Lindsey Stirling": "https://www.youtube.com/watch?v=MOg8Cz9yfWg",
     "Enya - Aniron (Extended) HD": "https://www.youtube.com/watch?v=iMyo8I8AKmY",
     "Mhysa - Ramin Djawadi": "https://www.youtube.com/watch?v=rK78w86BOQ8",
