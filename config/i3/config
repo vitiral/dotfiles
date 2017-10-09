@@ -180,8 +180,8 @@ bar {
 }
 
 # Function keys {
-    bindsym XF86MonBrightnessDown   exec modbrightness -
-    bindsym XF86MonBrightnessUp     exec modbrightness +
+    bindsym XF86MonBrightnessDown   exec sudo modbrightness -
+    bindsym XF86MonBrightnessUp     exec sudo modbrightness +
     bindsym XF86AudioMute           exec pamixer --toggle-mute
     bindsym XF86AudioLowerVolume    exec pamixer --decrease 5
     bindsym XF86AudioRaiseVolume    exec pamixer --increase 5
