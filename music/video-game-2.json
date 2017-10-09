@@ -15,7 +15,11 @@
     "Silent Hill 2 OST - Laura Plays The Piano": "https://www.youtube.com/watch?v=i6L9Cbs0m_U",
     "True (Piano Version) - Silent Hill 2 [HQ]": "https://www.youtube.com/watch?v=o1VkEzTmo2k",
     "47-The Great Warrior-FFVII OST": "https://www.youtube.com/watch?v=owO7m5z7-Q4",
-    "Cosmo Canyon-FFVII OST": "https://www.youtube.com/watch?v=1T3srk8Dkuo",
+    "Cosmo Canyon-FFVII OST": {
+        "url": "https://www.youtube.com/watch?v=1T3srk8Dkuo",
+        "start": "00:00",
+        "end": "03:10"
+    },
     "Interstellar Soundtrack - No Time For Caution": "https://www.youtube.com/watch?v=EaJHFxCYUjI",
     "Gladiator Soundtrack Elysium, Honor Him, Now We Are Free": "https://www.youtube.com/watch?v=xbHPTPUpQ1I",
     "Gladiator 03: The Battle (Hans Zimmer)": "https://www.youtube.com/watch?v=xdJ5dWYwIn0"
