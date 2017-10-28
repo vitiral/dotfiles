@@ -4,6 +4,8 @@
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General Settings
+    " Note: start encrpytion with `:X`
+    set cm=blowfish2                        " Use blowfish2 when encrypting files
     set expandtab                           " Tabs are spaces, not tabs
     set shiftwidth=4
     set tabstop=4                           " An indentation every four columns

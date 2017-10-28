@@ -10,12 +10,6 @@ notes = ""
 "!! salt !!" = "github0"
 notes = ""
 
-["microsoft"]
-"!! fmt !!" = "{p:.32}"
-"!! pin !!" = false
-"!! salt !!" = "googberg@microsoft0"
-notes = "username is googberg@gmail.com"
-
 ["graphiz.org"]
 "!! fmt !!" = "{p:.32}"
 "!! pin !!" = false
@@ -34,6 +28,12 @@ notes = ""
 "!! salt !!" = "hipchat0"
 notes = "solidfire hipchat"
 
+[microsoft]
+"!! fmt !!" = "{p:.32}"
+"!! pin !!" = false
+"!! salt !!" = "googberg@microsoft0"
+notes = "username is googberg@gmail.com"
+
 [mint]
 "!! fmt !!" = "{p:.32}"
 "!! pin !!" = false
@@ -45,6 +45,12 @@ notes = ""
 "!! pin !!" = false
 "!! salt !!" = "reddit0"
 notes = ""
+
+[vim]
+"!! fmt !!" = "{p:.12}"
+"!! pin !!" = false
+"!! salt !!" = "vim0"
+notes = "password used when encrypting vim files"
 
 ["vitiral@gmail"]
 "!! fmt !!" = "{p:.32}"
