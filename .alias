@@ -108,7 +108,7 @@ replace() {
 
 function aa_256 () {     local o= i= x=`tput op` cols=`tput cols` y= oo= yy=;    y=`printf %$(($cols-6))s`;    yy=${y// /=};    for i in {0..256};    do        o=00${i};        oo=`echo -en "setaf ${i}\nsetab ${i}\n"|tput -S`;        echo -e "${o:${#o}-3:3} ${oo}${yy}${x}";    done;}
 
-alias lic_mit="wget -q https://raw.githubusercontent.com/cloudformdesign/licenses/master/LICENSE.MIT -O LICENSE.txt && echo created license"
+alias lic-mit="wget -q https://raw.githubusercontent.com/vitiral/licenses/master/LICENSE.MIT -O LICENSE.txt && echo created license"
 alias prep="grep '' -n -P -C 2 --exclude-dir '.ropeproject'"
 alias pdf="apvlv"
 # note: combine pdfs with pdfunite, requires poppler
