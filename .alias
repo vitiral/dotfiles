@@ -375,13 +375,3 @@ mp4_dl() {
 mp4_show() {
     pytube -s $1
 }
-
-mp3dl() {
-    # use: download song from youtube
-    # args: URL SONG_NAME
-    pytube -e mp4 -r 360p $1 -f "/tmp/$2" || return $?
-    ffmpeg -i "/tmp/$2.mp4" -acodec libmp3lame -ab 160k -ar 44100 -ac 2 $2.mp3 || return $?
-    rm -f "/tmp/$2.mp4"
-    echo "- [$2]($1)\n" >> Contents.md
-}
-

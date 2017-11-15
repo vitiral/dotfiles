@@ -1,7 +1,25 @@
+["garrett@transamerica"]
+"!! fmt !!" = "{p:.10}"
+"!! pin !!" = false
+"!! salt !!" = "garrett@transamerica0"
+notes = ""
+
 [github]
 "!! fmt !!" = "{p:.32}"
 "!! pin !!" = false
 "!! salt !!" = "github0"
+notes = ""
+
+["microsoft"]
+"!! fmt !!" = "{p:.32}"
+"!! pin !!" = false
+"!! salt !!" = "googberg@microsoft0"
+notes = "username is googberg@gmail.com"
+
+["graphiz.org"]
+"!! fmt !!" = "{p:.32}"
+"!! pin !!" = false
+"!! salt !!" = "graphiz.org0"
 notes = ""
 
 [hackernews]

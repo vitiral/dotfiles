@@ -1,0 +1,48 @@
+#!/usr/bin/python2
+# use: download song from youtube
+# args: URL SONG_NAME <START> <END>
+#
+## Original bash script:
+# pytube -e mp4 -r 360p "$1" -f "/tmp/$2" || return $?
+# ffmpeg -i "/tmp/$2.mp4" -acodec libmp3lame -ab 160k -ar 44100 -ac 2 "$2.mp3" || return $?
+# rm -f "/tmp/$2.mp4"
+# echo "- [$2]($1)\n" >> Contents.md
+from __future__ import print_function
+
+import sys
+import os
+import shutil
+import tempfile
+from subprocess import check_output
+
+pjoin = os.path.join
+
+argv = sys.argv
+url = argv[1]
+name = argv[2]
+start = '-ss {} '.format(sys.argv[3]) if len(argv) > 3 else ''
+end = '-t {} '.format(sys.argv[4]) if len(argv) > 4 else ''
+
+tmp = tempfile.mkdtemp()
+print("tmpdir:", tmp)
+try:
+    tmp_name = pjoin(tmp, name)
+    cmd = 'pytube -e mp4 -r 360p "{url}" -f "{name}"'.format(
+        url=url, name=tmp_name)
+    check_output(cmd, shell=True)
+
+    cmd = (
+        'ffmpeg -i "{inp}"'
+        '  {start}{end}-acodec libmp3lame'
+        ' -ab 160k'
+        ' -ar 44100'
+        ' -ac 2 "{out}"'
+    )
+    tmp_name_mp4 = tmp_name + '.mp4'
+    out_name = name + '.mp3'
+    cmd = cmd.format(
+        start=start, end=end, inp=tmp_name_mp4, out=out_name)
+    check_output(cmd, shell=True)
+    print("Downloaded", out_name)
+finally:
+    shutil.rmtree(tmp)

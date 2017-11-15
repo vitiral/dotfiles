@@ -79,8 +79,8 @@ call plug#begin('~/.vim/data/plug')
         \ autocmd Syntax <buffer> syntax sync minlines=2000
     Plug 'chrisbra/csv.vim'
 
-    Plug 'yami-beta/asyncomplete-omni.vim'
-    let g:markdown_fenced_languages = ['sh', 'bash=sh', 'python']
+    " Plug 'yami-beta/asyncomplete-omni.vim'
+    " let g:markdown_fenced_languages = ['sh', 'bash=sh', 'python']
 
     "----------
     "- Python
@@ -129,11 +129,11 @@ call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Additional plugin settings
 
-    call asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
-        \ 'name': 'omni',
-        \ 'whitelist': ['*'],
-        \ 'completor': function('asyncomplete#sources#omni#completor')
-        \  }))
+    " call asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
+    "     \ 'name': 'omni',
+    "     \ 'whitelist': ['*'],
+    "     \ 'completor': function('asyncomplete#sources#omni#completor')
+    "     \  }))
 
     " Commentary settings
     xmap gc  <Plug>Commentary
