@@ -1,0 +1,14 @@
+#!/usr/bin/env run-cargo-script
+//! RUN WITH `cargo script`
+//!
+//! ```cargo
+//! [dependencies]
+//! prelude = "*"
+//! ```
+
+fn main() {
+}
+
+#[test]
+fn it_works() {
+}

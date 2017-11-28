@@ -1,0 +1,21 @@
+#!/usr/bin/env run-cargo-script
+//! rust script run with `cargo-script`
+//!
+//! ```cargo
+//! [dependencies]
+//! std_prelude = "*"
+//! ```
+
+extern crate std_prelude;
+use std_prelude::*;
+
+fn main() {
+    eprintln!(
+        "Running {}",
+        Path::new(file!()).file_name().unwrap().to_string_lossy().as_ref()
+    );
+}
+
+#[test]
+fn it_works() {
+}
