@@ -77,38 +77,38 @@ call plug#begin('~/.vim/data/plug')
     Plug 'LnL7/vim-nix'
     Plug 'cespare/vim-toml'
     Plug 'maralla/vim-toml-enhance'
-    autocmd FileType toml
+    autocmd FileType toml,markdown
         \ autocmd Syntax <buffer> syntax sync minlines=2000
     Plug 'chrisbra/csv.vim'
 
-    " Plug 'yami-beta/asyncomplete-omni.vim'
-    " let g:markdown_fenced_languages = ['sh', 'bash=sh', 'python']
+    Plug 'yami-beta/asyncomplete-omni.vim'
+    let g:markdown_fenced_languages = ['sh', 'bash=sh', 'python']
 
     "----------
     "- Python
     Plug 'hdima/python-syntax'
 
-    " if executable('pyls')
-    "     " pip install python-language-server
-    "     autocmd User lsp_setup call lsp#register_server({
-    "         \ 'name': 'pyls',
-    "         \ 'cmd': {server_info->['pyls']},
-    "         \ 'whitelist': ['python'],
-    "         \ })
-    " endif
+    if executable('pyls')
+        " pip install python-language-server
+        autocmd User lsp_setup call lsp#register_server({
+            \ 'name': 'pyls',
+            \ 'cmd': {server_info->['pyls']},
+            \ 'whitelist': ['python'],
+            \ })
+    endif
 
     "----------
     "- Rust
     Plug 'rust-lang/rust.vim'
     au BufRead,BufNewFile *.crs     setfiletype rust
 
-    " if executable('rls')
-    "     autocmd User lsp_setup call lsp#register_server({
-    "         \ 'name': 'rls',
-    "         \ 'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
-    "         \ 'whitelist': ['rust'],
-    "         \ })
-    " endif
+    if executable('rls')
+        autocmd User lsp_setup call lsp#register_server({
+            \ 'name': 'rls',
+            \ 'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
+            \ 'whitelist': ['rust'],
+            \ })
+    endif
 
     "----------
     "- Elm

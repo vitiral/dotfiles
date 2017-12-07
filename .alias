@@ -203,8 +203,9 @@ export CARGO_HOME=$HOME/.cargo
 
 # use: cargo test |& rust_filter
 alias rust_filter='rg "((error|warning)\[\w+\])|(^\s+--> \w+/\w+)" -N --color never'
-alias rdoc='cargo doc --open -p'
+alias rdoc='cargo +stable doc --open -p'
 alias rs='cargo script'
+alias rs-init='cp $HOME/.dotfiles/rust/init.crs'
 
 ##################################################
 # Tmux
