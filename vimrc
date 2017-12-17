@@ -5,7 +5,6 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General Settings
     " Note: start encrpytion with `:X`
-    set cm=blowfish2                        " Use blowfish2 when encrypting files
     set expandtab                           " Tabs are spaces, not tabs
     set shiftwidth=4
     set tabstop=4                           " An indentation every four columns
@@ -19,11 +18,20 @@
     set undofile                            " Save undo's after file closes
     set undolevels=1000                     " How many undos
     set undoreload=10000                    " number of lines to save for undo
-    set undodir=~/.vim/data/undo//          " where to save undo histories
-    set directory=~/.vim/data/swap//        " where to save swap files
-    set backupdir=~/.vim/data/backup//      " where to save backup files
-    set viminfo+='1000,n~/.vim/data/viminfo " where to save .viminfo
-    set viewdir=~/.vim/data/view//          " where to save and load view info
+    if has('nvim')
+        set undodir=~/.nvim/data/undo//          " where to save undo histories
+        set directory=~/.nvim/data/swap//        " where to save swap files
+        set backupdir=~/.nvim/data/backup//      " where to save backup files
+        set viminfo+='1000,n~/.nvim/data/viminfo " where to save .viminfo
+        set viewdir=~/.nvim/data/view//          " where to save and load view info
+    else
+        set cm=blowfish2                        " Use blowfish2 when encrypting files
+        set undodir=~/.vim/data/undo//          " where to save undo histories
+        set directory=~/.vim/data/swap//        " where to save swap files
+        set backupdir=~/.vim/data/backup//      " where to save backup files
+        set viminfo+='1000,n~/.vim/data/viminfo " where to save .viminfo
+        set viewdir=~/.vim/data/view//          " where to save and load view info
+    endif
     autocmd BufWinLeave * mkview
     autocmd BufWinEnter * silent loadview
 
