@@ -1,3 +1,6 @@
+SCRIPT=$(readlink -f "$0")
+SCRIPTDIR=$(dirname "$SCRIPT")
+
 # vim
 if [[ ! -e $HOME/.vim/autoload/plug.vim ]]; then
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
@@ -16,3 +19,5 @@ fi
 mkdir -p $HOME/.nvim/data/undo
 mkdir -p $HOME/.nvim/data/swap
 mkdir -p $HOME/.nvim/data/backup
+
+pip3 install --user jedi python-language-server neovim

@@ -5,6 +5,7 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General Settings
     " Note: start encrpytion with `:X`
+    set hidden
     set expandtab                           " Tabs are spaces, not tabs
     set shiftwidth=4
     set tabstop=4                           " An indentation every four columns
@@ -80,6 +81,29 @@ call plug#begin('~/.vim/data/plug')
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     "" Languages
 
+    " Completion only really works on neovim (sad)
+    if has('neovim')
+        "----------
+        " Language Servers
+        Plug 'autozimu/LanguageClient-neovim', {
+            \ 'branch': 'next',
+            \ 'do': './install.sh'
+            \ }
+
+        " nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+        nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+        " nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+
+        let g:LanguageClient_serverCommands = {
+            \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+            \ 'python' : ['pyls'],
+            \ 'javascript': ['javascript-typescript-stdio'],
+            \ }
+
+        Plug 'roxma/nvim-completion-manager'
+    endif
+
+
     "----------
     "- Omni/Misc
     Plug 'LnL7/vim-nix'
@@ -89,9 +113,7 @@ call plug#begin('~/.vim/data/plug')
         \ autocmd Syntax <buffer> syntax sync minlines=2000
     Plug 'chrisbra/csv.vim'
 
-    " Plug 'yami-beta/asyncomplete-omni.vim'
     let g:markdown_fenced_languages = ['sh', 'bash=sh', 'python']
-
     "----------
     "- Python
     Plug 'hdima/python-syntax'

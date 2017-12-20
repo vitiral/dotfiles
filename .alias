@@ -110,6 +110,9 @@ replace() {
 
 function aa_256 () {     local o= i= x=`tput op` cols=`tput cols` y= oo= yy=;    y=`printf %$(($cols-6))s`;    yy=${y// /=};    for i in {0..256};    do        o=00${i};        oo=`echo -en "setaf ${i}\nsetab ${i}\n"|tput -S`;        echo -e "${o:${#o}-3:3} ${oo}${yy}${x}";    done;}
 
+# Use to archive a webpage and all sub-pages
+alias archive-web="wget -r -m -k -K -E"
+
 alias lic-mit="wget -q https://raw.githubusercontent.com/vitiral/licenses/master/LICENSE.MIT -O LICENSE.txt && echo created license"
 alias prep="grep '' -n -P -C 2 --exclude-dir '.ropeproject'"
 alias pdf="apvlv"
@@ -169,10 +172,10 @@ alias pip2c="$PYCONDA/envs/python2/bin/pip"
 
 alias pypath='echo $PYTHONPATH'
 alias py='python3'
-alias pyt="py.test3 --tb short"
+alias pyt="py -m pytest --tb short"
 alias pytdoc='pyt --doctest-modules'  # don't forget you need to give module path
 alias pytdb='pyt -sx --pdb'
-alias pdb='py -m ipdb'
+alias pdb='py -m pdb'
 alias dbe='py -m cloudtb.dbe'
 alias pydev='py setup.py develop'
 # http://peterdowns.com/posts/first-time-with-pypi.html
@@ -181,10 +184,10 @@ alias pypi='py setup.py register -r pypi sdist upload'
 alias pypitest='py setup.py register -r pypitest'
 
 alias py2='python2'
-alias py2t="py.test2 --tb short -m \"not slow\""
+alias py2t="py2 -m pytest --tb short"
 alias py2tdoc='py2t --doctest-modules'
 alias py2tdb='py2t -vvsx --pdb'
-alias pdb2='py2 -m ipdb'
+alias pdb2='py2 -m pdb'
 alias dbe2='py2 -m cloudtb.dbe'
 alias py2dev='py2 setup.py develop'
 
@@ -208,6 +211,13 @@ alias rust_filter='rg "((error|warning)\[\w+\])|(^\s+--> \w+/\w+)" -N --color ne
 alias rdoc='cargo +stable doc --open -p'
 alias rs='cargo script'
 alias rs-init='cp $HOME/.dotfiles/rust/init.crs'
+alias rs-test='cargo +nightly test'
+alias rs-fmt='cargo +nightly fmt'
+alias rs-lint='cargo +nightly clippy'
+alias rs-update="\
+    rustup update nightly \
+    && cargo +nightly install clippy --force \
+    && cargo +nightly rustfmt-nightly"
 
 ##################################################
 # Tmux

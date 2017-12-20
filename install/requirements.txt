@@ -1,0 +1,15 @@
+# linting and formatting
+pylint
+mypy
+autopep8
+docformatter
+
+# running tests and debugging
+pytest
+pdbpp
+ipython
+
+# useful libraries
+requests
+toml
+pyyaml

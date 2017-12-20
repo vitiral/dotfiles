@@ -146,7 +146,6 @@ if [[ ! -e $HOME/software/py3status ]]; then
     cd py3status
     sudo /usr/bin/python2.7 setup.py install
 fi
-source $SCRIPTDIR/install_vim.sh
 
 if [[ ! -e $HOME/.cargo ]]; then
     curl https://sh.rustup.rs -sSf | sh
@@ -155,6 +154,10 @@ if [[ ! -e $HOME/.cargo ]]; then
 fi
 
 sudo pip3 install virtualenv
+pip2 install --user -r "$SCRIPTDIR/requirements.txt"
+pip3 install --user -r "$SCRIPTDIR/requirements.txt"
+
+source $SCRIPTDIR/install_vim.sh
 
 echo "You need to set your own passwd with passwd"
 echo $NETWORK_MSG
