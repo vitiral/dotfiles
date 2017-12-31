@@ -81,26 +81,29 @@ call plug#begin('~/.vim/data/plug')
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     "" Languages
 
+    " Servers
+    Plug 'autozimu/LanguageClient-neovim', {
+        \ 'branch': 'next',
+        \ 'do': './install.sh'
+        \ }
+
+    " nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+    nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+    " nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+
+    " TODO: maybe these as well:
+    " \ 'javascript': ['javascript-typescript-stdio'],
+    let g:LanguageClient_serverCommands = {
+        \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+        \ 'python' : ['pyls'],
+        \ }
+
+
     " Completion only really works on neovim (sad)
     if has('neovim')
-        "----------
-        " Language Servers
-        Plug 'autozimu/LanguageClient-neovim', {
-            \ 'branch': 'next',
-            \ 'do': './install.sh'
-            \ }
-
-        " nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-        nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-        " nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
-
-        let g:LanguageClient_serverCommands = {
-            \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
-            \ 'python' : ['pyls'],
-            \ 'javascript': ['javascript-typescript-stdio'],
-            \ }
-
         Plug 'roxma/nvim-completion-manager'
+    else
+        Plug 'maralla/completor.vim'
     endif
 
 
@@ -118,27 +121,10 @@ call plug#begin('~/.vim/data/plug')
     "- Python
     Plug 'hdima/python-syntax'
 
-    " if executable('pyls')
-    "     " pip install python-language-server
-    "     autocmd User lsp_setup call lsp#register_server({
-    "         \ 'name': 'pyls',
-    "         \ 'cmd': {server_info->['pyls']},
-    "         \ 'whitelist': ['python'],
-    "         \ })
-    " endif
-
     "----------
     "- Rust
     Plug 'rust-lang/rust.vim'
     au BufRead,BufNewFile *.crs     setfiletype rust
-
-    " if executable('rls')
-    "     autocmd User lsp_setup call lsp#register_server({
-    "         \ 'name': 'rls',
-    "         \ 'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
-    "         \ 'whitelist': ['rust'],
-    "         \ })
-    " endif
 
     "----------
     "- Elm
@@ -203,6 +189,7 @@ call plug#end()
             set paste
             set norelativenumber
             set nonumber
+            set signcolumn=no
             let b:is_paste_buffer=1
         else
             unlet b:is_paste_buffer

@@ -17,7 +17,7 @@ fi
 export EDITOR='vim'
 alias vim-update='vim +PlugInstall +UpdateRemotePlugins +qa'
 alias nvim-update='nvim +PlugInstall +UpdateRemotePlugins +qa'
-alias vim-reset='rm -rf ~/.vim/data/viminfo ~/.vim/data/view'
+alias vim-reset='rm -r ~/.vim/data/viminfo ~/.vim/data/view ~/.vim/data/undo/* ~/.vim/data/swap/*'
 alias nvim-reset='rm -rf ~/.nvim/data/viminfo ~/.nvim/data/view'
 alias dif='colordiff -ENwbu'
 alias sudo='sudo '
@@ -111,7 +111,8 @@ replace() {
 function aa_256 () {     local o= i= x=`tput op` cols=`tput cols` y= oo= yy=;    y=`printf %$(($cols-6))s`;    yy=${y// /=};    for i in {0..256};    do        o=00${i};        oo=`echo -en "setaf ${i}\nsetab ${i}\n"|tput -S`;        echo -e "${o:${#o}-3:3} ${oo}${yy}${x}";    done;}
 
 # Use to archive a webpage and all sub-pages
-alias archive-web="wget -r -m -k -K -E"
+# alias archive-web="wget -rmkKEN"
+alias archive-web="wget --no-clobber --recursive --convert-links"
 
 alias lic-mit="wget -q https://raw.githubusercontent.com/vitiral/licenses/master/LICENSE.MIT -O LICENSE.txt && echo created license"
 alias prep="grep '' -n -P -C 2 --exclude-dir '.ropeproject'"
