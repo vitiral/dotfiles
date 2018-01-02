@@ -17,8 +17,7 @@ fi
 export EDITOR='vim'
 alias vim-update='vim +PlugInstall +UpdateRemotePlugins +qa'
 alias nvim-update='nvim +PlugInstall +UpdateRemotePlugins +qa'
-alias vim-reset='rm -r ~/.vim/data/viminfo ~/.vim/data/view ~/.vim/data/undo/* ~/.vim/data/swap/*'
-alias nvim-reset='rm -rf ~/.nvim/data/viminfo ~/.nvim/data/view'
+alias vim-reset='rm -r ~/.vim/data/viminfo ~/.vim/data/view/* ~/.vim/data/undo/* ~/.vim/data/swap/*'
 alias dif='colordiff -ENwbu'
 alias sudo='sudo '
 alias suspend='sudo systemctl suspend'
@@ -212,13 +211,14 @@ alias rust_filter='rg "((error|warning)\[\w+\])|(^\s+--> \w+/\w+)" -N --color ne
 alias rdoc='cargo +stable doc --open -p'
 alias rs='cargo script'
 alias rs-init='cp $HOME/.dotfiles/rust/init.crs'
+alias rs-check='cargo +nightly check --tests'
 alias rs-test='cargo +nightly test'
 alias rs-fmt='cargo +nightly fmt'
 alias rs-lint='cargo +nightly clippy'
 alias rs-update="\
     rustup update nightly \
     && cargo +nightly install clippy --force \
-    && cargo +nightly rustfmt-nightly"
+    && cargo +nightly install rustfmt-nightly"
 
 ##################################################
 # Tmux

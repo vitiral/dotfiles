@@ -61,24 +61,6 @@ call plug#begin('~/.vim/data/plug')
     let g:airline#extensions#tabline#left_alt_sep = '|'
 
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    "" Autocompletion
-    Plug 'prabirshrestha/async.vim'
-    Plug 'prabirshrestha/vim-lsp'
-    Plug 'prabirshrestha/asyncomplete.vim'
-    Plug 'prabirshrestha/asyncomplete-lsp.vim'
-
-    " close when complete
-    autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-
-    " Tab completion
-    inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-    inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
-
-    " Force refresh completion
-    imap <C-space> <Plug>(asyncomplete_force_refresh)
-
-    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     "" Languages
 
     " Servers
@@ -87,9 +69,9 @@ call plug#begin('~/.vim/data/plug')
         \ 'do': './install.sh'
         \ }
 
-    " nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+    nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
     nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-    " nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+    nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 
     " TODO: maybe these as well:
     " \ 'javascript': ['javascript-typescript-stdio'],
@@ -124,6 +106,7 @@ call plug#begin('~/.vim/data/plug')
     "----------
     "- Rust
     Plug 'rust-lang/rust.vim'
+    let g:rustfmt_autosave = 1
     au BufRead,BufNewFile *.crs     setfiletype rust
 
     "----------
