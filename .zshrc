@@ -25,3 +25,6 @@ fi
 
 [ -f ~/.config/zsh.local ] && source ~/.config/zsh.local
 [ -d ~/.zsh ] && fpath=(~/.zsh $fpath)
+
+# Enable virtualenvwrapper (added by vl_setup)
+source /usr/local/bin/virtualenvwrapper.sh

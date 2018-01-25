@@ -1,3 +1,21 @@
+[amazon-aws]
+"!! fmt !!" = "{p:.32}"
+"!! pin !!" = false
+"!! salt !!" = "amazon-aws0"
+notes = ""
+
+[aws-compute]
+"!! fmt !!" = "{p:.32}"
+"!! pin !!" = false
+"!! salt !!" = "aws-compute0"
+notes = ""
+
+[craigslist]
+"!! fmt !!" = "{p:.32}"
+"!! pin !!" = false
+"!! salt !!" = "craigslist0"
+notes = ""
+
 ["garrett@transamerica"]
 "!! fmt !!" = "{p:.10}"
 "!! pin !!" = false

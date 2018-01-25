@@ -17,7 +17,7 @@ fi
 export EDITOR='vim'
 alias vim-update='vim +PlugInstall +UpdateRemotePlugins +qa'
 alias nvim-update='nvim +PlugInstall +UpdateRemotePlugins +qa'
-alias vim-reset='rm -r ~/.vim/data/viminfo ~/.vim/data/view/* ~/.vim/data/undo/* ~/.vim/data/swap/*'
+alias vim-reset='/usr/bin/rm -rf ~/.vim/data/viminfo ~/.vim/data/view/* ~/.vim/data/undo/* ~/.vim/data/swap/*'
 alias dif='colordiff -ENwbu'
 alias sudo='sudo '
 alias suspend='sudo systemctl suspend'

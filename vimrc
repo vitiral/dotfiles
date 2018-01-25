@@ -33,11 +33,12 @@
         set viminfo+='1000,n~/.vim/data/viminfo " where to save .viminfo
         set viewdir=~/.vim/data/view//          " where to save and load view info
     endif
-    autocmd BufWinLeave * mkview
-    autocmd BufWinEnter * silent loadview
+    autocmd BufWinLeave .*. mkview
+    autocmd BufWinEnter .*. silent loadview
 
     autocmd BufNewFile,BufRead justfile set filetype=make
     autocmd FileType make set noexpandtab   " Make files use Tabs (not spaces)
+    set splitbelow                              " help menus are below the current edit
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" PLUGIN START
@@ -86,6 +87,9 @@ call plug#begin('~/.vim/data/plug')
         Plug 'roxma/nvim-completion-manager'
     else
         Plug 'maralla/completor.vim'
+        inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+        inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+        inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
     endif
 
 
