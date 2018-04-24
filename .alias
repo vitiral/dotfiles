@@ -57,6 +57,9 @@ pathinsert() {
 }
 
 pathinsert "$HOME/bin"
+function ppath() {
+    echo $PATH | tr -s ':' '\n'
+}
 
 # auto connect to ssh-agent
 if ! pgrep -u $USER ssh-agent > /dev/null; then
@@ -290,6 +293,7 @@ alias netinfo='echo "## netstat -nr:" && netstat -nr && echo "## ifconfig:" && i
 
 # File System
 alias untar="tar -zxvf"
+alias untar-all='for file in `ls *.tar.gz`; do tar -zxf "$file"; done'
 dotar() {
     tar -zcvf $1.tar.gz $1
 }

@@ -52,6 +52,8 @@ call plug#begin('~/.vim/data/plug')
     Plug 'easymotion/vim-easymotion'    " move around with Cntrl-<motion>
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
+    Plug 'embear/vim-foldsearch'        " Use `:Fw` to fold by a pattern. Also use `set nowrap` for long log files
+    let g:foldsearch_disable_mappings = 1
 
     " Look & Feel
     Plug 'rafi/awesome-vim-colorschemes'
@@ -101,6 +103,9 @@ call plug#begin('~/.vim/data/plug')
     autocmd FileType toml,markdown
         \ autocmd Syntax <buffer> syntax sync minlines=2000
     Plug 'chrisbra/csv.vim'
+    Plug 'elzr/vim-json'
+    let g:vim_json_syntax_conceal = 0
+    command FmtJson %!python -m json.tool
 
     let g:markdown_fenced_languages = ['sh', 'bash=sh', 'python']
     "----------
@@ -191,6 +196,7 @@ call plug#end()
              \ 0,
              \ {'options': '--reverse --prompt "Search> "'})
     endfunction
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Spacemacs like ergonomics and key (re)mappings

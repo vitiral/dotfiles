@@ -1,5 +1,7 @@
 source ~/.antigen/antigen/antigen.zsh
 
+export DISABLE_AUTO_TITLE="true"
+
 antigen use oh-my-zsh
 antigen theme robbyrussell
 antigen bundle pip
