@@ -10,10 +10,22 @@ notes = ""
 "!! salt !!" = "aws-compute0"
 notes = ""
 
+["bitbucket.netapp"]
+"!! fmt !!" = "{p:.32}"
+"!! pin !!" = false
+"!! salt !!" = "bitbucket.netapp0"
+notes = ""
+
 [craigslist]
 "!! fmt !!" = "{p:.32}"
 "!! pin !!" = false
 "!! salt !!" = "craigslist0"
+notes = ""
+
+["etrade.netapp"]
+"!! fmt !!" = "{p:.32}"
+"!! pin !!" = false
+"!! salt !!" = "etrade.netapp0"
 notes = ""
 
 ["garrett@transamerica"]
@@ -58,10 +70,22 @@ notes = "username is googberg@gmail.com"
 "!! salt !!" = "mint0"
 notes = ""
 
+[myfoo]
+"!! fmt !!" = "{p:.32}"
+"!! pin !!" = false
+"!! salt !!" = "myfoo0"
+notes = ""
+
 [reddit]
 "!! fmt !!" = "{p:.32}"
 "!! pin !!" = false
 "!! salt !!" = "reddit0"
+notes = ""
+
+[tiacreff]
+"!! fmt !!" = "{p:.10}"
+"!! pin !!" = false
+"!! salt !!" = "tiacreff0"
 notes = ""
 
 [vim]
