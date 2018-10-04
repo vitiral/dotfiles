@@ -3,6 +3,11 @@
 ##################################################
 # Environment
 
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_CONNECTION" ]; then
+    export DISPLAY=:0.0
+fi
+alias restart-display="sudo systemctl restart display-manager"
+
 alias NOCAPS="python -c 'from ctypes import *; X11 = cdll.LoadLibrary(\"libX11.so.6\"); display = X11.XOpenDisplay(None); X11.XkbLockModifiers(display, c_uint(0x0100), c_uint(2), c_uint(0)); X11.XCloseDisplay(display)'"
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*" --glob "!.hg/*"'
 
@@ -62,13 +67,13 @@ function ppath() {
 }
 
 # auto connect to ssh-agent
-if ! pgrep -u $USER ssh-agent > /dev/null; then
-    ssh-agent > ~/.ssh-agent-thing
-fi
-if [[ "$SSH_AGENT_PID" == "" ]]; then
-    eval $(<~/.ssh-agent-thing)
-fi
-ssh-add -l > /dev/null || alias ssh='ssh-add -l > /dev/null || ssh-add && unalias ssh; ssh'
+# if ! pgrep -u $USER ssh-agent > /dev/null; then
+#     ssh-agent > ~/.ssh-agent-thing
+# fi
+# if [[ "$SSH_AGENT_PID" == "" ]]; then
+#     eval $(<~/.ssh-agent-thing)
+# fi
+# ssh-add -l > /dev/null || alias ssh='ssh-add -l > /dev/null || ssh-add && unalias ssh; ssh'
 
 ##################################################
 # development commands
@@ -201,12 +206,22 @@ pyfix() {
 }
 
 ##################################################
+# Java
+
+function jrun() {
+    tclear || return 1;
+    javac "$1.java" || return 1;
+    java "$1" || return 1;
+}
+
+
+##################################################
 # Rust
 pathappend $HOME/.cargo/bin
 pathappend $HOME/projects/rst/target/release
 
 export RUST_BACKTRACE=1
-export RUST_SRC_PATH="$(rustup run nightly rustc --print sysroot)/lib/rustlib/src/rust/src"
+# export RUST_SRC_PATH="$(rustup run nightly rustc --print sysroot)/lib/rustlib/src/rust/src"
 export CARGO_HOME=$HOME/.cargo
 
 # use: cargo test |& rust_filter
@@ -298,15 +313,6 @@ dotar() {
     tar -zcvf $1.tar.gz $1
 }
 
-# automatically move ssh public credentials into authorized_keys of system connecting with
-ssh_autoauth() {
-    tmp_keys="/tmp/${USER}_tmpauthkeys"
-    ssh_keys="~/.ssh/authorized_keys"
-    command="cat > $tmp_keys && mkdir -p ~/.ssh && cat $tmp_keys >> $ssh_keys && sort -u $ssh_keys > $tmp_keys && mv $tmp_keys $ssh_keys"
-    cat ~/.ssh/id_rsa.pub | ssh $1 $command
-    ssh "$@"
-}
-
 reconnect() {
     if ip link | grep wlp2s0; then
         sudo systemctl restart netctl-auto@wlp2s0.service
@@ -363,6 +369,7 @@ if [[ `uname` == 'Darwin' ]]; then
     alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
     alias minicom=/opt/minicom/2.2/bin/minicom
 elif [[ `uname` == 'Linux' ]]; then
+    true
     ## setxkbmap -option "ctrl:nocaps" >> /dev/null
     ## capslock= cntrl + esc:
     ## http://www.economyofeffort.com/2014/08/11/beyond-ctrl-remap-make-that-caps-lock-key-useful/
@@ -380,8 +387,8 @@ elif [[ `uname` == 'Cygwin' ]]; then
     :  # pass, none yet
 fi
 
-if [[ -e ~/.alias.local ]]; then
-    source ~/.alias.local
+if [[ -e $HOME/.alias.local ]]; then
+    source $HOME/.alias.local
 fi
 
 ## Fun

@@ -20,4 +20,4 @@ mkdir -p $HOME/.nvim/data/undo
 mkdir -p $HOME/.nvim/data/swap
 mkdir -p $HOME/.nvim/data/backup
 
-pip3 install --user jedi python-language-server neovim
+# pip3 install --user jedi python-language-server neovim

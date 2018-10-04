@@ -2,6 +2,8 @@
 " This is really custom stuff, but the commands are mostly based on spacemacs
 " https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org
 
+source ~/.vimrc.local.before
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General Settings
     " Note: start encrpytion with `:X`
@@ -47,12 +49,13 @@ call plug#begin('~/.vim/data/plug')
     Plug 'tpope/vim-sensible'           " sensible defaults
     Plug 'tpope/vim-repeat'             " repeat plugin commands with `.`
     Plug 'tpope/vim-commentary'         " easy comment out lines
-    Plug 'airblade/vim-rooter'          " gets FindRootDirectory()
-    let g:rooter_manual_only = 1
+    " Plug 'airblade/vim-rooter'          " gets FindRootDirectory()
+    " let g:rooter_manual_only = 1
     Plug 'easymotion/vim-easymotion'    " move around with Cntrl-<motion>
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
-    Plug 'embear/vim-foldsearch'        " Use `:Fw` to fold by a pattern. Also use `set nowrap` for long log files
+    " Use `:Fw` to fold by a pattern. Also use `set nowrap` for long log files 
+    Plug 'embear/vim-foldsearch'
     let g:foldsearch_disable_mappings = 1
 
     " Look & Feel
@@ -66,37 +69,10 @@ call plug#begin('~/.vim/data/plug')
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     "" Languages
 
-    " Servers
-    Plug 'autozimu/LanguageClient-neovim', {
-        \ 'branch': 'next',
-        \ 'do': './install.sh'
-        \ }
-
-    nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-    nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-    nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
-
-    " TODO: maybe these as well:
-    " \ 'javascript': ['javascript-typescript-stdio'],
-    let g:LanguageClient_serverCommands = {
-        \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
-        \ 'python' : ['pyls'],
-        \ }
-
-
-    " Completion only really works on neovim (sad)
-    if has('neovim')
-        Plug 'roxma/nvim-completion-manager'
-    else
-        Plug 'maralla/completor.vim'
-        inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-        inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-        inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
-    endif
-
-
     "----------
     "- Omni/Misc
+    Plug 'scrooloose/syntastic'
+    Plug 'SirVer/ultisnips'
     Plug 'LnL7/vim-nix'
     Plug 'cespare/vim-toml'
     Plug 'maralla/vim-toml-enhance'
@@ -106,31 +82,13 @@ call plug#begin('~/.vim/data/plug')
     Plug 'elzr/vim-json'
     let g:vim_json_syntax_conceal = 0
     command FmtJson %!python -m json.tool
-
     let g:markdown_fenced_languages = ['sh', 'bash=sh', 'python']
-    "----------
-    "- Python
-    Plug 'hdima/python-syntax'
 
     "----------
     "- Rust
     Plug 'rust-lang/rust.vim'
     let g:rustfmt_autosave = 1
     au BufRead,BufNewFile *.crs     setfiletype rust
-
-    "----------
-    "- Elm
-    Plug 'ElmCast/elm-vim'
-    " disable everything, just want syntax really...
-    let g:elm_jump_to_error = 0
-    let g:elm_make_output_file = ""
-    let g:elm_make_show_warnings = 0
-    let g:elm_syntastic_show_warnings = 0
-    let g:elm_browser_command = ""
-    let g:elm_detailed_complete = 0
-    let g:elm_format_autosave = 0
-    let g:elm_format_fail_silently = 0
-    let g:elm_setup_keybindings = 0
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -201,7 +159,7 @@ call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Spacemacs like ergonomics and key (re)mappings
 " https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org
-    let mapleader = ' '
+    let g:mapleader = ' '
 
     " Yank from the cursor to the end of the line, to be consistent with C and D.
     nnoremap Y y$

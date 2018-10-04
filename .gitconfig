@@ -1,6 +1,6 @@
 [user]
-	name = Garrett Berg
-	email = vitiral@gmail.com
+	name = Rett Berg
+	email = rett@google.com
 [core]
 	editor = vim
 [merge]
@@ -23,3 +23,5 @@
 	tool = vimdiff
 [difftool]
 	prompt = false
+[color]
+	ui = auto
