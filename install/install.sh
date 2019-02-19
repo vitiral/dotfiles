@@ -1,8 +1,6 @@
 set -e
 SCRIPT=$(readlink -f "$0")
 SCRIPTPATH=$(dirname "$SCRIPT")
-CREATE_USER=garrett
-USER_HOME=/home/$CREATE_USER
 
 mkdir -p ~/projects ~/bin ~/software
 
@@ -30,14 +28,14 @@ if [[ ! -e ~/.antigen ]]; then
 fi
 
 # setup git
-if [[ ! -e $USER_HOME/.ssh/id_rsa.pub ]]; then
+if [[ ! -e $HOME/.ssh/id_rsa.pub ]]; then
     echo ~
-    git config --global user.email "googberg@gmail.com"
-    git config --global user.name "Garrett Berg"
+    git config --global user.email "rett@google.com"
+    git config --global user.name "Rett Berg"
     git config --global core.editor "vim"
 
     echo "Press enter for EVERYTHING"
-    ssh-keygen -t rsa -b 4096 -C "googberg@gmail.com"
+    ssh-keygen -t rsa -b 4096 -C "rett@google.com"
     echo "Go to https://github.com/settings/ssh and paste. Press ENTER when done."
     cat ~/.ssh/id_rsa.pub
     read
@@ -52,30 +50,8 @@ if [[ ! -e $USER_HOME/.ssh/id_rsa.pub ]]; then
     git clone git@github.com:vitiral/notes.git
 fi
 
-
-# Install useful software
-if [[ `uname` == "Darwin" ]]; then
-    echo "Is Mac"
-    source "$SCRIPTPATH/install_mac.sh"
-    source "$SCRIPTPATH/install_linux.sh"
-elif [[ `uname` == "Linux" ]]; then
-    if [[ "Ubuntu" == *"$OS_STR"* ]]; then
-        echo "  Is Ubuntu"
-        sudo bash $SCRIPTPATH/install_ubuntu.sh
-    else
-        echo "  I assume this is Arch?"
-        sudo bash $SCRIPTPATH/install_arch.sh
-    fi
-elif [[ `uname` == 'Cygwin' ]]; then
-    :  # pass, none yet
-fi
-
 # put in links to config files
 bash $SCRIPTPATH/link_all.sh
-
-# extra software, etc
-source $SCRIPTPATH/install_third.sh
-source $SCRIPTPATH/install_python.sh
 
 echo "Done. You should now (probably) reboot"
 

@@ -1,6 +1,7 @@
-[ -f $HOME/.fzf.bash ] && source $HOME/.fzf.bash
-
 source "$HOME/.alias"
 source "$HOME/.bashrc.local"
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+# AAE Toolbox
+if [ -f ~/.aae-toolbox/bin/bashrc ]; then
+    . ~/.aae-toolbox/bin/bashrc
+fi

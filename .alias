@@ -373,18 +373,19 @@ elif [[ `uname` == 'Linux' ]]; then
     ## setxkbmap -option "ctrl:nocaps" >> /dev/null
     ## capslock= cntrl + esc:
     ## http://www.economyofeffort.com/2014/08/11/beyond-ctrl-remap-make-that-caps-lock-key-useful/
-    # setxkbmap -option 'caps:ctrl_modifier'
-    # if ps -ef | grep -v grep | grep xcape > /dev/null; then
-    # else
-    #     xcape -e 'Caps_Lock=Escape'
-    # fi
+    setxkbmap -option 'caps:ctrl_modifier'
+    if ps -ef | grep -v grep | grep xcape > /dev/null; then
+       echo
+    else
+        xcape -e 'Caps_Lock=Escape'
+    fi
 
     # http://efod.se/writings/linuxbook/html/caps-lock-to-ctrl.html
 	#xmodmap -e 'keycode 66 = Control_L'
 	#xmodmap -e 'clear Lock'
 	#xmodmap -e 'add Control = Control_L'
 elif [[ `uname` == 'Cygwin' ]]; then
-    :  # pass, none yet
+    echo "cygwin"
 fi
 
 if [[ -e $HOME/.alias.local ]]; then
