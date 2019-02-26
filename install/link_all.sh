@@ -22,9 +22,3 @@ ln -s $HOME/.dotfiles/config/i3status .
 ln -s $HOME/.dotfiles/config/novault.sites .
 ln -s $HOME/.dotfiles/config/alacritty .
 mkdir -p nvim && ln -s $HOME/.dotfiles/vimrc nvim/init.vim
-
-# python
-cd ~
-ln -s .dotfiles/.pythonrc.py
-cd ~/.ipython/profile_default/ && ln -s ~/.dotfiles/ipython_config.py
-cd ~
