@@ -3,6 +3,12 @@
 ##################################################
 # Environment
 
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_CONNECTION" ]; then
     export DISPLAY=:0.0
 fi
@@ -113,6 +119,31 @@ replace() {
     cmd="find "$1" -type f$name -exec sed -i -e \"s/$2/$3/g\" {} \;"
     echo "running: $cmd"
     `$cmd`
+}
+
+function mapPrefix() {
+  prefix=$1
+
+  if [ -z "$prefix" ]; then
+    echo "Usage: mapPrefix prefix value1 [valueN...]" 1>&2
+  fi
+
+  shift
+
+  for value in "$@"; do
+    echo "${prefix}${value}${postfix}"
+  done
+}
+
+# Use this function like: test thing && print_rc
+# alias print_rc='echo "command was successful" || echo "failed rc=$?"'
+function print_rc() {
+    rc="$?"
+    if [ "$rc" -eq 0 ]; then
+        echo -e "${GREEN}rc=${rc}${NC}"
+    else
+        echo -e "${RED}FAILED rc=${rc}${NC}"
+    fi
 }
 
 function aa_256 () {     local o= i= x=`tput op` cols=`tput cols` y= oo= yy=;    y=`printf %$(($cols-6))s`;    yy=${y// /=};    for i in {0..256};    do        o=00${i};        oo=`echo -en "setaf ${i}\nsetab ${i}\n"|tput -S`;        echo -e "${o:${#o}-3:3} ${oo}${yy}${x}";    done;}
