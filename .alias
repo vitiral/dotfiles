@@ -95,30 +95,14 @@ allold() {
     mv $tmpmove old || return $?
 }
 
-# replace $2 with $3 in directory $1 using sed
+# uses sd to replace $1 with $2 in $@
 replace() {
-    echo "running..."
-    name=""
-    while getopts ":n:" opt; do
-        case $opt in
-            n)
-                #echo "n was triggred with $OPTARG" >&2
-                printf -v name "%q" "$OPTARG"
-                name=" -n \"$name\""
-                ;;
-            \?)
-                echo "Invalid option: -$OPTARG" >&2
-                ;;
-            :)
-                echo "Option -$OPTARG requires an argument." >&2
-                return 1
-                ;;
-        esac
-    done
-    shift $((OPTIND-1))
-    cmd="find "$1" -type f$name -exec sed -i -e \"s/$2/$3/g\" {} \;"
-    echo "running: $cmd"
-    `$cmd`
+    find="$1"
+    shift
+    replace_with="$1"
+    shift
+    echo "replacing '$find' with '$replace_with' in ""$@"
+    sd -i "$find" "$replace_with" $(fd -t f ".*" "$@")
 }
 
 function mapPrefix() {

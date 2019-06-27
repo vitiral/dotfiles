@@ -1,4 +1,3 @@
-"iles FindRootDirectory() Vitiral's vimrc
 " This is really custom stuff, but the commands are mostly based on spacemacs
 " https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org
 
@@ -49,7 +48,6 @@ call plug#begin('~/.vim/data/plug')
     Plug 'tpope/vim-sensible'           " sensible defaults
     Plug 'tpope/vim-repeat'             " repeat plugin commands with `.`
     Plug 'tpope/vim-commentary'         " easy comment out lines
-    " Plug 'airblade/vim-rooter'          " gets FindRootDirectory()
     " let g:rooter_manual_only = 1
     Plug 'easymotion/vim-easymotion'    " move around with Cntrl-<motion>
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -68,6 +66,8 @@ call plug#begin('~/.vim/data/plug')
 
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     "" Languages
+    Plug 'prabirshrestha/async.vim'
+    Plug 'prabirshrestha/vim-lsp'
 
     "----------
     "- Omni/Misc
@@ -87,8 +87,16 @@ call plug#begin('~/.vim/data/plug')
     "----------
     "- Rust
     Plug 'rust-lang/rust.vim'
-    let g:rustfmt_autosave = 1
+    let g:rustfmt_autosave = 0
     au BufRead,BufNewFile *.crs     setfiletype rust
+    if executable('rls')
+          au User lsp_setup call lsp#register_server({
+                  \ 'name': 'rls',
+                  \ 'cmd': {server_info->['rustup', 'run', 'stable', 'rls']},
+                  \ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
+                  \ 'whitelist': ['rust'],
+                  \ })
+    endif
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -98,22 +106,13 @@ call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Additional plugin settings
 
-    " call asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
-    "     \ 'name': 'omni',
-    "     \ 'whitelist': ['*'],
-    "     \ 'completor': function('asyncomplete#sources#omni#completor')
-    "     \  }))
-
-    " Commentary settings
-    xmap gc  <Plug>Commentary
-    nmap gc  <Plug>Commentary
-    omap gc  <Plug>Commentary
-    nmap gcc <Plug>CommentaryLine
-
+    " Airline
     let g:airline_powerline_fonts = 1
     autocmd FileType
         \ c,cpp,java,go,rust,php,javascript,python,twig,xml,yml,perl,markdown
         \ autocmd BufEnter <buffer> EnableStripWhitespaceOnSave
+    let g:strip_whitespace_confirm=0
+    let g:strip_only_modified_lines=0
 
     " Easymotion Settings
     map  <C-F> <Plug>(easymotion-bd-f)
@@ -161,6 +160,11 @@ call plug#end()
 " https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org
     let g:mapleader = ' '
 
+    " LSP commands
+    nnoremap <leader>gd :LspDefinition<CR>
+    nnoremap <leader>gr :LspReferences<CR>
+    nnoremap <leader>gi :LspHover<CR>
+
     " Yank from the cursor to the end of the line, to be consistent with C and D.
     nnoremap Y y$
 
@@ -203,31 +207,21 @@ call plug#end()
     " s: search
     " search and replace current buffer
     nnoremap <leader>sr :%s//gc<left><left><left>
-    " search project
-    nnoremap <leader>sp :call SearchDir(FindRootDirectory())<cr>
-    " search cwd
-    nnoremap <leader>ss :call SearchDir(".")<cr>
-    " search file directory
-    nnoremap <leader>sf :call SearchDir(expand('%:p:h'))<cr>
+    " search in files
+    nnoremap <leader>sf :call SearchDir(".")<cr>
     " clear search history
     nnoremap <leader>sc :noh<cr>
 
     """""""""""
     " p: project
-    " open file in project
-    nnoremap <leader>pf :call fzf#vim#files(FindRootDirectory())<cr>
-    " open file in cwd
-    nnoremap <leader>pc :call Files<cr>
-    " open file in home
-    nnoremap <leader>ph :call fzf#vim#files("~")<cr>
+    " open file
+    nnoremap <leader>pf :call fzf#vim#files(".")<cr>
 
     """""""""""
     " c: comments
     nmap <leader>cc <Plug>CommentaryLine
 
-    " module remappings, TODO: make these only load for certain files
-    nnoremap <leader>mb Oimport ipdb; ipdb.set_trace()<ESC>
-
+source ~/.vimrc.local.after
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Stupid plugins... these have to be last
