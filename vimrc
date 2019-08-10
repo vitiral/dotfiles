@@ -80,6 +80,7 @@ call plug#begin('~/.vim/data/plug')
         \ autocmd Syntax <buffer> syntax sync minlines=2000
     Plug 'chrisbra/csv.vim'
     Plug 'elzr/vim-json'
+    Plug 'google/vim-jsonnet'
     let g:vim_json_syntax_conceal = 0
     command FmtJson %!python -m json.tool
     let g:markdown_fenced_languages = ['sh', 'bash=sh', 'python']
