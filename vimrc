@@ -202,7 +202,7 @@ call plug#end()
     " f: file management
     " open and find files in current buffer
     " nnoremap <leader>ff :e <C-R>=expand('%:h').'/'<cr>
-    nnoremap <leader>ff :Files %:p:h<cr>
+    nnoremap <leader>ff :e %:p:h<cr>
 
     """""""""""
     " s: search
