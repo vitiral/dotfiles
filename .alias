@@ -28,7 +28,7 @@ fi
 export EDITOR='vim'
 alias vim-update='vim +PlugInstall +UpdateRemotePlugins +qa'
 alias nvim-update='nvim +PlugInstall +UpdateRemotePlugins +qa'
-alias vim-reset='/usr/bin/rm -rf ~/.vim/data/viminfo ~/.vim/data/view/* ~/.vim/data/undo/* ~/.vim/data/swap/*'
+alias vim-reset='rm -rf ~/.vim/data/viminfo ~/.vim/data/view/* ~/.vim/data/undo/* ~/.vim/data/swap/*'
 alias dif='colordiff -ENwbu'
 alias sudo='sudo '
 alias suspend='sudo systemctl suspend'
@@ -85,6 +85,8 @@ function ppath() {
 # development commands
 pathappend "$HOME/.gem/ruby/2.2.0/bin"
 pathappend "$HOME/.gem/ruby/2.3.0/bin"
+pathappend "$HOME/.gem/ruby/2.3.0/bin"
+pathappend "$HOME/.local/bin"
 pathappend node_modules/.bin # items in node's bin are in PATH
 
 # move EVERYTHING in the current directory into an "old" directory in the current directory

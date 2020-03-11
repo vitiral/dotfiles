@@ -58,7 +58,7 @@ call plug#begin('~/.vim/data/plug')
 
     " Look & Feel
     Plug 'rafi/awesome-vim-colorschemes'
-    Plug 'ntpeters/vim-better-whitespace'
+    " Plug 'ntpeters/vim-better-whitespace'
     Plug 'vim-airline/vim-airline'
     let g:airline#extensions#tabline#enabled = 1
     let g:airline#extensions#tabline#left_sep = ' '
@@ -72,7 +72,7 @@ call plug#begin('~/.vim/data/plug')
     "----------
     "- Omni/Misc
     Plug 'scrooloose/syntastic'
-    Plug 'SirVer/ultisnips'
+    " Plug 'SirVer/ultisnips'
     Plug 'LnL7/vim-nix'
     Plug 'cespare/vim-toml'
     Plug 'maralla/vim-toml-enhance'
@@ -99,6 +99,10 @@ call plug#begin('~/.vim/data/plug')
                   \ })
     endif
 
+    "----------
+    "- Haskell
+    Plug 'neovimhaskell/haskell-vim.git'
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" PLUGIN END
@@ -109,9 +113,9 @@ call plug#end()
 
     " Airline
     let g:airline_powerline_fonts = 1
-    autocmd FileType
-        \ c,cpp,java,go,rust,php,javascript,python,twig,xml,yml,perl,markdown
-        \ autocmd BufEnter <buffer> EnableStripWhitespaceOnSave
+    " autocmd FileType
+    "     \ c,cpp,java,go,rust,php,javascript,python,twig,xml,yml,perl,markdown
+    "     \ autocmd BufEnter <buffer> EnableStripWhitespaceOnSave
     let g:strip_whitespace_confirm=0
     let g:strip_only_modified_lines=0
 
