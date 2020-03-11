@@ -13,6 +13,8 @@ ln -s .dotfiles/.gitconfig .
 ln -s .dotfiles/.gitmodules .
 ln -s .dotfiles/.pydistutils.cfg .
 ln -s .dotfiles/vimrc .vimrc
+touch .vimrc.local.before
+touch .vimrc.local.after
 
 # .config
 mkdir -p .config
