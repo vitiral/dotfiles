@@ -265,6 +265,12 @@ alias tmv="tmux rename-session -t"  # target-session new-name
 alias tkill="tmux kill-server"
 alias town="tmux detach -a"  # detach all other sessions from tmux, getting it to correct size
 alias tclear="clear; tmux clear-history"
+function tdump() {
+  # Dump tmux history to a file
+  OUT="$1"
+  tmux capture-pane -pS -1000000 > "$OUT"
+  echo "dumpled $(wc -l $OUT) lines to $OUT" 1>&2
+}
 
 ##################################################
 # Git
