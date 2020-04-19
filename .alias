@@ -382,28 +382,37 @@ archeck() {
 }
 
 
-if [[ `uname` == 'Darwin' ]]; then
-    alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
-    alias minicom=/opt/minicom/2.2/bin/minicom
-elif [[ `uname` == 'Linux' ]]; then
-    true
-    ## setxkbmap -option "ctrl:nocaps" >> /dev/null
-    ## capslock= cntrl + esc:
-    ## http://www.economyofeffort.com/2014/08/11/beyond-ctrl-remap-make-that-caps-lock-key-useful/
-    setxkbmap -option 'caps:ctrl_modifier'
-    if ps -ef | grep -v grep | grep xcape > /dev/null; then
-       echo
-    else
-        xcape -e 'Caps_Lock=Escape'
-    fi
+# # Instead of below, remap caps to Cntrl in normal keyboard layout and:
+# $ cat /usr/share/X11/xorg.conf.d/99-xkb.conf
+# Section "InputClass"
+#     Identifier "keyboard defaults"
+#     MatchIsKeyboard "on"
+# 
+#     Option "XKbOptions" "caps:ctrl_modifier"
+# EndSection
 
-    # http://efod.se/writings/linuxbook/html/caps-lock-to-ctrl.html
-	#xmodmap -e 'keycode 66 = Control_L'
-	#xmodmap -e 'clear Lock'
-	#xmodmap -e 'add Control = Control_L'
-elif [[ `uname` == 'Cygwin' ]]; then
-    echo "cygwin"
-fi
+# if [[ `uname` == 'Darwin' ]]; then
+#     alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
+#     alias minicom=/opt/minicom/2.2/bin/minicom
+# elif [[ `uname` == 'Linux' ]]; then
+#     true
+#     ## setxkbmap -option "ctrl:nocaps" >> /dev/null
+#     ## capslock= cntrl + esc:
+#     ## http://www.economyofeffort.com/2014/08/11/beyond-ctrl-remap-make-that-caps-lock-key-useful/
+#     setxkbmap -option 'caps:ctrl_modifier'
+#     if ps -ef | grep -v grep | grep xcape > /dev/null; then
+#        echo
+#     else
+#         xcape -e 'Caps_Lock=Escape'
+#     fi
+# 
+#     # http://efod.se/writings/linuxbook/html/caps-lock-to-ctrl.html
+# 	#xmodmap -e 'keycode 66 = Control_L'
+# 	#xmodmap -e 'clear Lock'
+# 	#xmodmap -e 'add Control = Control_L'
+# elif [[ `uname` == 'Cygwin' ]]; then
+#     echo "cygwin"
+# fi
 
 if [[ -e $HOME/.alias.local ]]; then
     source $HOME/.alias.local
