@@ -384,6 +384,15 @@ archeck() {
 }
 
 
+# # Instead of below, remap caps to Cntrl in normal keyboard layout and:
+# $ cat /usr/share/X11/xorg.conf.d/99-xkb.conf
+# Section "InputClass"
+#     Identifier "keyboard defaults"
+#     MatchIsKeyboard "on"
+# 
+#     Option "XKbOptions" "caps:ctrl_modifier"
+# EndSection
+
 # if [[ `uname` == 'Darwin' ]]; then
 #     alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
 #     alias minicom=/opt/minicom/2.2/bin/minicom

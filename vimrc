@@ -89,7 +89,6 @@ call plug#begin('~/.vim/data/plug')
     "- Rust
     Plug 'rust-lang/rust.vim'
     let g:rustfmt_autosave = 0
-    au BufRead,BufNewFile *.crs     setfiletype rust
     if executable('rls')
           au User lsp_setup call lsp#register_server({
                   \ 'name': 'rls',
