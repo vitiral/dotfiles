@@ -87,6 +87,7 @@ pathappend "$HOME/.gem/ruby/2.2.0/bin"
 pathappend "$HOME/.gem/ruby/2.3.0/bin"
 pathappend "$HOME/.gem/ruby/2.3.0/bin"
 pathappend "$HOME/.local/bin"
+pathappend "$HOME/go/bin"
 pathappend node_modules/.bin # items in node's bin are in PATH
 
 # move EVERYTHING in the current directory into an "old" directory in the current directory
@@ -138,19 +139,14 @@ function aa_256 () {     local o= i= x=`tput op` cols=`tput cols` y= oo= yy=;   
 # alias archive-web="wget -rmkKEN"
 alias archive-web="wget --no-clobber --recursive --convert-links"
 
-alias lic-mit="wget -q https://raw.githubusercontent.com/vitiral/licenses/master/LICENSE.MIT -O LICENSE.txt && echo created license"
-alias prep="grep '' -n -P -C 2 --exclude-dir '.ropeproject'"
-alias pdf="apvlv"
-# note: combine pdfs with pdfunite, requires poppler
-alias litevault="litevault ~/.config/vault -e vim"
-
-alias js="rhino"
-alias tj="tclear && just"
-
 alias gfm="git fetch origin master:master"  # fetch origin/master and pull to master
 alias gd="git diff"
 alias gs="git status"
 alias gcam="git commit -am"
+alias hau="hg amend && hg upload tip"
+alias hs="hg status | cat"
+alias hsb="hg status --rev p4base | cat"
+
 ds() {
     # find what is taking up space on disk
     sudo du -h $1 | grep '[0-9\.]\+G' | sort -nr
