@@ -1,4 +1,0 @@
-git@github.com:vitiral/vim-ergonomic.git
-
-let g:spf13_use_powerline = 1
-let g:spf13_use_old_powerline = 1

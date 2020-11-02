@@ -30,7 +30,7 @@ fi
 # setup git
 if [[ ! -e $HOME/.ssh/id_rsa.pub ]]; then
     echo ~
-    git config --global user.email "rett@google.com"
+    git config --global user.email "vitiral@gmail.com"
     git config --global user.name "Rett Berg"
     git config --global core.editor "vim"
 
