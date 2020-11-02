@@ -1,13 +1,64 @@
 # Edit this configuration file to define what should be installed on # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, hardware, ... }:
+let
+  setxkbmapPackages = with pkgs.xorg; {
+    inherit xinput xset setxkbmap xmodmap; };
 
-{
+  i3Packages = with pkgs; {
+    inherit i3-gaps i3status i3lock-fancy;
+    inherit (xorg) xrandr xbacklight xset;
+    inherit (pythonPackages) alot py3status;
+  };
+
+  terminalApps = with pkgs; [
+    # pulseaudio
+    acpi
+    # fzf
+    gitAndTools.gitFull
+    gitAndTools.hub
+    htop
+    iotop
+    jq
+    libnotify
+    lm_sensors
+    nix-index
+    nix-repl
+    nix-zsh-completions
+    networkmanagerapplet
+    networkmanager_openconnect
+    oh-my-zsh
+    openconnect
+    openssl
+    psmisc
+    pythonFull
+    python2Full
+    rxvt_unicode_with-plugins
+    tmux
+    vim
+    unzip
+    wget
+    xcape
+    xsel
+    zsh
+  ];
+
+  desktopApps = with pkgs; [
+    chromium
+    firefox
+    libreoffice
+    vlc
+  ];
+
+in {
+  # ---- HARDWARE ----
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+      /etc/nixos/hardware-configuration.nix
     ];
+  hardware.pulseaudio.enable = true;
+  hardware.pulseaudio.support32Bit = true;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -21,8 +72,19 @@
   #   }
   # '';
 
-  networking.hostName = "garrett-laptop"; # Define your hostname.
-  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  # Set your time zone.
+  time.timeZone = "America/Denver";
+  
+  # ---- BASIC CONFIG ----
+
+  nixpkgs.config = {
+    allowUnfree = true;
+    allowUnfreeRedistributable = true;
+  };
+
+  fonts.fonts = with pkgs; [
+    nerdfonts
+  ];
 
   # Select internationalisation properties.
   i18n = {
@@ -31,14 +93,16 @@
     defaultLocale = "en_US.UTF-8";
   };
 
-  # Set your time zone.
-  time.timeZone = "America/Denver";
-
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
-  environment.systemPackages = with pkgs; [
-    wget vim tmux firefox zsh
-  ];
+  environment.systemPackages = with pkgs; 
+    ( builtins.attrValues (
+      i3Packages // 
+      setxkbmapPackages 
+    ) )
+    ++ terminalApps
+    ++ desktopApps;
+
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -46,45 +110,105 @@
   programs.mtr.enable = true;
   programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
 
-  # List services that you want to enable:
-  services.nixosManual.showManual = true;
-
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  # ---- NETWORKING ----
+  networking.hostName = "garrett-laptop"; # Define your hostname.
+  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.networkmanager.enable = true;  # Enables wireless support via network manager
+  # networking.firewall.enable = true;
+  # networking.firewall.autoLoadConntrackHelpers = true;
+  # networking.nameservers = ["10.116.133.40" "10.117.30.40"];
+  # networking.domain = "pw.solidfire.net";
 
   # Open ports in the firewall.
+  # networking.firewall.enable = true;
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.xserver.layout = "us";
-  services.xserver.xkbOptions = "eurosign:e";
+  # ---- SERVICES ----
+  services = {
+    nixosManual.showManual = true;
+    openssh.enable = true; 	# Enable the OpenSSH daemon.
+    printing.enable = true; 	# Enable CUPS to print documents.
+    dbus.enable = true;
+    upower.enable = true;
+    acpid.enable = true;
+    xserver = {
+      enable = true;
+      layout = "us";
+      # Enable touchpad support.
+      libinput.enable = true;
 
-  # Enable touchpad support.
-  services.xserver.libinput.enable = true;
+      # Enable the i3 window manager
+      windowManager.i3.enable = true;
+      windowManager.default = "i3";
+      
+      displayManager.lightdm.enable = true;
 
-  # Enable the KDE Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
+      # xkbOptions = "eurosign:e";
+      # xkbOptions = "ctrl:nocaps";
+    };
+  };
+
+  systemd.user.services."xcape" = {
+    enable = true;
+    description = "xcape to use CTRL as ESC when pressed alone";
+    wantedBy = [ "default.target" ];
+    serviceConfig.Type = "forking";
+    serviceConfig.Restart = "always";
+    serviceConfig.RestartSec = 2;
+    serviceConfig.ExecStart = "${pkgs.xcape}/bin/xcape";
+  };
+
+  # services.xserver.displayManager.sessionCommands = ''
+  #   xrdb "${pkgs.writeText "xrdb.conf" ''
+  #     ! urxvt*font: xft:Inconsolata\ Nerd\ Font:style=Medium:size=13
+  #     
+  #     URxvt*loginShell: false
+  #     URxvt.letterSpace: 0
+  #     URxvt*background: black
+  #     URxvt*foreground: grey
+  #     URxvt*color4: CornflowerBlue
+  #     URxvt*color12: pink
+  #     
+  #     ! This is one way to remove the ctrl+i == TAB feature, however it has to be integrated
+  #     ! with vim (which somehow escapes it)
+  #     ! URxvt.keysym.C-i: \033[33~
+  #     
+  #     URxvt.perl-ext-common: default,clipboard,keyboard-select
+  #     
+  #     ! copy paste
+  #     URxvt.iso14755: false
+  #     URxvt.clipboard.copycmd: xsel -ib
+  #     URxvt.clipboard.pastecmd: xsel -ob
+  #     !! mac like copy/paste with Alt
+  #     URxvt.keysym.M-c:     perl:clipboard:copy
+  #     URxvt.keysym.M-v:     perl:clipboard:paste
+  #     ! standard termial copy/paste
+  #     URxvt.keysym.S-C-C:   perl:clipboard:copy
+  #     URxvt.keysym.S-C-V:   perl:clipboard:paste
+  #     
+  #     ! Text selection (visual mode)
+  #     URxvt.keysym.M-S-V: perl:keyboard-select:activate
+  #   ''}"
+  # '';
+
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.garrett = {
     name="garrett";
     group="users";
     extraGroups = [
-      "wheel" "disk" "audio" "video"
-      "networkmanager" "systemd-journal"
+      "wheel" 
+      # "disk" 
+      # "audio" "video"
+      # "networkmanager" 
+      # "systemd-journal"
     ];
-    createHome = true;
+    # createHome = true;
     uid = 1000;
-    home = /home/garrett;
-    shell = /run/current-system/sw/bin/bash;
+    # home = /home/garrett;
+    shell = /run/current-system/sw/bin/zsh;
   };
   security.sudo.wheelNeedsPassword = false;
 
