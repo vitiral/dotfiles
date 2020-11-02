@@ -8,9 +8,9 @@ source ~/.vimrc.local.before
     " Note: start encrpytion with `:X`
     set hidden
     set expandtab                           " Tabs are spaces, not tabs
-    set shiftwidth=4
-    set tabstop=4                           " An indentation every four columns
-    set softtabstop=4                       " Let backspace delete indent
+    set shiftwidth=2
+    set tabstop=2                           " An indentation every four columns
+    set softtabstop=2                       " Let backspace delete indent
     " Make tabs visible: Example tabs < 		>
     set list
     set listchars=tab:▶\ ,trail:·,extends:#,nbsp:.

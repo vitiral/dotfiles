@@ -146,6 +146,7 @@ alias gcam="git commit -am"
 alias hau="hg amend && hg upload tip"
 alias hs="hg status | cat"
 alias hsb="hg status --rev p4base | cat"
+alias hx="hg xl | cat"
 
 ds() {
     # find what is taking up space on disk
