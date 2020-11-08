@@ -25,6 +25,11 @@ if [ -e /home/garrett/.nix-profile/etc/profile.d/nix.sh ]; then
     . /home/garrett/.nix-profile/etc/profile.d/nix.sh;
 fi
 
+function nix-pkgs {
+  nix-env --description -qaP "$@" | cat
+}
+alias nix-get='nix-env --install'
+
 export EDITOR='vim'
 alias vim-update='vim +PlugInstall +UpdateRemotePlugins +qa'
 alias nvim-update='nvim +PlugInstall +UpdateRemotePlugins +qa'
