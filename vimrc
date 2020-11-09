@@ -98,11 +98,6 @@ call plug#begin('~/.vim/data/plug')
                   \ })
     endif
 
-    "----------
-    "- Haskell
-    Plug 'neovimhaskell/haskell-vim.git'
-
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" PLUGIN END
 call plug#end()

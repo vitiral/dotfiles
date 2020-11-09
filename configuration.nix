@@ -9,22 +9,22 @@ let
   i3Packages = with pkgs; {
     inherit i3-gaps i3status i3lock-fancy;
     inherit (xorg) xrandr xbacklight xset;
-    inherit (pythonPackages) alot py3status;
+    # inherit (pythonPackages) py3status; # alot
   };
 
   terminalApps = with pkgs; [
-    # pulseaudio
+    pulseaudio pamixer
+    exfat f3 # f3probe --destructive --time-ops /dev/sda
     acpi
     # fzf
     gitAndTools.gitFull
     gitAndTools.hub
     htop
     iotop
-    jq
+    # jq
     libnotify
     lm_sensors
     nix-index
-    nix-repl
     nix-zsh-completions
     networkmanagerapplet
     networkmanager_openconnect
@@ -32,9 +32,8 @@ let
     openconnect
     openssl
     psmisc
-    pythonFull
-    python2Full
-    rxvt_unicode_with-plugins
+    python3Full
+    rxvt-unicode
     tmux
     vim
     unzip
@@ -45,8 +44,7 @@ let
   ];
 
   desktopApps = with pkgs; [
-    chromium
-    firefox
+    chromium firefox qutebrowser
     libreoffice
     vlc
   ];
@@ -55,10 +53,11 @@ in {
   # ---- HARDWARE ----
   imports =
     [ # Include the results of the hardware scan.
-      /etc/nixos/hardware-configuration.nix
+      ./hardware-configuration.nix
     ];
+  sound.enable=true;
   hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.support32Bit = true;
+  # hardware.pulseaudio.support32Bit = true;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -87,10 +86,10 @@ in {
   ];
 
   # Select internationalisation properties.
-  i18n = {
-    consoleFont = "Lat2-Terminus16";
-    consoleKeyMap = "us";
-    defaultLocale = "en_US.UTF-8";
+  console = {
+    font = "Lat2-Terminus16";
+    keyMap = "us";
+    # defaultLocale = "en_US.UTF-8";
   };
 
   # List packages installed in system profile. To search by name, run:
@@ -111,13 +110,11 @@ in {
   programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
 
   # ---- NETWORKING ----
-  networking.hostName = "garrett-laptop"; # Define your hostname.
+  networking.hostName = "rett-laptop"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;  # Enables wireless support via network manager
   # networking.firewall.enable = true;
   # networking.firewall.autoLoadConntrackHelpers = true;
-  # networking.nameservers = ["10.116.133.40" "10.117.30.40"];
-  # networking.domain = "pw.solidfire.net";
 
   # Open ports in the firewall.
   # networking.firewall.enable = true;
@@ -127,7 +124,6 @@ in {
 
   # ---- SERVICES ----
   services = {
-    nixosManual.showManual = true;
     openssh.enable = true; 	# Enable the OpenSSH daemon.
     printing.enable = true; 	# Enable CUPS to print documents.
     dbus.enable = true;
@@ -138,10 +134,12 @@ in {
       layout = "us";
       # Enable touchpad support.
       libinput.enable = true;
+      # synaptics.enable = true;
 
       # Enable the i3 window manager
       windowManager.i3.enable = true;
-      windowManager.default = "i3";
+      # windowManager.default = "i3";
+      displayManager.defaultSession = "none+i3";
       
       displayManager.lightdm.enable = true;
 
@@ -195,8 +193,9 @@ in {
 
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.extraUsers.garrett = {
-    name="garrett";
+  users.users.rett = {
+    isNormalUser = true;
+    name="rett";
     group="users";
     extraGroups = [
       "wheel" 
@@ -207,15 +206,16 @@ in {
     ];
     # createHome = true;
     uid = 1000;
-    # home = /home/garrett;
-    shell = /run/current-system/sw/bin/zsh;
+    # home = /home/rett;
+    shell = pkgs.zsh;
   };
   security.sudo.wheelNeedsPassword = false;
 
-  # This value determines the NixOS release with which your system is to be
-  # compatible, in order to avoid breaking some software such as database
-  # servers. You should change this only after NixOS release notes say you
-  # should.
-  system.stateVersion = "17.09"; # Did you read the comment?
-
+  # This value determines the NixOS release from which the default
+  # settings for stateful data, like file locations and database versions
+  # on your system were taken. It‘s perfectly fine and recommended to leave
+  # this value at the release version of the first install of this system.
+  # Before changing this value read the documentation for this option
+  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  system.stateVersion = "20.09"; # Did you read the comment?
 }
