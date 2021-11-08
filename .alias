@@ -144,6 +144,7 @@ function aa_256 () {     local o= i= x=`tput op` cols=`tput cols` y= oo= yy=;   
 # alias archive-web="wget -rmkKEN"
 alias archive-web="wget --no-clobber --recursive --convert-links"
 
+alias hnew="hg update p4head"
 alias gfm="git fetch origin master:master"  # fetch origin/master and pull to master
 alias gd="git diff"
 alias gs="git status"

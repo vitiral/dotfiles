@@ -6,11 +6,11 @@ source ~/.vimrc.local.before
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General Settings
     " Note: start encrpytion with `:X`
-    set hidden
-    set expandtab                           " Tabs are spaces, not tabs
     set shiftwidth=2
     set tabstop=2                           " An indentation every four columns
     set softtabstop=2                       " Let backspace delete indent
+    set hidden
+    set expandtab                           " Tabs are spaces, not tabs
     " Make tabs visible: Example tabs < 		>
     set list
     set listchars=tab:▶\ ,trail:·,extends:#,nbsp:.
@@ -68,6 +68,9 @@ call plug#begin('~/.vim/data/plug')
     "" Languages
     Plug 'prabirshrestha/async.vim'
     Plug 'prabirshrestha/vim-lsp'
+    "---------
+    "- Python
+    autocmd FileType python setlocal shiftwidth=2 tabstop=2 softtabstop=2
 
     "----------
     "- Omni/Misc
@@ -104,6 +107,9 @@ call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Additional plugin settings
+    " Syntastic
+    let g:syntastic_python_python_exec = 'python3'
+    let g:syntastic_python_checkers = ['python']
 
     " Airline
     let g:airline_powerline_fonts = 1
