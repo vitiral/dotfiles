@@ -48,8 +48,9 @@ call plug#begin('~/.vim/data/plug')
 
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     "" Languages
-    Plug 'prabirshrestha/async.vim'
     Plug 'prabirshrestha/vim-lsp'
+    Plug 'prabirshrestha/asyncomplete.vim'
+    Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
     "---------
     "- Python
@@ -57,7 +58,9 @@ call plug#begin('~/.vim/data/plug')
 
     "----------
     "- Omni/Misc
-    "... empty
+    Plug 'Valloric/MatchTagAlways'
+    " Plug 'SirVer/ultisnips'
+    " Plug 'honza/vim-snippets'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" PLUGIN END
@@ -65,6 +68,18 @@ call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Additional plugin settings
+    let g:lsp_async_completion = 1 " Note: Might interfere with other completion plugins.
+    let g:lsp_signs_enabled = 1           " enable diagnostics signs in the gutter
+    let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
+
+    inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+    inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+
+    nnoremap <leader>jd   :LspDefinition<CR>
+    nnoremap <leader>jD   :LspDeclaration<CR>
+    nnoremap <leader>jr   :LspReferences<CR>  " F4 in Normal mode shows all references
+
     " Airline
     let g:airline_powerline_fonts = 1
 
@@ -135,7 +150,8 @@ call plug#end()
 
     """""""""""
     " b: buffers
-    nnoremap <leader>bb :Buffers<cr>
+    " nnoremap <leader>bb :Buffers<cr>
+    nnoremap <leader>bb :buffers<cr>
     " reload all buffers
     nnoremap <leader>br :checktime<cr>
 
