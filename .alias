@@ -176,7 +176,6 @@ corrupt() {
 
 pathinsert "$HOME/.local/bin"
 
-export PYTHONSTARTUP="$HOME/.pythonrc.py"
 export PYTHONDONTWRITEBYTECODE=1            # prevents .pyc files
 
 # use the local installation of python first

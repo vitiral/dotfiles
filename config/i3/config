@@ -38,11 +38,11 @@ for_window [title="^litevault"] move to scratchpad
 # set up screen lock
 exec xautolock -time 11 -locker "i3lock -c 000000"
 bindsym $mod+Ctrl+l exec i3lock -c 000000
-bindsym $mod+p exec echo "ok" >> "/home/garrett/.local/novault.lock"
+# bindsym $mod+p exec echo "ok" >> "/home/rett/.local/novault.lock"
 
-bindsym $mod+Shift+p [title="^litevault"] scratchpad show
-bindsym $mod+q move scratchpad
-bindsym $mod+a scratchpad show
+# bindsym $mod+Shift+p [title="^litevault"] scratchpad show
+# bindsym $mod+q move scratchpad
+# bindsym $mod+a scratchpad show
 
 
 # Font for window titles. Will also be used by the bar unless a different font
