@@ -5,7 +5,6 @@ source ~/.vimrc.local.before
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General Settings
-    " Note: start encrpytion with `:X`
     set shiftwidth=2
     set tabstop=2                           " An indentation every four columns
     set softtabstop=2                       " Let backspace delete indent
@@ -20,26 +19,16 @@ source ~/.vimrc.local.before
     set undofile                            " Save undo's after file closes
     set undolevels=1000                     " How many undos
     set undoreload=10000                    " number of lines to save for undo
-    if has('nvim')
-        set undodir=~/.nvim/data/undo//          " where to save undo histories
-        set directory=~/.nvim/data/swap//        " where to save swap files
-        set backupdir=~/.nvim/data/backup//      " where to save backup files
-        set viminfo+='1000,n~/.nvim/data/viminfo " where to save .viminfo
-        set viewdir=~/.nvim/data/view//          " where to save and load view info
-    else
-        set cm=blowfish2                        " Use blowfish2 when encrypting files
-        set undodir=~/.vim/data/undo//          " where to save undo histories
-        set directory=~/.vim/data/swap//        " where to save swap files
-        set backupdir=~/.vim/data/backup//      " where to save backup files
-        set viminfo+='1000,n~/.vim/data/viminfo " where to save .viminfo
-        set viewdir=~/.vim/data/view//          " where to save and load view info
-    endif
+    set cm=blowfish2                        " Use blowfish2 when encrypting files
+    set undodir=~/.vim/data/undo//          " where to save undo histories
+    set directory=~/.vim/data/swap//        " where to save swap files
+    set backupdir=~/.vim/data/backup//      " where to save backup files
+    set viminfo+='1000,n~/.vim/data/viminfo " where to save .viminfo
+    set viewdir=~/.vim/data/view//          " where to save and load view info
     autocmd BufWinLeave .*. mkview
     autocmd BufWinEnter .*. silent loadview
-
-    autocmd BufNewFile,BufRead justfile set filetype=make
     autocmd FileType make set noexpandtab   " Make files use Tabs (not spaces)
-    set splitbelow                              " help menus are below the current edit
+    set splitbelow                          " help menus are below the current edit
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" PLUGIN START
@@ -48,13 +37,6 @@ call plug#begin('~/.vim/data/plug')
     Plug 'tpope/vim-sensible'           " sensible defaults
     Plug 'tpope/vim-repeat'             " repeat plugin commands with `.`
     Plug 'tpope/vim-commentary'         " easy comment out lines
-    " let g:rooter_manual_only = 1
-    Plug 'easymotion/vim-easymotion'    " move around with Cntrl-<motion>
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-    Plug 'junegunn/fzf.vim'
-    " Use `:Fw` to fold by a pattern. Also use `set nowrap` for long log files 
-    Plug 'embear/vim-foldsearch'
-    let g:foldsearch_disable_mappings = 1
 
     " Look & Feel
     Plug 'rafi/awesome-vim-colorschemes'
@@ -68,38 +50,14 @@ call plug#begin('~/.vim/data/plug')
     "" Languages
     Plug 'prabirshrestha/async.vim'
     Plug 'prabirshrestha/vim-lsp'
+
     "---------
     "- Python
     autocmd FileType python setlocal shiftwidth=2 tabstop=2 softtabstop=2
 
     "----------
     "- Omni/Misc
-    Plug 'scrooloose/syntastic'
-    " Plug 'SirVer/ultisnips'
-    Plug 'LnL7/vim-nix'
-    Plug 'cespare/vim-toml'
-    Plug 'maralla/vim-toml-enhance'
-    autocmd FileType toml,markdown
-        \ autocmd Syntax <buffer> syntax sync minlines=2000
-    Plug 'chrisbra/csv.vim'
-    Plug 'elzr/vim-json'
-    Plug 'google/vim-jsonnet'
-    let g:vim_json_syntax_conceal = 0
-    command FmtJson %!python -m json.tool
-    let g:markdown_fenced_languages = ['sh', 'bash=sh', 'python']
-
-    "----------
-    "- Rust
-    Plug 'rust-lang/rust.vim'
-    let g:rustfmt_autosave = 0
-    if executable('rls')
-          au User lsp_setup call lsp#register_server({
-                  \ 'name': 'rls',
-                  \ 'cmd': {server_info->['rustup', 'run', 'stable', 'rls']},
-                  \ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
-                  \ 'whitelist': ['rust'],
-                  \ })
-    endif
+    "... empty
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" PLUGIN END
@@ -107,25 +65,11 @@ call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Additional plugin settings
-    " Syntastic
-    let g:syntastic_python_python_exec = 'python3'
-    let g:syntastic_python_checkers = ['python']
-
     " Airline
     let g:airline_powerline_fonts = 1
-    " autocmd FileType
-    "     \ c,cpp,java,go,rust,php,javascript,python,twig,xml,yml,perl,markdown
-    "     \ autocmd BufEnter <buffer> EnableStripWhitespaceOnSave
+
     let g:strip_whitespace_confirm=0
     let g:strip_only_modified_lines=0
-
-    " Easymotion Settings
-    map  <C-F> <Plug>(easymotion-bd-f)
-    nmap <C-F> <Plug>(easymotion-overwin-f)
-    map  <C-T> <Plug>(easymotion-t)
-    nmap <C-T> <Plug>(easymotion-t)
-    map  <C-L> <Plug>(easymotion-bd-jk)
-    nmap <C-L> <Plug>(easymotion-overwin-line)
 
     " term colors: http://misc.flogisoft.com/bash/tip_colors_and_formatting
     colorscheme molokai
@@ -152,23 +96,15 @@ call plug#end()
         endif
     endfunction
 
-    function SearchDir(dir)
-        call fzf#vim#grep(
-             \ 'grep -vnITr --color=always --exclude-dir=".svn" --exclude-dir=".git" --exclude=tags --exclude=*\.pyc --exclude=*\.exe --exclude=*\.dll --exclude=*\.zip --exclude=*\.gz "^$" ' . a:dir,
-             \ 0,
-             \ {'options': '--reverse --prompt "Search> "'})
-    endfunction
-
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Spacemacs like ergonomics and key (re)mappings
 " https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org
     let g:mapleader = ' '
 
     " LSP commands
-    nnoremap <leader>gd :LspDefinition<CR>
-    nnoremap <leader>gr :LspReferences<CR>
-    nnoremap <leader>gi :LspHover<CR>
+    " nnoremap <leader>gd :LspDefinition<CR>
+    " nnoremap <leader>gr :LspReferences<CR>
+    " nnoremap <leader>gi :LspHover<CR>
 
     " Yank from the cursor to the end of the line, to be consistent with C and D.
     nnoremap Y y$
@@ -193,6 +129,7 @@ call plug#end()
     map <leader>wS <C-w>s<C-w>j<C-w>=
     map <leader>wV <C-w>v<C-w>l<C-w>=
     nnoremap <leader>wd :q<cr>
+
     " toggle true paste mode
     nnoremap <silent> <leader>wp :call TogglePaste()<cr>
 
@@ -204,24 +141,13 @@ call plug#end()
 
     """""""""""
     " f: file management
-    " open and find files in current buffer
-    " nnoremap <leader>ff :e <C-R>=expand('%:h').'/'<cr>
+    " open and find files in current buffer dir
     nnoremap <leader>ff :e %:p:h<cr>
-    " nnoremap <leader>ff :Files %:p:h<cr>
 
     """""""""""
     " s: search
     " search and replace current buffer
     nnoremap <leader>sr :%s//gc<left><left><left>
-    " search in files
-    nnoremap <leader>sf :call SearchDir(".")<cr>
-    " clear search history
-    nnoremap <leader>sc :noh<cr>
-
-    """""""""""
-    " p: project
-    " open file
-    nnoremap <leader>pf :call fzf#vim#files(".")<cr>
 
     """""""""""
     " c: comments
