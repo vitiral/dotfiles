@@ -76,9 +76,11 @@ call plug#end()
     inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
     inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 
-    nnoremap <leader>jd   :LspDefinition<CR>
-    nnoremap <leader>jD   :LspDeclaration<CR>
-    nnoremap <leader>jr   :LspReferences<CR>  " F4 in Normal mode shows all references
+    nnoremap <leader>gd   :LspDefinition<CR>
+    nnoremap <leader>gD   :LspDeclaration<CR>
+    nnoremap <leader>gr   :LspReferences<CR>  " F4 in Normal mode shows all references
+    " nmap gd <plug>(lsp-definition)
+
 
     " Airline
     let g:airline_powerline_fonts = 1
