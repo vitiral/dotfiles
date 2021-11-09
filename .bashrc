@@ -3,4 +3,5 @@ source "$HOME/.bashrc.local"
 
 source /etc/skel/.bashrc
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+shopt -s cmdhist
+shopt -s lithist

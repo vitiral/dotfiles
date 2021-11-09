@@ -1,25 +1,35 @@
-source ~/.antigen/antigen/antigen.zsh
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# 
-# export DISABLE_AUTO_TITLE="true"
-# 
-antigen use oh-my-zsh
-# antigen theme robbyrussell
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle sharat87/zsh-vim-mode
-antigen bundle history-substring-search
-antigen apply
+# Path to your oh-my-zsh installation.
+export ZSH="/home/rett/.oh-my-zsh"
 
-bindkey "^F" vi-cmd-mode
+ZSH_THEME=""
+autoload -U colors && colors
+PS1="%{$fg[cyan]%}%2d$~ %# %{$reset_color%}"
+
+# CASE_SENSITIVE="true"
+
+# Uncomment one of the following lines to change the auto-update behavior
+# zstyle ':omz:update' mode disabled  # disable automatic updates
+# zstyle ':omz:update' mode auto      # update automatically without asking
+zstyle ':omz:update' mode reminder  # just remind me to update when it's time
+zstyle ':omz:update' frequency 13   # auto-update (in days).
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS="true"
+
+plugins=(
+  history-substring-search
+  vi-mode
+  git
+)
+
+source $ZSH/oh-my-zsh.sh
+
+# Cntrl+O or up/down to select history
 bindkey "^O" history-substring-search-up
+bindkey "^[[A" history-substring-search-up
+bindkey "^[[B" history-substring-search-down
 
-source "$HOME/.alias"
-PS1=$'\e[01;36m%2d$~ %# \e[0m' # last two directories
-
-if [ -e ~/.shell.local ]; then
-    source ~/.shell.local
-fi
-
-[ -f ~/.config/zsh.local ] && source ~/.config/zsh.local
-[ -d ~/.zsh ] && fpath=(~/.zsh $fpath)
-
+source ~/.alias
