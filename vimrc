@@ -55,12 +55,15 @@ call plug#begin('~/.vim/data/plug')
     "---------
     "- Python
     autocmd FileType python setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd FileType go setlocal shiftwidth=2 tabstop=2 softtabstop=2
 
     "----------
     "- Omni/Misc
     Plug 'Valloric/MatchTagAlways'
     " Plug 'SirVer/ultisnips'
     " Plug 'honza/vim-snippets'
+    au BufRead,BufNewFile *.sp set filetype=spor
+    au BufRead,BufNewFile *.fn set filetype=fngi
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" PLUGIN END
@@ -153,7 +156,7 @@ call plug#end()
     """""""""""
     " b: buffers
     " nnoremap <leader>bb :Buffers<cr>
-    nnoremap <leader>bb :buffers<cr>
+    nnoremap <leader>bb :buffers<cr>:b 
     " reload all buffers
     nnoremap <leader>br :checktime<cr>
 
