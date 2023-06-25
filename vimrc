@@ -60,8 +60,12 @@ call plug#begin('~/.vim/data/plug')
     "----------
     "- Omni/Misc
     Plug 'Valloric/MatchTagAlways'
-    " Plug 'SirVer/ultisnips'
-    " Plug 'honza/vim-snippets'
+    Plug 'SirVer/ultisnips'
+    Plug 'honza/vim-snippets'
+    let g:UltiSnipsExpandTrigger = "<c-j>"
+    let g:UltiSnipsJumpForwardTrigger = "<c-j>"
+    let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
+
     au BufRead,BufNewFile *.sp set filetype=spor
     au BufRead,BufNewFile *.fn set filetype=fngi
 
@@ -72,8 +76,9 @@ call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Additional plugin settings
     let g:lsp_async_completion = 1 " Note: Might interfere with other completion plugins.
-    let g:lsp_signs_enabled = 1           " enable diagnostics signs in the gutter
-    let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
+    let g:lsp_diagnostics_enabled = 0
+    " let g:lsp_signs_enabled = 1           " enable diagnostics signs in the gutter
+    " let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
 
     inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
     inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"

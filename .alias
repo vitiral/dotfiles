@@ -1,5 +1,9 @@
 #!/usr/bin/bash
 
+alias realias='source ~/.alias'
+
+alias :e='vim'
+
 ##################################################
 # Environment
 
@@ -424,6 +428,12 @@ archeck() {
 #     echo "cygwin"
 # fi
 
+if ps -ef | grep -v grep | grep xcape > /dev/null; then
+    true
+else
+    xcape -e 'Control_L=Escape'
+fi
+
 if [[ -e $HOME/.alias.local ]]; then
     source $HOME/.alias.local
 fi
@@ -437,4 +447,12 @@ mp4_dl() {
 
 mp4_show() {
     pytube -s $1
+}
+
+duskcc-new() {
+  wget  -O /tmp/duskcc.tar.gz "$1"
+  cd ~/Downloads
+  rm -r *-duskcc/  # remove previous versions
+  tar -xvf /tmp/duskcc.tar.gz
+  cd *-duskcc
 }
