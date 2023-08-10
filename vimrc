@@ -57,6 +57,10 @@ call plug#begin('~/.vim/data/plug')
     autocmd FileType python setlocal shiftwidth=2 tabstop=2 softtabstop=2
     autocmd FileType go setlocal shiftwidth=2 tabstop=2 softtabstop=2
 
+    "---------
+    "- Java / Kotlin
+    Plug 'udalov/kotlin-vim'
+
     "----------
     "- Omni/Misc
     Plug 'Valloric/MatchTagAlways'
@@ -76,7 +80,7 @@ call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Additional plugin settings
     let g:lsp_async_completion = 1 " Note: Might interfere with other completion plugins.
-    let g:lsp_diagnostics_enabled = 0
+    " let g:lsp_diagnostics_enabled = 0
     " let g:lsp_signs_enabled = 1           " enable diagnostics signs in the gutter
     " let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
 
@@ -120,6 +124,17 @@ call plug#end()
             quit
         endif
     endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Ele: ele text editor bindings
+    " H/L go to beg/end of line (not 0/$, maps better w/movement)
+    nnoremap H 0
+    nnoremap L $
+    nnoremap 0 <NOP>
+    nnoremap $ <NOP>
+    " redo is U not ^R (so u/U are a pair)
+    nnoremap U <C-r>
+    nnoremap <C-r> <NOP>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Spacemacs like ergonomics and key (re)mappings
@@ -169,6 +184,8 @@ call plug#end()
     " f: file management
     " open and find files in current buffer dir
     nnoremap <leader>ff :e %:p:h<cr>
+    " fy: yank file path
+    nnoremap <leader>fy :let @+ = expand('%')<cr>
 
     """""""""""
     " s: search
