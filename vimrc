@@ -70,8 +70,10 @@ call plug#begin('~/.vim/data/plug')
     let g:UltiSnipsJumpForwardTrigger = "<c-j>"
     let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
 
-    au BufRead,BufNewFile *.sp set filetype=spor
-    au BufRead,BufNewFile *.fn set filetype=fngi
+    au BufRead,BufNewFile *.sp  set filetype=spor
+    au BufRead,BufNewFile *.fn  set filetype=fngi
+    au BufRead,BufNewFile *.lua set filetype=lua
+    autocmd FileType lua  set expandtab     " Make files use Tabs (not spaces)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" PLUGIN END
@@ -130,11 +132,8 @@ call plug#end()
     " H/L go to beg/end of line (not 0/$, maps better w/movement)
     nnoremap H 0
     nnoremap L $
-    nnoremap 0 <NOP>
-    nnoremap $ <NOP>
     " redo is U not ^R (so u/U are a pair)
     nnoremap U <C-r>
-    nnoremap <C-r> <NOP>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Spacemacs like ergonomics and key (re)mappings
@@ -167,6 +166,7 @@ call plug#end()
     nnoremap <leader>wk <C-W>k
     nnoremap <leader>wl <C-W>l
     map <leader>wS <C-w>s<C-w>j<C-w>=
+    map <leader>wH <C-w>s<C-w>j<C-w>=
     map <leader>wV <C-w>v<C-w>l<C-w>=
     nnoremap <leader>wd :q<cr>
 
