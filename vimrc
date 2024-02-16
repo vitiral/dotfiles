@@ -12,7 +12,8 @@ source ~/.vimrc.local.before
     set expandtab                           " Tabs are spaces, not tabs
     " Make tabs visible: Example tabs < 		>
     set list
-    set listchars=tab:▶\ ,trail:·,extends:#,nbsp:.
+    " set listchars=tab:⇢\ ,trail:·,extends:#,nbsp:.
+    set listchars=tab:\ \ ,trail:·,extends:#,nbsp:.
     set number
     set relativenumber
     set nopaste
@@ -72,7 +73,7 @@ call plug#begin('~/.vim/data/plug')
 
     au BufRead,BufNewFile *.sp  set filetype=spor
     au BufRead,BufNewFile *.fn  set filetype=fngi
-    au BufRead,BufNewFile *.lua set filetype=lua
+    au BufRead,BufNewFile *.lua,*.luck set filetype=lua
     autocmd FileType lua  set expandtab     " Make files use Tabs (not spaces)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -109,6 +110,8 @@ call plug#end()
     highlight Search cterm=NONE ctermfg=white ctermbg=241
     highlight Comment cterm=NONE ctermfg=76
     highlight ExtraWhitespace ctermbg=236
+    highlight SpecialKey ctermfg=8
+    " tab			
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" Custom Functions

@@ -1,6 +1,7 @@
 #!/usr/bin/bash
 
 alias realias='source ~/.alias'
+alias ,='lua ~/projects/civlua/civ.lua'
 
 alias :e='vim'
 
@@ -101,13 +102,13 @@ pathappend "$HOME/.local/bin"
 pathappend "$HOME/go/bin"
 pathappend node_modules/.bin # items in node's bin are in PATH
 
-# export LUA_PATH='/usr/local/share/lua/5.3/?.lua;/home/rett/Software/luarocks/luarocks-3.9.2/./lua_modules/share/lua/5.3/?.lua;/home/rett/Software/luarocks/luarocks-3.9.2/./lua_modules/share/lua/5.3/?/init.lua;/usr/local/share/lua/5.3/?/init.lua;/usr/local/lib/lua/5.3/?.lua;/usr/local/lib/lua/5.3/?/init.lua;/usr/share/lua/5.3/?.lua;/usr/share/lua/5.3/?/init.lua;./?.lua;./?/init.lua;/home/rett/.luarocks/share/lua/5.3/?.lua;/home/rett/.luarocks/share/lua/5.3/?/init.lua;/home/rett/projects/civlib/lua/?.lua;export LUA_PATH=/usr/local/share/lua/5.3/?.lua'
 # Gotten from $(luarocks path --bin)
-export LUA_PATH='/usr/local/share/lua/5.3/?.lua;/home/rett/Software/luarocks/luarocks-3.9.2/./lua_modules/share/lua/5.3/?.lua;/home/rett/Software/luarocks/luarocks-3.9.2/./lua_modules/share/lua/5.3/?/init.lua;/usr/local/share/lua/5.3/?/init.lua;/usr/local/lib/lua/5.3/?.lua;/usr/local/lib/lua/5.3/?/init.lua;/usr/share/lua/5.3/?.lua;/usr/share/lua/5.3/?/init.lua;./?.lua;./?/init.lua;/home/rett/.luarocks/share/lua/5.3/?.lua;/home/rett/.luarocks/share/lua/5.3/?/init.lua;export LUA_PATH=/usr/local/share/lua/5.3/?.lua'
+export LUA_PKGS='/home/rett/projects/civlua'
+export LUA_PATH='/usr/local/share/lua/5.3/?.lua;/home/rett/Software/luarocks/luarocks-3.9.2/./lua_modules/share/lua/5.3/?.lua;/home/rett/Software/luarocks/luarocks-3.9.2/./lua_modules/share/lua/5.3/?/init.lua;/usr/local/share/lua/5.3/?/init.lua;/usr/local/lib/lua/5.3/?.lua;/usr/local/lib/lua/5.3/?/init.lua;/usr/share/lua/5.3/?.lua;/usr/share/lua/5.3/?/init.lua;./?.lua;./?/init.lua;/home/rett/.luarocks/share/lua/5.3/?.lua;/home/rett/.luarocks/share/lua/5.3/?/init.lua'
 export LUA_CPATH='/home/rett/Software/luarocks/luarocks-3.9.2/./lua_modules/lib/lua/5.3/?.so;/usr/local/lib/lua/5.3/?.so;/usr/lib/i386-linux-gnu/lua/5.3/?.so;/usr/lib/lua/5.3/?.so;/usr/local/lib/lua/5.3/loadall.so;./?.so;/home/rett/.luarocks/lib/lua/5.3/?.so'
 pathappend '/home/rett/.luarocks/bin:/home/rett/.cargo/bin:/home/rett/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
 
-export LUA_PATH="./?/?.lua;$LUA_PATH"
+export LUA_PATH="./?/?.lua;$HOME/projects/civlua/?.lua;$LUA_PATH"
 # export LUA_PATH="$LUA_PATH;./?/?.lua;$HOME/projects/civlib/lua/?.lua"
 
 
