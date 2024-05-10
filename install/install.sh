@@ -9,12 +9,6 @@ if [[ `uname` == "Linux" ]]; then
     OSNAME=`cat /etc/*-release | grep ^NAME=`
 fi
 
-# Get the base directory if it doesn't exist
-cd ~
-if [[ ! -e ~/.dotfiles ]]; then
-    git clone https://github.com/cloudformdesign/dotfiles.git ~/.dotfiles && ~/.dotfiles/install/install.sh
-fi
-
 OS_STR=`uname -a`
 echo $OS_STR
 
@@ -23,8 +17,6 @@ if [[ ! -e ~/.antigen ]]; then
     mkdir ~/.antigen
     cd ~/.antigen
     git clone https://github.com/zsh-users/antigen.git
-    sudo chsh -s /usr/bin/zsh
-    sudo chsh -s /usr/bin/zsh $CREATE_USER
 fi
 
 # setup git
