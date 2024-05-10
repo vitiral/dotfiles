@@ -1,7 +1,12 @@
 #!/usr/bin/bash
 
 alias realias='source ~/.alias'
-alias ,='lua ~/projects/civlua/civ.lua'
+alias luap="lua -e \"require'pkglib':install()\""
+alias ilua="luap -e \"R = require'ds'.R\" -i"
+alias ,='luap ~/projects/civlua/civ.lua'
+function luahelp() {
+  luap -e "require'civ'; print(require'doc'('$1'))"
+}
 
 alias :e='vim'
 
@@ -15,6 +20,10 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 alias rg='grep -rP'
+function cr() {
+  echo "cr: $1"
+  cc "$1".c -o "$1" && "./$1"; echo rc=$?
+}
 
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_CONNECTION" ]; then
     export DISPLAY=:0.0
@@ -103,12 +112,11 @@ pathappend "$HOME/go/bin"
 pathappend node_modules/.bin # items in node's bin are in PATH
 
 # Gotten from $(luarocks path --bin)
-export LUA_PKGS='/home/rett/projects/civlua'
-export LUA_PATH='/usr/local/share/lua/5.3/?.lua;/home/rett/Software/luarocks/luarocks-3.9.2/./lua_modules/share/lua/5.3/?.lua;/home/rett/Software/luarocks/luarocks-3.9.2/./lua_modules/share/lua/5.3/?/init.lua;/usr/local/share/lua/5.3/?/init.lua;/usr/local/lib/lua/5.3/?.lua;/usr/local/lib/lua/5.3/?/init.lua;/usr/share/lua/5.3/?.lua;/usr/share/lua/5.3/?/init.lua;./?.lua;./?/init.lua;/home/rett/.luarocks/share/lua/5.3/?.lua;/home/rett/.luarocks/share/lua/5.3/?/init.lua'
-export LUA_CPATH='/home/rett/Software/luarocks/luarocks-3.9.2/./lua_modules/lib/lua/5.3/?.so;/usr/local/lib/lua/5.3/?.so;/usr/lib/i386-linux-gnu/lua/5.3/?.so;/usr/lib/lua/5.3/?.so;/usr/local/lib/lua/5.3/loadall.so;./?.so;/home/rett/.luarocks/lib/lua/5.3/?.so'
-pathappend '/home/rett/.luarocks/bin:/home/rett/.cargo/bin:/home/rett/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+CIVLUA="$HOME/projects/civlua"
+export LUA_PATH="?.lua;$CIVLUA/lib/pkg/?.lua"
+export LUA_PKGS="./;$CIVLUA"
+pathappend '/home/rett/.cargo/bin:/home/rett/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
 
-export LUA_PATH="./?/?.lua;$HOME/projects/civlua/?.lua;$LUA_PATH"
 # export LUA_PATH="$LUA_PATH;./?/?.lua;$HOME/projects/civlib/lua/?.lua"
 
 
