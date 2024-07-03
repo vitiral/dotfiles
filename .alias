@@ -70,28 +70,19 @@ if [ -z ${TMUX+x} ]; then
     setfont 13
 fi
 
-pathappend() {
-    # properly append path to end of PATH
+function ppath()      { echo $PATH | tr -s ':' '\n' }
+function pathremove() { export PATH="$(ppath | grep -Fv "$1" | xargs | tr ' ' ':')" }
+pathappend() { # properly append path to end of PATH
     if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
         export PATH="${PATH:+"$PATH:"}$1"  # handles case where path is empty
     fi
 }
-
-pathinsert() {
-    # properly insert path at beginning of PATH
-    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
-        export PATH="$1:$PATH"
-    fi
+function pathinsert() { # insert path in front
+  if [ -d "$1" ]; then pathremove "$1"; export PATH="$1:$PATH"; fi
 }
 
+pathinsert /opt/homebrew/bin
 pathinsert "$HOME/bin"
-if [[ `uname` == 'Darwin' ]]; then
-  pathinsert "/opt/homebrew/bin"
-fi
-
-function ppath() {
-    echo $PATH | tr -s ':' '\n'
-}
 
 # auto connect to ssh-agent
 # if ! pgrep -u $USER ssh-agent > /dev/null; then
@@ -465,3 +456,4 @@ duskcc-new() {
   tar -xvf /tmp/duskcc.tar.gz
   cd *-duskcc
 }
+
