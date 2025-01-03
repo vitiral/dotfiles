@@ -1,14 +1,19 @@
 #!/usr/bin/bash
+export CLICOLOR=true
 
 alias realias='source ~/.alias'
+alias realias='source ~/.alias'
+
+
 alias luap="lua -e \"require'pkglib':install()\""
-alias ilua="luap -e \"R = require'ds'.R\" -i"
+alias luap="lua -e \"require'pkglib'()\""
 alias ,="luap $HOME/projects/civlua/civ.lua"
+alias ilua="luap -e \"setmetatable(_G, nil); R = require'ds'.R; MAIN=R\" -i"
+alias :e='vim'
+
 function luahelp() {
   luap -e "require'civ'; print(require'doc'('$1'))"
 }
-
-alias :e='vim'
 
 ##################################################
 # Environment
@@ -99,7 +104,7 @@ pathinsert "$HOME/bin"
 # Gotten from $(luarocks path --bin)
 CIVLUA="$HOME/projects/civlua"
 export LUA_PATH="?.lua;$CIVLUA/lib/pkg/?.lua"
-export LUA_PKGS="./;$CIVLUA"
+export LUA_PKGS="$CIVLUA"
 pathappend '/home/rett/.cargo/bin:/home/rett/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
 
 # move EVERYTHING in the current directory into an "old" directory in the current directory

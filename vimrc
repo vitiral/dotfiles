@@ -12,8 +12,8 @@ source ~/.vimrc.local.before
     set expandtab                           " Tabs are spaces, not tabs
     " Make tabs visible: Example tabs < 		>
     set list
-    " set listchars=tab:⇢\ ,trail:·,extends:#,nbsp:.
-    set listchars=tab:\ \ ,trail:·,extends:#,nbsp:.
+    set listchars=tab:⇢\ ,trail:·,extends:#,nbsp:.
+    " set listchars=tab:\ \ ,trail:·,extends:#,nbsp:.
     set number
     set relativenumber
     set nopaste
@@ -91,6 +91,8 @@ call plug#end()
     inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
     inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 
+    " R: really delete, stackoverflow.com/q/3638542
+    nnoremap R "_d
     nnoremap <leader>gd   :LspDefinition<CR>
     nnoremap <leader>gD   :LspDeclaration<CR>
     nnoremap <leader>gr   :LspReferences<CR>  " F4 in Normal mode shows all references
@@ -137,6 +139,9 @@ call plug#end()
     nnoremap L $
     " redo is U not ^R (so u/U are a pair)
     nnoremap U <C-r>
+    inoremap <C-q><C-q> <ESC>:exit<cr>
+    nnoremap <C-q><C-q> <ESC>:exit<cr>
+    vnoremap <C-q><C-q> <ESC>:exit<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Spacemacs like ergonomics and key (re)mappings
@@ -186,7 +191,8 @@ call plug#end()
     """""""""""
     " f: file management
     " open and find files in current buffer dir
-    nnoremap <leader>ff :e %:p:h<cr>
+    nnoremap <leader>f. :e %:p:h<cr>
+    nnoremap <leader>f<space> :e .<cr>
     " fy: yank file path
     nnoremap <leader>fy :let @+ = expand('%')<cr>
 
