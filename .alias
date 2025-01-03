@@ -2,11 +2,8 @@
 export CLICOLOR=true
 
 alias realias='source ~/.alias'
-alias realias='source ~/.alias'
-
 
 alias luap="lua -e \"require'pkglib':install()\""
-alias luap="lua -e \"require'pkglib'()\""
 alias ,="luap $HOME/projects/civlua/civ.lua"
 alias ilua="luap -e \"setmetatable(_G, nil); R = require'ds'.R; MAIN=R\" -i"
 alias :e='vim'

@@ -26,6 +26,7 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
+setopt prompt_subst
 
 # Cntrl+O or up/down to select history
 bindkey "^O" history-substring-search-up
@@ -33,6 +34,10 @@ bindkey "^[[A" history-substring-search-up
 bindkey "^[[B" history-substring-search-down
 
 source ~/.alias
+
+if [ -e ~/.zshrc.local ]; then
+  source ~/.zshrc.local
+fi
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
