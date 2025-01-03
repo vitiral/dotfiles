@@ -75,8 +75,8 @@ if [ -z ${TMUX+x} ]; then
     setfont 13
 fi
 
-function ppath()      { echo $PATH | tr -s ':' '\n' }
-function pathremove() { export PATH="$(ppath | grep -Fv "$1" | xargs | tr ' ' ':')" }
+function ppath()      { echo $PATH | tr -s ':' '\n'; }
+function pathremove() { export PATH="$(ppath | grep -Fv "$1" | xargs | tr ' ' ':')"; }
 pathappend() { # properly append path to end of PATH
     if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
         export PATH="${PATH:+"$PATH:"}$1"  # handles case where path is empty
@@ -431,7 +431,7 @@ archeck() {
 #     echo "cygwin"
 # fi
 
-if [[ `uname` == 'Linux' ]]; then
+if [[ `uname` == 'Linux' ]] && which xcape >/dev/null; then
   if ps -ef | grep -v grep | grep xcape > /dev/null; then
       true
   else
