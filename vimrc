@@ -64,9 +64,9 @@ call plug#begin('~/.vim/data/plug')
 
     "----------
     "- Omni/Misc
-    Plug 'Valloric/MatchTagAlways'
-    "Plug 'SirVer/ultisnips'
-    "Plug 'honza/vim-snippets'
+    " Plug 'Valloric/MatchTagAlways'
+    " Plug 'SirVer/ultisnips'
+    " Plug 'honza/vim-snippets'
     " let g:UltiSnipsExpandTrigger = "<c-j>"
     " let g:UltiSnipsJumpForwardTrigger = "<c-j>"
     " let g:UltiSnipsJumpBackwardTrigger = "<c-k>"

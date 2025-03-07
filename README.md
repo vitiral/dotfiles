@@ -40,11 +40,11 @@ xkb_symbols "rett" {
     key <SPCE> { [  space,  space ] };
 
     // These keys are voided out so I need to use the regular ones
-    key <AE11> { [ VoidSymbol, VoidSymbol ] }; // minus
-    key <AE12> { [ VoidSymbol, VoidSymbol ] }; // equal
-    key <AD11> { [ VoidSymbol, VoidSymbol ] }; // open brackets
-    key <AD12> { [ VoidSymbol, VoidSymbol ] }; // closed brackets
-    key <BKSL> { [ VoidSymbol, VoidSymbol ] }; // backslash
+    // key <AE11> { [ VoidSymbol, VoidSymbol ] }; // minus
+    // key <AE12> { [ VoidSymbol, VoidSymbol ] }; // equal
+    // key <AD11> { [ VoidSymbol, VoidSymbol ] }; // open brackets
+    // key <AD12> { [ VoidSymbol, VoidSymbol ] }; // closed brackets
+    // key <BKSL> { [ VoidSymbol, VoidSymbol ] }; // backslash
 
     include "level3(alt_switch)"   // alt cause "level 3" (the third item in key lists)
     include "ctrl(nocaps)"         // CAPS -> Ctrl
