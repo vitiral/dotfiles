@@ -1,0 +1,8 @@
+xterm*faceName: Monospace
+xterm*faceSize: 16
+xterm*foreground: white
+xterm*background: black
+
+*VT100*translations: #override \n\
+  Alt <Key>C: copy-selection(SELECT) \n\
+  Alt <Key>V: insert-selection(SELECT)

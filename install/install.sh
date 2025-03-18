@@ -4,11 +4,6 @@ SCRIPTPATH=$(dirname "$SCRIPT")
 
 mkdir -p ~/projects ~/bin ~/software
 
-if [[ `uname` == "Linux" ]]; then
-    echo "Is Linux"
-    OSNAME=`cat /etc/*-release | grep ^NAME=`
-fi
-
 OS_STR=`uname -a`
 echo $OS_STR
 
@@ -27,7 +22,7 @@ if [[ ! -e $HOME/.ssh/id_rsa.pub ]]; then
     git config --global core.editor "vim"
 
     echo "Press enter for EVERYTHING"
-    ssh-keygen -t rsa -b 4096 -C "rett@google.com"
+    ssh-keygen -t rsa -b 4096 -C "vitiral@gmail.com"
     echo "Go to https://github.com/settings/ssh and paste. Press ENTER when done."
     cat ~/.ssh/id_rsa.pub
     read
@@ -37,7 +32,7 @@ if [[ ! -e $HOME/.ssh/id_rsa.pub ]]; then
     cd ~/.dotfiles
     git remote rm origin
     git remote add origin git@github.com:vitiral/dotfiles.git
-    
+
     cd ~
     git clone git@github.com:vitiral/notes.git
 fi
