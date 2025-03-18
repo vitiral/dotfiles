@@ -1,5 +1,6 @@
 #!/usr/bin/bash
 export CLICOLOR=true
+alias stopx='pkill -15 Xorg'
 
 alias realias='source ~/.alias'
 
@@ -49,8 +50,12 @@ alias vim-update='vim +PlugInstall +UpdateRemotePlugins +qa'
 alias nvim-update='nvim +PlugInstall +UpdateRemotePlugins +qa'
 alias vim-reset='rm -rf ~/.vim/data/viminfo ~/.vim/data/view/* ~/.vim/data/undo/* ~/.vim/data/swap/*'
 alias dif='colordiff -ENwbu'
-alias sudo='sudo '
-alias suspend='sudo systemctl suspend'
+function suspend() {
+  xlock -mode rain &
+  sleep 1.5
+  sudo sysctl -w hw.acpi.sleep.state=3
+}
+
 
 alias hdmion="xrandr --output HDMI1 --auto --right-of eDP1"
 alias hdmioff="xrandr --output HDMI1 --off"
@@ -82,9 +87,16 @@ pathappend() { # properly append path to end of PATH
 function pathinsert() { # insert path in front
   if [ -d "$1" ]; then pathremove "$1"; export PATH="$1:$PATH"; fi
 }
+function pathappend() { # insert path in front
+  if [ -d "$1" ]; then pathremove "$1"; export PATH="$PATH:$1"; fi
+}
 
-pathinsert /opt/homebrew/bin
+PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/pkg/sbin:/usr/pkg/bin"
+
 pathinsert "$HOME/bin"
+pathinsert /opt/homebrew/bin
+pathappend /usr/pkg/bin
+pathappend /usr/X11R7/bin/
 
 # auto connect to ssh-agent
 # if ! pgrep -u $USER ssh-agent > /dev/null; then
@@ -427,6 +439,13 @@ archeck() {
 # elif [[ `uname` == 'Cygwin' ]]; then
 #     echo "cygwin"
 # fi
+
+alias capsoff="setxkbmap -option 'caps:ctrl_modifier'"
+alias CAPSON="setxkbmap -option"
+
+if which setxkbmap >/dev/null; then
+  capsoff
+fi
 
 if [[ `uname` == 'Linux' ]] && which xcape >/dev/null; then
   if ps -ef | grep -v grep | grep xcape > /dev/null; then
