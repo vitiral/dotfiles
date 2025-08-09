@@ -168,23 +168,36 @@ call plug#end()
     nnoremap ; :
 
     """""""""""
-    " w: window
-    nnoremap <leader>wh <C-W>h
-    nnoremap <leader>wj <C-W>j
-    nnoremap <leader>wk <C-W>k
-    nnoremap <leader>wl <C-W>l
-    map <leader>wS <C-w>s<C-w>j<C-w>=
-    map <leader>wH <C-w>s<C-w>j<C-w>=
-    map <leader>wV <C-w>v<C-w>l<C-w>=
-    nnoremap <leader>wd :q<cr>
+    " g: goto
+
+    " goto window
+    nnoremap gh <C-W>h
+    nnoremap gj <C-W>j
+    nnoremap gk <C-W>k
+    nnoremap gl <C-W>l
+
+    " goto new window
+    nnoremap gH <C-W>v<C-w>h<C-w>=
+    nnoremap gJ <C-W>s<C-w>j<C-w>=
+    nnoremap gK <C-W>s<C-w>k<C-w>=
+    nnoremap gL <C-W>v<C-w>l<C-w>=
+
+    " close window
+    nnoremap gc :close<cr>
+
+    " goto nav for current buffer dir
+    nnoremap g. :e %:p:h<cr>
+    " goto nav for cwd
+    nnoremap g/ :e .<cr>
+    " goto nav for buffers
+    nnoremap gb :b<space>
+    nnoremap gB :buffers<cr>:b<space>
 
     " toggle true paste mode
     nnoremap <silent> <leader>wp :call TogglePaste()<cr>
 
     """""""""""
     " b: buffers
-    " nnoremap <leader>bb :Buffers<cr>
-    nnoremap <leader>bb :buffers<cr>:b 
     " reload all buffers
     nnoremap <leader>br :checktime<cr>
 

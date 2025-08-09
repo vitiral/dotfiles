@@ -4,10 +4,16 @@ alias stopx='pkill -15 Xorg'
 
 alias realias='source ~/.alias'
 
-alias luap="lua -e \"require'pkglib'()\""
-alias ,="luap $HOME/projects/civlua/civ.lua"
-alias ilua="luap -e \"setmetatable(_G, nil); R = require'ds'.R; MAIN=R\" -i"
-alias :e='vim'
+
+# pv push
+function pvp() {
+  M="$(pv at): $(pv desc)"
+  echo "$M"
+  $(cd .pvc/ \
+   && git add --all \
+   && git commit -am "$M" \
+   && git push origin main)
+}
 
 function luahelp() {
   luap -e "require'civ'; print(require'doc'('$1'))"
@@ -110,11 +116,21 @@ pathappend /usr/X11R7/bin/
 ##################################################
 # development commands
 
-# Gotten from $(luarocks path --bin)
 CIVLUA="$HOME/projects/civlua"
-export LUA_PATH="?.lua;$CIVLUA/lib/pkg/?.lua"
+export LUA_PATH="$CIVLUA/lib/pkg/?.lua;./?.lua"
 export LUA_PKGS="$CIVLUA"
-pathappend '/home/rett/.cargo/bin:/home/rett/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+pathappend '/home/rett/.cargo/bin'
+
+SCIVLUA="$HOME/software/civlua/"
+SLUA="LUA_PATH=$SCIVLUA/lib/pkg/?.lua LUAPKGS=$SCIVLUA"
+
+alias sciv="$SLUA lua $HOME/projects/civlua/civ.lua"
+alias civ="lua $HOME/projects/civlua/civ.lua"
+alias ,=civ
+alias pv="civ pvc"
+alias ilua="$SLUA lua -e \"require'pkglib'(); setmetatable(_G, nil); R = require'ds'.R; MAIN=R\" -i"
+alias :e='vim'
+
 
 # move EVERYTHING in the current directory into an "old" directory in the current directory
 allold() {
@@ -339,10 +355,22 @@ alias tsave="tmux capture-pane -S -100000 ; tmux save-buffer"
 #alias gts='git tag -s'
 #alias gvt='git verify-tag'
 
+##################################################
+# NetBSD
+alias netbsd-upgrade='pkgin upgrade'
 
 
 ##################################################
 # Networking
+
+# Add network to /etc/wpa_supplicant.conf
+# you can also use wpa_cli -> scan
+bsdwifi() {
+  sudo service network restart
+  # sudo service wpa_supplicant reload
+  # sudo service dhcpcd restart
+}
+
 ipscan() {
     sudo nmap -sn $1/24 | grep 'Nmap scan report for'
 }
@@ -354,14 +382,6 @@ alias untar="tar -zxvf"
 alias untar-all='for file in `ls *.tar.gz`; do tar -zxf "$file"; done'
 dotar() {
     tar -zcvf $1.tar.gz $1
-}
-
-reconnect() {
-    if ip link | grep wlp2s0; then
-        sudo systemctl restart netctl-auto@wlp2s0.service
-    else
-        sudo systemctl restart dhcpcd@enp11s0.service
-    fi
 }
 
 

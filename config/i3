@@ -43,6 +43,9 @@ bindsym Mod1+Shift+4 move workspace 4
 # suspend and lock: Win+L
 bindsym Mod4+l exec /home/rett/bin/suspend
 
+# lock only: Shift+Alt+L
+bindsym $mod+Shift+l exec /usr/pkg/bin/xlock -mode rain
+
 bar {
   status_command i3status
 }
