@@ -358,6 +358,11 @@ alias tsave="tmux capture-pane -S -100000 ; tmux save-buffer"
 ##################################################
 # NetBSD
 alias netbsd-upgrade='pkgin upgrade'
+alias hdmi-list='xrandr --list'
+alias hdmi-on='xrandr --output HDMI1 --auto --left-of eDP1'
+alias hdmi-off='xrandr --output HDMI1 --off'
+alias touchpad-on='sudo sysctl -w hw.synaptics.movement_enable=1'
+alias touchpad-off='sudo sysctl -w hw.synaptics.movement_enable=0'
 
 
 ##################################################
