@@ -63,8 +63,8 @@ function suspend() {
 }
 
 
-alias hdmion="xrandr --output HDMI1 --auto --right-of eDP1"
-alias hdmioff="xrandr --output HDMI1 --off"
+alias hdmion="xrandr --output HDMI-1 --auto --left-of eDP-1"
+alias hdmioff="xrandr --output HDMI-1 --off"
 alias mousefix="sudo modprobe -r psmouse && sudo modprobe psmouse"
 
 alias vpnkill='sudo killall openconnect'
@@ -365,23 +365,14 @@ alias touchpad-on='sudo sysctl -w hw.synaptics.movement_enable=1'
 alias touchpad-off='sudo sysctl -w hw.synaptics.movement_enable=0'
 
 
+
 ##################################################
 # Networking
 
-# Add network to /etc/wpa_supplicant.conf
-# you can also use wpa_cli -> scan
-bsdwifi() {
-  sudo service network restart
-  # sudo service wpa_supplicant reload
-  # sudo service dhcpcd restart
-}
+# NetworkManager
+alias wifi=nmtui
 
-ipscan() {
-    sudo nmap -sn $1/24 | grep 'Nmap scan report for'
-}
-
-alias netinfo='echo "## netstat -nr:" && netstat -nr && echo "## ifconfig:" && ifconfig | pcregrep -M "(eth0|wlan0)\s+Link.*\n\s+inet"'
-
+##################################################
 # File System
 alias untar="tar -zxvf"
 alias untar-all='for file in `ls *.tar.gz`; do tar -zxf "$file"; done'
@@ -467,6 +458,7 @@ archeck() {
 
 alias capsoff="setxkbmap -option 'caps:ctrl_modifier'"
 alias CAPSON="setxkbmap -option"
+alias NOCAPS="xdotool key Caps_Lock"
 
 if which setxkbmap >/dev/null; then
   capsoff
