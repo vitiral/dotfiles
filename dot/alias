@@ -116,16 +116,16 @@ pathappend /usr/X11R7/bin/
 ##################################################
 # development commands
 
-CIVLUA="$HOME/projects/civlua"
-export LUA_PATH="$CIVLUA/lib/pkg/?.lua;./?.lua"
-export LUA_PKGS="$CIVLUA"
+# export LUA_PATH="$CIVLUA/lib/pkg/?.lua;./?.lua"
+# export LUA_PKGS="$CIVLUA"
 pathappend '/home/rett/.cargo/bin'
 
-SCIVLUA="$HOME/software/civlua/"
-SLUA="LUA_PATH=$SCIVLUA/lib/pkg/?.lua LUAPKGS=$SCIVLUA"
+CIVLUA="$HOME/software/civlua"
+SLUA="LUA_PATH='$CIVLUA/lib/pkg/?.lua' LUA_PKGS='$CIVLUA'"
+unset LUA_PATH
+unset LUA_PKGS
 
-alias sciv="$SLUA lua $HOME/projects/civlua/civ.lua"
-alias civ="lua $HOME/projects/civlua/civ.lua"
+alias civ="$SLUA lua $CIVLUA/civ.lua"
 alias ,=civ
 alias pv="civ pvc"
 alias ilua="$SLUA lua -e \"require'pkglib'(); setmetatable(_G, nil); R = require'ds'.R; MAIN=R\" -i"
@@ -182,10 +182,6 @@ function aa_256 () {     local o= i= x=`tput op` cols=`tput cols` y= oo= yy=;   
 alias archive-web="wget --no-clobber --recursive --convert-links"
 
 alias hnew="hg update p4head"
-alias gfm="git fetch origin master:master"  # fetch origin/master and pull to master
-alias gd="git diff"
-alias gs="git status"
-alias gcam="git commit -am"
 alias hau="hg amend && hg upload tip"
 alias hs="hg status | cat"
 alias hsb="hg status --rev p4base | cat"
@@ -315,7 +311,7 @@ alias g='git'
 alias gs='git status'
 alias gst='git status'
 alias gss='git status -s'
-alias gd='git diff --color-words'
+alias gd="git diff --color=ALWAYS | less -R"
 alias gdc='gd --cached'
 alias gdn='gd --name-only'
 alias gp='git push'
