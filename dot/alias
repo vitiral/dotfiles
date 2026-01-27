@@ -1,9 +1,56 @@
 #!/usr/bin/bash
+
+##################################################
+# Environment variable setup
+PATH=/usr/local/sbin:/usr/local/bin
+LUA_PATH=""
+LUA_CPATH=""
+LD_LIBRARY_PATH=""
+export EDITOR='vim'
+
+# system paths
+PATH=$PATH:/usr/sbin:/usr/bin:/sbin:/bin
+PATH=$PATH:/usr/pkg/sbin:/usr/pkg/bin
+
+# various operating systems: mac, netbsd
+PATH=/opt/homebrew/bin:$PATH
+PATH=$PATH:/usr/pkg/bin:/usr/X11R7/bin/
+
+# civ build system local installation
+CIV=/home/rett/.local/civ
+export PATH=$PATH:$CIV/bin:$CIV/lua
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CIV/lib
+LUA_PATH="$LUA_PATH;$CIV/lua/?.lua"
+LUA_CPATH="$LUA_CPATH;$CIV/lib/lib?.so"
+
+# various other installers
+PATH=$PATH:/home/rett/.cargo/bin
+
+# always last
+PATH=$PATH:/bin
+export PATH=$PATH
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH
+export LUA_PATH=$LUA_PATH
+export LUA_CPATH=$LUA_CPATH
+export LUA_SETUP=vt100
 export CLICOLOR=true
+
+if [[ -e ~/.alias.local.before ]]; then
+    source ~/.alias.local.before
+fi
+
+####################
+# Aliases and utilities
+
+alias c='civ'
+alias ct='civ test'
+alias pv='pvc'
+alias pfiles='pvc diff --paths'
+alias pdiff='pvc diff'
+
 alias stopx='pkill -15 Xorg'
 
 alias realias='source ~/.alias'
-
 
 # pv push
 function pvp() {
@@ -42,19 +89,6 @@ alias restart-display="sudo systemctl restart display-manager"
 alias NOCAPS="python -c 'from ctypes import *; X11 = cdll.LoadLibrary(\"libX11.so.6\"); display = X11.XOpenDisplay(None); X11.XkbLockModifiers(display, c_uint(0x0100), c_uint(2), c_uint(0)); X11.XCloseDisplay(display)'"
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*" --glob "!.hg/*"'
 
-if [[ -e ~/.alias.local.before ]]; then
-    source ~/.alias.local.before
-fi
-
-function nix-pkgs {
-  nix-env --description -qaP "$@" | cat
-}
-alias nix-get='nix-env --install'
-
-export EDITOR='vim'
-alias vim-update='vim +PlugInstall +UpdateRemotePlugins +qa'
-alias nvim-update='nvim +PlugInstall +UpdateRemotePlugins +qa'
-alias vim-reset='rm -rf ~/.vim/data/viminfo ~/.vim/data/view/* ~/.vim/data/undo/* ~/.vim/data/swap/*'
 alias dif='colordiff -ENwbu'
 function suspend() {
   xlock -mode rain &
@@ -83,26 +117,6 @@ if [ -z ${TMUX+x} ]; then
     setfont 13
 fi
 
-function ppath()      { echo $PATH | tr -s ':' '\n'; }
-function pathremove() { export PATH="$(ppath | grep -Fv "$1" | xargs | tr ' ' ':')"; }
-pathappend() { # properly append path to end of PATH
-    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
-        export PATH="${PATH:+"$PATH:"}$1"  # handles case where path is empty
-    fi
-}
-function pathinsert() { # insert path in front
-  if [ -d "$1" ]; then pathremove "$1"; export PATH="$1:$PATH"; fi
-}
-function pathappend() { # insert path in front
-  if [ -d "$1" ]; then pathremove "$1"; export PATH="$PATH:$1"; fi
-}
-
-PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/pkg/sbin:/usr/pkg/bin"
-
-pathinsert "$HOME/bin"
-pathinsert /opt/homebrew/bin
-pathappend /usr/pkg/bin
-pathappend /usr/X11R7/bin/
 
 # auto connect to ssh-agent
 # if ! pgrep -u $USER ssh-agent > /dev/null; then
@@ -115,20 +129,7 @@ pathappend /usr/X11R7/bin/
 
 ##################################################
 # development commands
-
-# export LUA_PATH="$CIVLUA/lib/pkg/?.lua;./?.lua"
-# export LUA_PKGS="$CIVLUA"
-pathappend '/home/rett/.cargo/bin'
-
-CIVLUA="$HOME/software/civlua"
-SLUA="LUA_PATH='$CIVLUA/lib/pkg/?.lua' LUA_PKGS='$CIVLUA'"
-unset LUA_PATH
-unset LUA_PKGS
-
-alias civ="$SLUA lua $CIVLUA/civ.lua"
-alias ,=civ
-alias pv="civ pvc"
-alias ilua="$SLUA lua -e \"require'pkglib'(); setmetatable(_G, nil); R = require'ds'.R; MAIN=R\" -i"
+alias ilua="lua -e \"R = require'ds'.R; MAIN='interpreter'\" -i"
 alias :e='vim'
 
 
@@ -206,86 +207,20 @@ corrupt() {
 
 ##################################################
 # Python
-
-pathinsert "$HOME/.local/bin"
-
-export PYTHONDONTWRITEBYTECODE=1            # prevents .pyc files
-
-# use the local installation of python first
-#python_root="$HOME/software/pyconda/envs"
-#py2bin="${python_root}/python2/bin"
-#py3bin="${python_root}/python3/bin"
-#pathinsert $py3bin
-#pathinsert $py2bin
-
-pyfmt() {
-    autopep8 $1 --max-line-length 105 -r --in-place
-    docformatter $1  --wrap-descriptions 105 --wrap-summaries 105 -r --in-place --no-blank
-}
-
-PYCONDA="$HOME/software/pyconda"
-alias conda="$PYCONDA/bin/conda"
-alias py2c="$PYCONDA/envs/python2/bin/python"
-alias ipy2c="$PYCONDA/envs/python2/bin/ipython"
-alias pip2c="$PYCONDA/envs/python2/bin/pip"
-
-
-alias pypath='echo $PYTHONPATH'
-alias py='python3'
-alias pyt="py -m pytest --tb short"
-alias pytdoc='pyt --doctest-modules'  # don't forget you need to give module path
-alias pytdb='pyt -sx --pdb'
-alias pdb='py -m pdb'
-alias dbe='py -m cloudtb.dbe'
-alias pydev='py setup.py develop'
-# http://peterdowns.com/posts/first-time-with-pypi.html
-# passwords are stored at .pypirc
-alias pypi='py setup.py register -r pypi sdist upload'
-alias pypitest='py setup.py register -r pypitest'
-
-alias py2='python2'
-alias py2t="py2 -m pytest --tb short"
-alias py2tdoc='py2t --doctest-modules'
-alias py2tdb='py2t -vvsx --pdb'
-alias pdb2='py2 -m pdb'
-alias dbe2='py2 -m cloudtb.dbe'
-alias py2dev='py2 setup.py develop'
-
-alias pyclean="rm -r ./**/*.pyc"
-pyfix() {
-    autopep8 $1 -r --in-place --max-line-length 105 || return $?
-    docformatter $1 -r --in-place --no-blank --wrap-descriptions 105 || return $?
-}
+export PYTHONDONTWRITEBYTECODE=1 # prevents .pyc files
 
 ##################################################
 # Java
-
 function jrun() {
     tclear || return 1;
     javac "$1.java" || return 1;
     java "$1" || return 1;
 }
 
-
 ##################################################
 # Rust
 export RUST_BACKTRACE=1
-# export RUST_SRC_PATH="$(rustup run nightly rustc --print sysroot)/lib/rustlib/src/rust/src"
 export CARGO_HOME=$HOME/.cargo
-
-# use: cargo test |& rust_filter
-alias rust_filter='rg "((error|warning)\[\w+\])|(^\s+--> \w+/\w+)" -N --color never'
-alias rdoc='cargo +stable doc --open -p'
-alias rs='cargo script'
-alias rs-init='cp $HOME/.dotfiles/rust/init.crs'
-alias rs-check='cargo +nightly check --tests'
-alias rs-test='cargo +nightly test'
-alias rs-fmt='cargo +nightly fmt'
-alias rs-lint='cargo +nightly clippy'
-alias rs-update="\
-    rustup update nightly \
-    && cargo +nightly install clippy --force \
-    && cargo +nightly install rustfmt-nightly"
 
 ##################################################
 # Tmux
@@ -332,24 +267,10 @@ alias gbd='git branch -d'
 alias gconfig='git config --list'
 alias glog='git log --oneline --decorate --color --graph'
 alias ga='git add'
-#alias gap='git add --patch'
-#alias gaa='git add --all'
 alias gm='git merge'
 alias ghash='git rev-parse HEAD'
 
-gitio() {
-    curl -i http://git.io -F "url=$1"
-}
-
 alias tsave="tmux capture-pane -S -100000 ; tmux save-buffer"
-
-## Sign and verify commits with GPG
-#alias gcs='git commit -S'
-#alias gsps='git show --pretty=short --show-signature'
-
-## Sign and verify tags with GPG
-#alias gts='git tag -s'
-#alias gvt='git verify-tag'
 
 ##################################################
 # NetBSD
@@ -359,8 +280,6 @@ alias hdmi-on='xrandr --output HDMI1 --auto --left-of eDP1'
 alias hdmi-off='xrandr --output HDMI1 --off'
 alias touchpad-on='sudo sysctl -w hw.synaptics.movement_enable=1'
 alias touchpad-off='sudo sysctl -w hw.synaptics.movement_enable=0'
-
-
 
 ##################################################
 # Networking
@@ -376,10 +295,8 @@ dotar() {
     tar -zcvf $1.tar.gz $1
 }
 
-
 ##################################################
 # OS specific aliases
-
 alias arki=wiki-search
 pacman-disowned() {
     tmp=${TMPDIR-/tmp}/pacman-disowned-$UID-$$
@@ -400,7 +317,6 @@ pacman-list() {
     pacman -Qem
 }
 
-
 archeck() {
     echo '############################################################'
     echo '###' Broken symlinks: find . -type l -! -exec test -e {} \; -print
@@ -418,7 +334,6 @@ archeck() {
     echo '###' High priority systemd journals: journalctl -p 0..3 -xn
     journalctl -p 0..3 -xn
 }
-
 
 # # Instead of below, remap caps to Cntrl in normal keyboard layout and:
 # $ cat /usr/share/X11/xorg.conf.d/99-xkb.conf
@@ -471,23 +386,3 @@ fi
 if [[ -e $HOME/.alias.local ]]; then
     source $HOME/.alias.local
 fi
-
-## Fun
-mp4_dl() {
-    # use: download song from youtube
-    # args: URL SONG_NAME
-    pytube -e mp4 -r $3 $1 -f "./$2" || return $?
-}
-
-mp4_show() {
-    pytube -s $1
-}
-
-duskcc-new() {
-  wget  -O /tmp/duskcc.tar.gz "$1"
-  cd ~/Downloads
-  rm -r *-duskcc/  # remove previous versions
-  tar -xvf /tmp/duskcc.tar.gz
-  cd *-duskcc
-}
-

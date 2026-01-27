@@ -73,7 +73,7 @@ call plug#begin('~/.vim/data/plug')
 
     au BufRead,BufNewFile *.sp  set filetype=spor
     au BufRead,BufNewFile *.fn  set filetype=fngi
-    au BufRead,BufNewFile *.lua,*.luck set filetype=lua
+    au BufRead,BufNewFile *.lua,*.luk set filetype=lua
     autocmd FileType lua  set expandtab     " Make files use Tabs (not spaces)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
