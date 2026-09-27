@@ -167,6 +167,9 @@ call plug#end()
     " commands can start with ;"
     nnoremap ; :
 
+    nnoremap B     <C-O>
+    nnoremap <C-B> <C-I>
+
     """""""""""
     " g: goto
 
@@ -210,8 +213,12 @@ call plug#end()
     nnoremap <leader>fy :let @+ = expand('%')<cr>
 
     """""""""""
-    " s: search
-    " search and replace current buffer
+    " s: system
+    
+    nnoremap ss :w<cr>
+    nnoremap sR :source ~/.vimrc<cr>
+
+    " OLD: search and replace current buffer
     nnoremap <leader>sr :%s//gc<left><left><left>
 
     """""""""""

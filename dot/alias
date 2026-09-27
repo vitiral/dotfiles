@@ -22,6 +22,7 @@ export PATH=$PATH:$CIV/bin:$CIV/lua
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CIV/lib
 LUA_PATH="$LUA_PATH;$CIV/lua/?.lua"
 LUA_CPATH="$LUA_CPATH;$CIV/lib/lib?.so"
+DATA_PATH="$CIV/data"
 
 # various other installers
 PATH=$PATH:/home/rett/.cargo/bin
@@ -33,6 +34,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH
 export LUA_PATH=$LUA_PATH
 export LUA_CPATH=$LUA_CPATH
 export LUA_SETUP=vt100
+export DATA_PATH="$DATA_PATH"
 export CLICOLOR=true
 
 if [[ -e ~/.alias.local.before ]]; then

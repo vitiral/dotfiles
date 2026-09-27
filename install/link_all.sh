@@ -18,7 +18,9 @@ lndot xinitrc
 lndot Xresources
 
 mkdir -p ~/.config/i3/
-ln -s $HOME/.dotfiles/config/i3   ~/.config/i3/config
+mkdir -p ~/.config/alacritty/
+ln -s $HOME/.dotfiles/config/i3            ~/.config/i3/config
+ln -s $HOME/.dotfiles/config/alacritty.toml ~/.config/alacritty/alacritty.toml
 
 # .config
 # mkdir -p .config
